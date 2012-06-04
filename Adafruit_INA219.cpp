@@ -38,7 +38,7 @@ void Adafruit_INA219::wireWriteRegister (uint8_t reg, uint16_t value)
   Wire.beginTransmission(INA219_ADDRESS);
   #if ARDUINO >= 100
     Wire.write(reg);                       // Register
-    Wire.write(value >> 8);                // Upper 8-bits
+    Wire.write((value >> 8) & 0xFF);       // Upper 8-bits
     Wire.write(value & 0xFF);              // Lower 8-bits
   #else
     Wire.send(reg);                        // Register
@@ -55,6 +55,7 @@ void Adafruit_INA219::wireWriteRegister (uint8_t reg, uint16_t value)
 /**************************************************************************/
 void Adafruit_INA219::wireReadRegister(uint8_t reg, uint16_t *value)
 {
+
   Wire.beginTransmission(INA219_ADDRESS);
   #if ARDUINO >= 100
     Wire.write(reg);                       // Register
@@ -66,10 +67,10 @@ void Adafruit_INA219::wireReadRegister(uint8_t reg, uint16_t *value)
   Wire.requestFrom(INA219_ADDRESS, 2);  
   #if ARDUINO >= 100
     // Shift values to create properly formed integer
-    *value = ((Wire.read() << 8) | Wire.read());
+    *value = ((Wire.read() << 8) + Wire.read());
   #else
     // Shift values to create properly formed integer
-    *value = ((Wire.receive() << 8) | Wire.receive());
+    *value = ((Wire.receive() << 8) + Wire.receive());
   #endif
 }
 
@@ -273,13 +274,26 @@ void Adafruit_INA219::begin() {
   // Set chip to known config values to start
   ina219SetCalibration_32V_2A();
 }
- 
+
 /**************************************************************************/
 /*! 
-    @brief  Gets the shunt voltage (16-bit signed integer, so +-32767)
+    @brief  Gets the raw bus voltage (16-bit signed integer, so +-32767)
 */
 /**************************************************************************/
-int16_t Adafruit_INA219::getShuntVoltage() {
+uint16_t Adafruit_INA219::getBusVoltage_raw() {
+  uint16_t value;
+  wireReadRegister(INA219_REG_BUSVOLTAGE, &value);
+
+  // Shift to the right 3 to drop CNVR and OVF and multiply by LSB
+  return (value >> 3) * 4;
+}
+
+/**************************************************************************/
+/*! 
+    @brief  Gets the raw shunt voltage (16-bit signed integer, so +-32767)
+*/
+/**************************************************************************/
+uint16_t Adafruit_INA219::getShuntVoltage_raw() {
   uint16_t value;
   wireReadRegister(INA219_REG_SHUNTVOLTAGE, &value);
   return value;
@@ -287,25 +301,34 @@ int16_t Adafruit_INA219::getShuntVoltage() {
 
 /**************************************************************************/
 /*! 
-    @brief  Gets the shunt voltage (16-bit signed integer, so +-32767)
+    @brief  Gets the raw current value (16-bit signed integer, so +-32767)
 */
 /**************************************************************************/
-int16_t Adafruit_INA219::getBusVoltage() {
+uint16_t Adafruit_INA219::getCurrent_raw() {
   uint16_t value;
-  wireReadRegister(INA219_REG_BUSVOLTAGE, &value);
-  // Shift to the right 3 to drop CNVR and OVF and then multiply by LSB
-  return (value >> 3) * 4;
+  wireReadRegister(INA219_REG_CURRENT, &value);
+  return value;
+}
+ 
+/**************************************************************************/
+/*! 
+    @brief  Gets the shunt voltage in mV (so +-327mV)
+*/
+/**************************************************************************/
+float Adafruit_INA219::getShuntVoltage_mV() {
+  uint16_t value;
+  value = getShuntVoltage_raw();
+  return value * 0.01;
 }
 
 /**************************************************************************/
 /*! 
-    @brief  Gets the raw current value (16-bit signed integer, so +-32767)
+    @brief  Gets the shunt voltage in volts
 */
 /**************************************************************************/
-int16_t Adafruit_INA219::getCurrent() {
-  uint16_t value;
-  wireReadRegister(INA219_REG_CURRENT, &value);
-  return value;
+float Adafruit_INA219::getBusVoltage_V() {
+  uint16_t value = getBusVoltage_raw();
+  return value * 0.001;
 }
 
 /**************************************************************************/
@@ -314,9 +337,8 @@ int16_t Adafruit_INA219::getCurrent() {
             config settings and current LSB
 */
 /**************************************************************************/
-int16_t Adafruit_INA219::getCurrent_mA() {
-  uint16_t value;
-  wireReadRegister(INA219_REG_CURRENT, &value);
-  return value / ina219_currentDivider_mA;
+float Adafruit_INA219::getCurrent_mA() {
+  float valueDec = getCurrent_raw() / ina219_currentDivider_mA;
+  return valueDec;
 }
 

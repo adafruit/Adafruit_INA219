@@ -113,10 +113,9 @@ class Adafruit_INA219{
  public:
   Adafruit_INA219();
   void begin(void);
-  int16_t getShuntVoltage(void);
-  int16_t getBusVoltage(void);
-  int16_t getCurrent(void);
-  int16_t getCurrent_mA(void);
+  float getBusVoltage_V(void);
+  float getShuntVoltage_mV(void);
+  float getCurrent_mA(void);
 
  private:
   // The following multipliers are used to convert raw current and power
@@ -128,4 +127,7 @@ class Adafruit_INA219{
   void wireReadRegister(uint8_t reg, uint16_t *value);
   void ina219SetCalibration_32V_2A(void);
   void ina219SetCalibration_32V_1A(void);
+  uint16_t getBusVoltage_raw(void);
+  uint16_t getShuntVoltage_raw(void);
+  uint16_t getCurrent_raw(void);
 };
