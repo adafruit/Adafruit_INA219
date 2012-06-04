@@ -338,7 +338,8 @@ float Adafruit_INA219::getBusVoltage_V() {
 */
 /**************************************************************************/
 float Adafruit_INA219::getCurrent_mA() {
-  float valueDec = getCurrent_raw() / ina219_currentDivider_mA;
+  float valueDec = getCurrent_raw(); //
+  valueDec /= ina219_currentDivider_mA;
   return valueDec;
 }
 
