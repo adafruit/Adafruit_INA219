@@ -39,9 +39,9 @@
     /*---------------------------------------------------------------------*/
     #define INA219_CONFIG_RESET                    (0x8000)  // Reset Bit
 	
-    #define INA219_CONFIG_BVOLTAGERANGE_MASK       (0x4000)  // Bus Voltage Range Mask
+    #define INA219_CONFIG_BVOLTAGERANGE_MASK       (0x2000)  // Bus Voltage Range Mask
     #define INA219_CONFIG_BVOLTAGERANGE_16V        (0x0000)  // 0-16V Range
-    #define INA219_CONFIG_BVOLTAGERANGE_32V        (0x4000)  // 0-32V Range
+    #define INA219_CONFIG_BVOLTAGERANGE_32V        (0x2000)  // 0-32V Range
 	
     #define INA219_CONFIG_GAIN_MASK                (0x1800)  // Gain Mask
     #define INA219_CONFIG_GAIN_1_40MV              (0x0000)  // Gain 1, 40mV Range
