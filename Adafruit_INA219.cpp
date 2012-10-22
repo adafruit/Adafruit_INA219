@@ -35,7 +35,7 @@
 /**************************************************************************/
 void Adafruit_INA219::wireWriteRegister (uint8_t reg, uint16_t value)
 {
-  Wire.beginTransmission(INA219_ADDRESS);
+  Wire.beginTransmission(ina219_i2caddr);
   #if ARDUINO >= 100
     Wire.write(reg);                       // Register
     Wire.write((value >> 8) & 0xFF);       // Upper 8-bits
@@ -56,7 +56,7 @@ void Adafruit_INA219::wireWriteRegister (uint8_t reg, uint16_t value)
 void Adafruit_INA219::wireReadRegister(uint8_t reg, uint16_t *value)
 {
 
-  Wire.beginTransmission(INA219_ADDRESS);
+  Wire.beginTransmission(ina219_i2caddr);
   #if ARDUINO >= 100
     Wire.write(reg);                       // Register
   #else
@@ -64,7 +64,7 @@ void Adafruit_INA219::wireReadRegister(uint8_t reg, uint16_t *value)
   #endif
   Wire.endTransmission();  
 
-  Wire.requestFrom(INA219_ADDRESS, 2);  
+  Wire.requestFrom(ina219_i2caddr, (uint8_t)2);  
   #if ARDUINO >= 100
     // Shift values to create properly formed integer
     *value = ((Wire.read() << 8) + Wire.read());
@@ -259,7 +259,8 @@ void Adafruit_INA219::ina219SetCalibration_32V_1A(void)
     @brief  Instantiates a new INA219 class
 */
 /**************************************************************************/
-Adafruit_INA219::Adafruit_INA219() {
+Adafruit_INA219::Adafruit_INA219(uint8_t addr) {
+  ina219_i2caddr = addr;
   ina219_currentDivider_mA = 0;
   ina219_powerDivider_mW = 0;
 }
