@@ -62,15 +62,17 @@ void Adafruit_INA219::wireReadRegister(uint8_t reg, uint16_t *value)
   #else
     Wire.send(reg);                        // Register
   #endif
-  Wire.endTransmission();  
+  Wire.endTransmission();
+  
+  delay(1); // Max 12-bit conversion time is 586us per sample
 
   Wire.requestFrom(ina219_i2caddr, (uint8_t)2);  
   #if ARDUINO >= 100
     // Shift values to create properly formed integer
-    *value = ((Wire.read() << 8) + Wire.read());
+    *value = ((Wire.read() << 8) | Wire.read());
   #else
     // Shift values to create properly formed integer
-    *value = ((Wire.receive() << 8) + Wire.receive());
+    *value = ((Wire.receive() << 8) | Wire.receive());
   #endif
 }
 
@@ -106,17 +108,19 @@ void Adafruit_INA219::ina219SetCalibration_32V_2A(void)
   
   // 3. Calculate possible range of LSBs (Min = 15-bit, Max = 12-bit)
   // MinimumLSB = MaxExpected_I/32767
-  // MinimumLSB = 0.000061              (61�A per bit)
+  // MinimumLSB = 0.000061              (61uA per bit)
   // MaximumLSB = MaxExpected_I/4096
-  // MaximumLSB = 0,000488              (488�A per bit)
+  // MaximumLSB = 0,000488              (488uA per bit)
   
   // 4. Choose an LSB between the min and max values
   //    (Preferrably a roundish number close to MinLSB)
-  // CurrentLSB = 0.0001 (100�A per bit)
+  // CurrentLSB = 0.0001 (100uA per bit)
   
   // 5. Compute the calibration register
   // Cal = trunc (0.04096 / (Current_LSB * RSHUNT))
   // Cal = 4096 (0x1000)
+  
+  ina219_calValue = 4096;
   
   // 6. Calculate the power LSB
   // PowerLSB = 20 * CurrentLSB
@@ -142,7 +146,7 @@ void Adafruit_INA219::ina219SetCalibration_32V_2A(void)
   //    Max_ShuntVoltage_Before_Overflow = Max_ShuntVoltage
   // End If
   
-  // 8. Computer the Maximum Power
+  // 8. Compute the Maximum Power
   // MaximumPower = Max_Current_Before_Overflow * VBUS_MAX
   // MaximumPower = 3.2 * 32V
   // MaximumPower = 102.4W
@@ -152,8 +156,8 @@ void Adafruit_INA219::ina219SetCalibration_32V_2A(void)
   ina219_powerDivider_mW = 2;     // Power LSB = 1mW per bit (2/1)
 
   // Set Calibration register to 'Cal' calculated above	
-  wireWriteRegister(INA219_REG_CALIBRATION, 0x1000);
-
+  wireWriteRegister(INA219_REG_CALIBRATION, ina219_calValue);
+  
   // Set Config register to take into account the settings above
   uint16_t config = INA219_CONFIG_BVOLTAGERANGE_32V |
                     INA219_CONFIG_GAIN_8_320MV |
@@ -207,6 +211,8 @@ void Adafruit_INA219::ina219SetCalibration_32V_1A(void)
   // Cal = trunc (0.04096 / (Current_LSB * RSHUNT))
   // Cal = 10240 (0x2800)
 
+  ina219_calValue = 10240;
+  
   // 6. Calculate the power LSB
   // PowerLSB = 20 * CurrentLSB
   // PowerLSB = 0.0008 (800�W per bit)
@@ -233,7 +239,7 @@ void Adafruit_INA219::ina219SetCalibration_32V_1A(void)
   //    Max_ShuntVoltage_Before_Overflow = Max_ShuntVoltage
   // End If
 
-  // 8. Computer the Maximum Power
+  // 8. Compute the Maximum Power
   // MaximumPower = Max_Current_Before_Overflow * VBUS_MAX
   // MaximumPower = 1.31068 * 32V
   // MaximumPower = 41.94176W
@@ -243,7 +249,7 @@ void Adafruit_INA219::ina219SetCalibration_32V_1A(void)
   ina219_powerDivider_mW = 1;         // Power LSB = 800�W per bit
 
   // Set Calibration register to 'Cal' calculated above	
-  wireWriteRegister(INA219_REG_CALIBRATION, 0x2800);
+  wireWriteRegister(INA219_REG_CALIBRATION, ina219_calValue);
 
   // Set Config register to take into account the settings above
   uint16_t config = INA219_CONFIG_BVOLTAGERANGE_32V |
@@ -307,7 +313,16 @@ int16_t Adafruit_INA219::getShuntVoltage_raw() {
 /**************************************************************************/
 int16_t Adafruit_INA219::getCurrent_raw() {
   uint16_t value;
+
+  // Sometimes a sharp load will reset the INA219, which will
+  // reset the cal register, meaning CURRENT and POWER will
+  // not be available ... avoid this by always setting a cal
+  // value even if it's an unfortunate extra step
+  wireWriteRegister(INA219_REG_CALIBRATION, ina219_calValue);
+
+  // Now we can safely read the CURRENT register!
   wireReadRegister(INA219_REG_CURRENT, &value);
+  
   return (int16_t)value;
 }
  
@@ -339,8 +354,7 @@ float Adafruit_INA219::getBusVoltage_V() {
 */
 /**************************************************************************/
 float Adafruit_INA219::getCurrent_mA() {
-  float valueDec = getCurrent_raw(); //
+  float valueDec = getCurrent_raw();
   valueDec /= ina219_currentDivider_mA;
   return valueDec;
 }
-
