@@ -395,6 +395,9 @@ void Adafruit_INA219::setAmpAverage() {
 
   // write the changed config value back again
   wireWriteRegister(INA219_REG_CONFIG, value);
+
+  delay(69); // Max 12-bit 128S conversion time is 69mS per sample, but
+  // read can happen more frequently
 }
 
 /**************************************************************************/
@@ -433,5 +436,8 @@ void Adafruit_INA219::setVoltAverage() {
 
   // write the changed config value back again
   wireWriteRegister(INA219_REG_CONFIG, value);
+
+  delay(69); // Max 12-bit 128S conversion time is 69mS per sample, but
+  // read can happen more frequently
 }
 
