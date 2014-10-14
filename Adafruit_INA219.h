@@ -135,8 +135,8 @@ class Adafruit_INA219{
   // Since these are float values, we only calculate with them once, at the
   // very end of the conversion.
   int32_t ina219_shuntVoltageMultiplier_uV;
+  int32_t ina219_currentMultiplier_uA;
   uint32_t ina219_busVoltageMultiplier_mV;
-  uint32_t ina219_currentMultiplier_uA;
   uint32_t ina219_busPowerMultiplier_uW;
 
   
@@ -146,7 +146,7 @@ class Adafruit_INA219{
   void ina219SetCalibration_32V_1A(void);
   void ina219SetCalibration_16V_400mA(void);
   int16_t getShuntVoltage_raw(void);
+  int16_t getCurrent_raw(void);
   uint16_t getBusVoltage_raw(void);
-  uint16_t getCurrent_raw(void);
   uint16_t getBusPower_raw(void);
 };

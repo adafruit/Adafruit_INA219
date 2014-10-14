@@ -364,8 +364,8 @@ Adafruit_INA219::Adafruit_INA219(uint8_t addr) {
 /**************************************************************************/
 void Adafruit_INA219::begin() {
   Wire.begin();    
-  // Set chip to known config values to start
-  // Uncomment whichever of these works best for your project
+  // Set chip to known config values to start.
+  // Uncomment one below, whichever works best for your project.
   ina219SetCalibration_32V_2A();
   // ina219SetCalibration_32V_1A();
   // ina219SetCalibration_16V_400mA();
@@ -373,8 +373,8 @@ void Adafruit_INA219::begin() {
 
 /**************************************************************************/
 /*! 
-    @brief  Gets the raw bus voltage. 16-bit unsigned integer, but
-            only the upper 13-bits, so we have to shift them over by 3
+    @brief  Gets the raw bus voltage. 16-bit UNsigned integer, but
+            only the upper 13-bits, so we shift them over by 3.
 */
 /**************************************************************************/
 uint16_t Adafruit_INA219::getBusVoltage_raw() {
@@ -387,11 +387,11 @@ uint16_t Adafruit_INA219::getBusVoltage_raw() {
 
 /**************************************************************************/
 /*! 
-    @brief  Gets the raw shunt voltage. 16-bit signed integer
+    @brief  Gets the raw shunt voltage. 16-bit signed integer.
 */
 /**************************************************************************/
 int16_t Adafruit_INA219::getShuntVoltage_raw() {
-  uint16_t value;
+  int16_t value;
   
   wireReadRegister(INA219_REG_SHUNTVOLTAGE, &value);
   
@@ -400,11 +400,11 @@ int16_t Adafruit_INA219::getShuntVoltage_raw() {
 
 /**************************************************************************/
 /*! 
-    @brief  Gets the raw current value (16-bit signed integer, so +-32767)
+    @brief  Gets the raw current value. 16-bit signed integer.
 */
 /**************************************************************************/
-uint16_t Adafruit_INA219::getCurrent_raw() {
-  uint16_t value;
+int16_t Adafruit_INA219::getCurrent_raw() {
+  int16_t value;
 
   // Sometimes a sharp load will reset the INA219, which will
   // reset the cal register, meaning CURRENT and POWER will
@@ -415,12 +415,12 @@ uint16_t Adafruit_INA219::getCurrent_raw() {
   // Now we can safely read the CURRENT register!
   wireReadRegister(INA219_REG_CURRENT, &value);
   
-  return (uint16_t)value;
+  return (int16_t)value;
 }
 
 /**************************************************************************/
 /*! 
-    @brief  Gets the raw bus power value (16-bit signed integer, so +-32767)
+    @brief  Gets the raw bus power value. 16-bit UNsigned integer.
 */
 /**************************************************************************/
 uint16_t Adafruit_INA219::getBusPower_raw() {
@@ -433,7 +433,7 @@ uint16_t Adafruit_INA219::getBusPower_raw() {
  
 /**************************************************************************/
 /*! 
-    @brief  Gets the shunt voltage in millivolts (so +-327mV), taking into
+    @brief  Gets the shunt voltage in millivolts, taking into
             account the shunt voltage LSB
 */
 /**************************************************************************/
