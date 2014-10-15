@@ -373,8 +373,8 @@ void Adafruit_INA219::begin() {
 
 /**************************************************************************/
 /*! 
-    @brief  Gets the raw bus voltage. 16-bit unsigned integer, but
-            only the upper 13-bits, so we shift them over by 3.
+    @brief  Gets the raw bus voltage bit value. 16-bit unsigned integer,
+            but only the upper 13-bits, so we shift them over by 3.
 */
 /**************************************************************************/
 uint16_t Adafruit_INA219::getBusVoltage_raw() {
