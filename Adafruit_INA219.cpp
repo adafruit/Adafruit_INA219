@@ -152,7 +152,7 @@ void Adafruit_INA219::ina219SetCalibration_32V_2A(void)
   // MaximumPower = 102.4W
   
   // Set multipliers to convert raw current/power values
-  ina219_currentMultiplier_uA = 10;  // Current LSB = 100uA per bit (1000/100 = 10)
+  ina219_currentMultiplier_uA = 100;  // Current LSB = 100uA per bit (1000/100 = 10)
   ina219_busPowerMultiplier_uW = 2000;  // Power LSB = 2000uW per bit (2/1)
 
   // Set Calibration register to 'Cal' calculated above	
