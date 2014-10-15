@@ -130,10 +130,11 @@ class Adafruit_INA219{
  private:
   uint8_t ina219_i2caddr;
   uint32_t ina219_calValue;
-  // The following multipliers are used to convert raw voltage, current and power
-  // values to V, mV, mA and mW, taking into account the current config settings.
-  // Since these are float values, we only calculate with them once, at the
-  // very end of the conversion.
+  // The following multipliers are used to convert raw voltage, current and
+  // power bit values to mV, uV, uA and uW, taking into account the current
+  // config settings. Then they are converted to the final units.
+  // We only do floating point math at the very last step in each function 
+  // to limit performance impact.
   int32_t ina219_shuntVoltageMultiplier_uV;
   int32_t ina219_currentMultiplier_uA;
   uint32_t ina219_busVoltageMultiplier_mV;
