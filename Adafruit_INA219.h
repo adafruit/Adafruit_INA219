@@ -135,8 +135,8 @@ class Adafruit_INA219{
   // config settings. Then they are converted to the final units.
   // We only do floating point math at the very last step in each function 
   // to limit performance impact.
-  int32_t ina219_shuntVoltageMultiplier_uV;
-  int32_t ina219_currentMultiplier_uA;
+  uint32_t ina219_shuntVoltageMultiplier_uV;
+  uint32_t ina219_currentMultiplier_uA;
   uint32_t ina219_busVoltageMultiplier_mV;
   uint32_t ina219_busPowerMultiplier_uW;
 

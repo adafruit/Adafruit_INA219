@@ -391,7 +391,7 @@ uint16_t Adafruit_INA219::getBusVoltage_raw() {
 */
 /**************************************************************************/
 int16_t Adafruit_INA219::getShuntVoltage_raw() {
-  int16_t value;
+  uint16_t value;
   
   wireReadRegister(INA219_REG_SHUNTVOLTAGE, &value);
   
@@ -404,7 +404,7 @@ int16_t Adafruit_INA219::getShuntVoltage_raw() {
 */
 /**************************************************************************/
 int16_t Adafruit_INA219::getCurrent_raw() {
-  int16_t value;
+  uint16_t value;
 
   // Sometimes a sharp load will reset the INA219, which will
   // reset the cal register, meaning CURRENT and POWER will
@@ -454,9 +454,9 @@ float Adafruit_INA219::getShuntVoltage_mV() {
 */
 /**************************************************************************/
 float Adafruit_INA219::getBusVoltage_V() {
-  uint16_t value_Raw = getBusVoltage_raw();
+  int16_t value_Raw = getBusVoltage_raw();
   // Convert raw bit value to real value
-  uint32_t value_mV = value_Raw * ina219_busVoltageMultiplier_mV;
+  int32_t value_mV = value_Raw * ina219_busVoltageMultiplier_mV;
   // Scale from mV to V upon returning.
   return float(value_mV / 1000);
 }
