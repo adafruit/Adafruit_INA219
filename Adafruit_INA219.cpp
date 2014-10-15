@@ -473,7 +473,7 @@ float Adafruit_INA219::getCurrent_mA() {
   uint16_t value_Raw = getCurrent_raw();
   // Convert raw bit value to real value
   uint32_t value_uA = value_Raw * ina219_currentMultiplier_uA;
-  // Scale from uA to mA
+  // Scale from uA to mA upon returning.
   return float(value_uA / 1000);
 }
 
@@ -489,6 +489,6 @@ float Adafruit_INA219::getBusPower_mW() {
   uint16_t value_Raw = getBusPower_raw();
   // Convert raw bit value to real value
   uint32_t value_uW = value_Raw * ina219_busPowerMultiplier_uW;
-  // Scale from uW to mW
+  // Scale from uW to mW upon returning.
   return float(value_uW / 1000);
 }
