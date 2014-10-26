@@ -381,7 +381,7 @@ uint16_t Adafruit_INA219::getBusVoltage_raw() {
   uint16_t value;
   wireReadRegister(INA219_REG_BUSVOLTAGE, &value);
 
-  // Shift to the right 3 to drop CNVR and OVF
+  // Shift bits 3 to the right, to drop CNVR and OVF
   return (uint16_t)(value >> 3);
 }
 
@@ -404,7 +404,7 @@ int16_t Adafruit_INA219::getShuntVoltage_raw() {
 */
 /**************************************************************************/
 int16_t Adafruit_INA219::getCurrent_raw() {
-  int16_t value;
+  uint16_t value;
 
   // Sometimes a sharp load will reset the INA219, which will
   // reset the cal register, meaning CURRENT and POWER will
@@ -444,7 +444,7 @@ float Adafruit_INA219::getShuntVoltage_mV() {
   // Convert raw bit value to real value
   int32_t value_uV = value_Raw * ina219_shuntVoltageMultiplier_uV;
   // Scale from uV to mV upon returning.
-  return float(value_uV / 1000);
+  return float(value_uV) / 1000;
 }
 
 /**************************************************************************/
@@ -458,7 +458,7 @@ float Adafruit_INA219::getBusVoltage_V() {
   // Convert raw bit value to real value
   int32_t value_mV = value_Raw * ina219_busVoltageMultiplier_mV;
   // Scale from mV to V upon returning.
-  return float(value_mV / 1000);
+  return float(value_mV) / 1000;
 }
 
 /**************************************************************************/
@@ -474,13 +474,13 @@ float Adafruit_INA219::getCurrent_mA() {
   // Convert raw bit value to real value
   int32_t value_uA = value_Raw * ina219_currentMultiplier_uA;
   // Scale from uA to mA upon returning.
-  return float(value_uA / 1000);
+  return float(value_uA) / 1000;
 }
 
 /**************************************************************************/
 /*! 
     @brief  Gets the bus power value in milliwatts, taking into account the
-            config settings and power LSB
+            config settings and power LSB (multiplier).
     @note   This value is only accurate or valid if calibration value
             has been set.
 */
@@ -490,5 +490,5 @@ float Adafruit_INA219::getBusPower_mW() {
   // Convert raw bit value to real value
   uint32_t value_uW = value_Raw * ina219_busPowerMultiplier_uW;
   // Scale from uW to mW upon returning.
-  return float(value_uW / 1000);
+  return float(value_uW) / 1000;
 }

@@ -29,11 +29,11 @@ void loop(void)
   buspower_mW = ina219.getBusPower_mW();
   loadvoltage = busvoltage + (shuntvoltage / 1000);
   
-  Serial.print("Bus Voltage:   "); Serial.print(busvoltage); Serial.println(" V");
-  Serial.print("Shunt Voltage: "); Serial.print(shuntvoltage); Serial.println(" mV");
-  Serial.print("Load Voltage:  "); Serial.print(loadvoltage); Serial.println(" V");
-  Serial.print("Current:       "); Serial.print(current_mA); Serial.println(" mA");
-  Serial.print("Bus Power:     "); Serial.print(buspower_mW); Serial.println(" mW");
+  Serial.print("Input Voltage:  "); Serial.print(loadvoltage); Serial.println("\tV");
+  Serial.print("Bus Voltage:   "); Serial.print(busvoltage); Serial.println("\tV");
+  Serial.print("Shunt Voltage: "); Serial.print(shuntvoltage); Serial.println("\tmV");
+  Serial.print("Current:       "); Serial.print(current_mA); Serial.println("\tmA");
+  Serial.print("Bus Power:     "); Serial.print(buspower_mW); Serial.println("\tmW");
   Serial.println("");
 
   delay(2000);
