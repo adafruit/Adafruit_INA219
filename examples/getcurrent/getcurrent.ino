@@ -3,12 +3,6 @@
 
 Adafruit_INA219 ina219;
 
-float shuntvoltage = 0.0;
-float busvoltage = 0.0;
-float current_mA = 0.0;
-float loadvoltage = 0.0;
-float buspower_mW = 0.0;
-
 void setup(void) 
 {
   uint32_t currentFrequency;
@@ -22,6 +16,10 @@ void setup(void)
 
 void loop(void) 
 {
+  float shuntvoltage;
+  float busvoltage;
+  float current_mA;
+  float buspower_mW;
 
   busvoltage = ina219.getBusVoltage_V();
   shuntvoltage = ina219.getShuntVoltage_mV();
