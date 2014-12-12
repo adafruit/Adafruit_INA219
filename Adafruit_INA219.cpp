@@ -64,7 +64,7 @@ void Adafruit_INA219::wireReadRegister(uint8_t reg, uint16_t *value)
   #endif
   Wire.endTransmission();
   
-  //delay(1); // Max 12-bit conversion time is 586us per sample
+  delay(1); // Max 12-bit conversion time is 586us per sample
 
   Wire.requestFrom(ina219_i2caddr, (uint8_t)2);  
   #if ARDUINO >= 100
@@ -410,7 +410,7 @@ int16_t Adafruit_INA219::getCurrent_raw() {
   // reset the cal register, meaning CURRENT and POWER will
   // not be available ... avoid this by always setting a cal
   // value even if it's an unfortunate extra step
-  //wireWriteRegister(INA219_REG_CALIBRATION, ina219_calValue);
+  wireWriteRegister(INA219_REG_CALIBRATION, ina219_calValue);
   // If calibration register is lost, so will be the configuration register.
   //wireWriteRegister(INA219_REG_CONFIG, config);
 
