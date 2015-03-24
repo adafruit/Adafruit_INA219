@@ -1,0 +1,12 @@
+{
+  "name": "Adafruit-INA219",
+  "keywords": "i2c, driver, sensor, battery, monitor, current, voltage",
+  "description": "TI INA219 hi-side i2c current/power monitor Library from Adafruit",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/adafruit/Adafruit_INA219"
+  },
+  "frameworks": "arduino",
+  "platforms": "atmelavr"
+}
