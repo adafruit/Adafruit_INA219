@@ -152,8 +152,8 @@ void Adafruit_INA219::ina219SetCalibration_32V_2A(void)
   // MaximumPower = 102.4W
   
   // Set multipliers to convert raw current/power values
-  ina219_currentDivider_mA = 10;  // Current LSB = 100uA per bit (1000/100 = 10)
-  ina219_powerDivider_mW = 2;     // Power LSB = 1mW per bit (2/1)
+  ina219_currentMultiplier_uA = 100;  // Current LSB = 100uA per bit (1000/100 = 10)
+  ina219_busPowerMultiplier_uW = 2000;  // Power LSB = 2000uW per bit (2/1)
 
   // Set Calibration register to 'Cal' calculated above	
   wireWriteRegister(INA219_REG_CALIBRATION, ina219_calValue);
@@ -162,7 +162,7 @@ void Adafruit_INA219::ina219SetCalibration_32V_2A(void)
   uint16_t config = INA219_CONFIG_BVOLTAGERANGE_32V |
                     INA219_CONFIG_GAIN_8_320MV |
                     INA219_CONFIG_BADCRES_12BIT |
-                    INA219_CONFIG_SADCRES_12BIT_1S_532US |
+                    INA219_CONFIG_SADCRES_12BIT |
                     INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS;
   wireWriteRegister(INA219_REG_CONFIG, config);
 }
@@ -205,7 +205,7 @@ void Adafruit_INA219::ina219SetCalibration_32V_1A(void)
 
   // 4. Choose an LSB between the min and max values
   //    (Preferrably a roundish number close to MinLSB)
-  // CurrentLSB = 0.0000400 (40�A per bit)
+  // CurrentLSB = 0.0000400 (40uA per bit)
 
   // 5. Compute the calibration register
   // Cal = trunc (0.04096 / (Current_LSB * RSHUNT))
@@ -215,7 +215,7 @@ void Adafruit_INA219::ina219SetCalibration_32V_1A(void)
   
   // 6. Calculate the power LSB
   // PowerLSB = 20 * CurrentLSB
-  // PowerLSB = 0.0008 (800�W per bit)
+  // PowerLSB = 0.0008 (800uW per bit)
 
   // 7. Compute the maximum current and shunt voltage values before overflow
   //
@@ -245,8 +245,8 @@ void Adafruit_INA219::ina219SetCalibration_32V_1A(void)
   // MaximumPower = 41.94176W
 
   // Set multipliers to convert raw current/power values
-  ina219_currentDivider_mA = 25;      // Current LSB = 40uA per bit (1000/40 = 25)
-  ina219_powerDivider_mW = 1;         // Power LSB = 800�W per bit
+  ina219_currentMultiplier_uA = 40;  // Current LSB = 40uA per bit
+  ina219_busPowerMultiplier_uW = 800;  // Power LSB = 800uW per bit
 
   // Set Calibration register to 'Cal' calculated above	
   wireWriteRegister(INA219_REG_CALIBRATION, ina219_calValue);
@@ -255,7 +255,7 @@ void Adafruit_INA219::ina219SetCalibration_32V_1A(void)
   uint16_t config = INA219_CONFIG_BVOLTAGERANGE_32V |
                     INA219_CONFIG_GAIN_8_320MV |
                     INA219_CONFIG_BADCRES_12BIT |
-                    INA219_CONFIG_SADCRES_12BIT_1S_532US |
+                    INA219_CONFIG_SADCRES_12BIT |
                     INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS;
   wireWriteRegister(INA219_REG_CONFIG, config);
 }
@@ -329,8 +329,8 @@ void Adafruit_INA219::ina219SetCalibration_16V_400mA(void) {
   // MaximumPower = 6.4W
   
   // Set multipliers to convert raw current/power values
-  ina219_currentDivider_mA = 20;  // Current LSB = 50uA per bit (1000/50 = 20)
-  ina219_powerDivider_mW = 1;     // Power LSB = 1mW per bit
+  ina219_currentMultiplier_uA = 50;     // Current LSB = 50uA per bit
+  ina219_busPowerMultiplier_uW = 1000;  // Power LSB = 1000uW per bit
 
   // Set Calibration register to 'Cal' calculated above 
   wireWriteRegister(INA219_REG_CALIBRATION, ina219_calValue);
@@ -339,7 +339,7 @@ void Adafruit_INA219::ina219SetCalibration_16V_400mA(void) {
   uint16_t config = INA219_CONFIG_BVOLTAGERANGE_16V |
                     INA219_CONFIG_GAIN_1_40MV |
                     INA219_CONFIG_BADCRES_12BIT |
-                    INA219_CONFIG_SADCRES_12BIT_1S_532US |
+                    INA219_CONFIG_SADCRES_12BIT |
                     INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS;
   wireWriteRegister(INA219_REG_CONFIG, config);
 }
@@ -351,48 +351,56 @@ void Adafruit_INA219::ina219SetCalibration_16V_400mA(void) {
 /**************************************************************************/
 Adafruit_INA219::Adafruit_INA219(uint8_t addr) {
   ina219_i2caddr = addr;
-  ina219_currentDivider_mA = 0;
-  ina219_powerDivider_mW = 0;
+  ina219_busVoltageMultiplier_mV = 4;     // (4mV)  From the INA219 data sheet. Never changes.
+  ina219_shuntVoltageMultiplier_uV = 10;  // (10uV) From the INA219 data sheet. Never changes.
+  ina219_currentMultiplier_uA = 0;        // Determined by calibration value calculations
+  ina219_busPowerMultiplier_uW = 0;       // Determined by calibration value calculations
 }
 
 /**************************************************************************/
 /*! 
-    @brief  Setups the HW (defaults to 32V and 2A for calibration values)
+    @brief  Sets up the HW (defaults to 32V and 2A for calibration values)
 */
 /**************************************************************************/
 void Adafruit_INA219::begin() {
   Wire.begin();    
-  // Set chip to known config values to start
+  // Set chip to known config values to start.
+  // Uncomment only one below, whichever works best for your project.
   ina219SetCalibration_32V_2A();
+  // ina219SetCalibration_32V_1A();
+  // ina219SetCalibration_16V_400mA();
 }
 
 /**************************************************************************/
 /*! 
-    @brief  Gets the raw bus voltage (16-bit signed integer, so +-32767)
+    @brief  Gets the raw bus voltage bit value. 16-bit unsigned integer,
+            but only the upper 13-bits, so we shift them over by 3.
 */
 /**************************************************************************/
-int16_t Adafruit_INA219::getBusVoltage_raw() {
+uint16_t Adafruit_INA219::getBusVoltage_raw() {
   uint16_t value;
   wireReadRegister(INA219_REG_BUSVOLTAGE, &value);
 
-  // Shift to the right 3 to drop CNVR and OVF and multiply by LSB
-  return (int16_t)((value >> 3) * 4);
+  // Shift bits 3 to the right, to drop CNVR and OVF
+  return (uint16_t)(value >> 3);
 }
 
 /**************************************************************************/
 /*! 
-    @brief  Gets the raw shunt voltage (16-bit signed integer, so +-32767)
+    @brief  Gets the raw shunt voltage bit value. 16-bit signed integer.
 */
 /**************************************************************************/
 int16_t Adafruit_INA219::getShuntVoltage_raw() {
   uint16_t value;
+  
   wireReadRegister(INA219_REG_SHUNTVOLTAGE, &value);
+  
   return (int16_t)value;
 }
 
 /**************************************************************************/
 /*! 
-    @brief  Gets the raw current value (16-bit signed integer, so +-32767)
+    @brief  Gets the raw current bit value. 16-bit signed integer.
 */
 /**************************************************************************/
 int16_t Adafruit_INA219::getCurrent_raw() {
@@ -403,42 +411,84 @@ int16_t Adafruit_INA219::getCurrent_raw() {
   // not be available ... avoid this by always setting a cal
   // value even if it's an unfortunate extra step
   wireWriteRegister(INA219_REG_CALIBRATION, ina219_calValue);
+  // If calibration register is lost, so will be the configuration register.
+  //wireWriteRegister(INA219_REG_CONFIG, config);
 
   // Now we can safely read the CURRENT register!
   wireReadRegister(INA219_REG_CURRENT, &value);
   
   return (int16_t)value;
 }
+
+/**************************************************************************/
+/*! 
+    @brief  Gets the raw bus power bit value. 16-bit unsigned integer.
+*/
+/**************************************************************************/
+uint16_t Adafruit_INA219::getBusPower_raw() {
+  uint16_t value;
+
+  wireReadRegister(INA219_REG_POWER, &value);
+  
+  return (uint16_t)value;
+}
  
 /**************************************************************************/
 /*! 
-    @brief  Gets the shunt voltage in mV (so +-327mV)
+    @brief  Gets the shunt voltage in millivolts, taking into
+            account the shunt voltage LSB (multiplier).
 */
 /**************************************************************************/
 float Adafruit_INA219::getShuntVoltage_mV() {
-  int16_t value;
-  value = getShuntVoltage_raw();
-  return value * 0.01;
+  int16_t value_Raw = getShuntVoltage_raw();
+  // Convert raw bit value to real value
+  int32_t value_uV = value_Raw * ina219_shuntVoltageMultiplier_uV;
+  // Scale from uV to mV upon returning.
+  return float(value_uV) / 1000;
 }
 
 /**************************************************************************/
 /*! 
-    @brief  Gets the shunt voltage in volts
+    @brief  Gets the bus voltage in volts, taking into account the
+            bus voltage LSB (multiplier).
 */
 /**************************************************************************/
 float Adafruit_INA219::getBusVoltage_V() {
-  int16_t value = getBusVoltage_raw();
-  return value * 0.001;
+  int16_t value_Raw = getBusVoltage_raw();
+  // Convert raw bit value to real value
+  int32_t value_mV = value_Raw * ina219_busVoltageMultiplier_mV;
+  // Scale from mV to V upon returning.
+  return float(value_mV) / 1000;
 }
 
 /**************************************************************************/
 /*! 
-    @brief  Gets the current value in mA, taking into account the
-            config settings and current LSB
+    @brief  Gets the current value in milliamps, taking into account the
+            config settings and current LSB (multiplier).
+    @note   This value is only accurate or valid if calibration value
+            has been set.
 */
 /**************************************************************************/
 float Adafruit_INA219::getCurrent_mA() {
-  float valueDec = getCurrent_raw();
-  valueDec /= ina219_currentDivider_mA;
-  return valueDec;
+  int16_t value_Raw = getCurrent_raw();
+  // Convert raw bit value to real value
+  int32_t value_uA = value_Raw * ina219_currentMultiplier_uA;
+  // Scale from uA to mA upon returning.
+  return float(value_uA) / 1000;
+}
+
+/**************************************************************************/
+/*! 
+    @brief  Gets the bus power value in milliwatts, taking into account the
+            config settings and power LSB (multiplier).
+    @note   This value is only accurate or valid if calibration value
+            has been set.
+*/
+/**************************************************************************/
+float Adafruit_INA219::getBusPower_mW() {
+  uint16_t value_Raw = getBusPower_raw();
+  // Convert raw bit value to real value
+  uint32_t value_uW = value_Raw * ina219_busPowerMultiplier_uW;
+  // Scale from uW to mW upon returning.
+  return float(value_uW) / 1000;
 }
