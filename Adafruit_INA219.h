@@ -113,6 +113,9 @@ class Adafruit_INA219{
  public:
   Adafruit_INA219(uint8_t addr = INA219_ADDRESS);
   void begin(void);
+  void setCalibration_32V_2A(void);
+  void setCalibration_32V_1A(void);
+  void setCalibration_16V_400mA(void);
   float getBusVoltage_V(void);
   float getShuntVoltage_mV(void);
   float getCurrent_mA(void);
@@ -127,9 +130,6 @@ class Adafruit_INA219{
   
   void wireWriteRegister(uint8_t reg, uint16_t value);
   void wireReadRegister(uint8_t reg, uint16_t *value);
-  void ina219SetCalibration_32V_2A(void);
-  void ina219SetCalibration_32V_1A(void);
-  void ina219SetCalibration_16V_400mA(void);
   int16_t getBusVoltage_raw(void);
   int16_t getShuntVoltage_raw(void);
   int16_t getCurrent_raw(void);
