@@ -76,7 +76,7 @@
     #define INA219_CONFIG_MODE_ADCOFF              (0x0004)
     #define INA219_CONFIG_MODE_SVOLT_CONTINUOUS    (0x0005)
     #define INA219_CONFIG_MODE_BVOLT_CONTINUOUS    (0x0006)
-    #define INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS (0x0007)	
+    #define INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS (0x0007)
 /*=========================================================================*/
 
 /*=========================================================================

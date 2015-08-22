@@ -1,0 +1,25 @@
+#######################################
+# Syntax Coloring Map For Adafruit_INA219
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+Adafruit_INA219				KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+begin						KEYWORD2
+setCalibration_32V_2A		KEYWORD2
+setCalibration_32V_1A		KEYWORD2
+setCalibration_16V_400mA	KEYWORD2
+getBusVoltage_V				KEYWORD2
+getShuntVoltage_mV			KEYWORD2
+getCurrent_mA				KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
