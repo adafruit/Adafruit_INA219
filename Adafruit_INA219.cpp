@@ -205,7 +205,7 @@ void Adafruit_INA219::setCalibration_32V_1A(void)
 
   // 4. Choose an LSB between the min and max values
   //    (Preferrably a roundish number close to MinLSB)
-  // CurrentLSB = 0.0000400 (40�A per bit)
+  // CurrentLSB = 0.0000400 (40uA per bit)
 
   // 5. Compute the calibration register
   // Cal = trunc (0.04096 / (Current_LSB * RSHUNT))
@@ -260,6 +260,16 @@ void Adafruit_INA219::setCalibration_32V_1A(void)
   wireWriteRegister(INA219_REG_CONFIG, config);
 }
 
+/**************************************************************************/
+/*! 
+    @brief  Configures to INA219 to be able to measure up to 16V and 400mA
+            of current. Each unit of current corresponds to 50uA, and each
+            unit of power corresponds to 1mW. Counter overflow occurs at
+            0.4A.
+			
+    @note   These calculations assume a 0.1 ohm resistor is present
+*/
+/**************************************************************************/
 void Adafruit_INA219::setCalibration_16V_400mA(void) {
   
   // Calibration which uses the highest precision for 
