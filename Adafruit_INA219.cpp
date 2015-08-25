@@ -360,7 +360,12 @@ Adafruit_INA219::Adafruit_INA219(uint8_t addr) {
     @brief  Setups the HW (defaults to 32V and 2A for calibration values)
 */
 /**************************************************************************/
-void Adafruit_INA219::begin() {
+void Adafruit_INA219::begin(uint8_t addr) {
+  ina219_i2caddr = addr;
+  begin();
+}
+
+void Adafruit_INA219::begin(void) {
   Wire.begin();    
   // Set chip to large range config values to start
   setCalibration_32V_2A();
