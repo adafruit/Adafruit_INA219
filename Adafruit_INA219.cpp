@@ -452,3 +452,39 @@ float Adafruit_INA219::getCurrent_mA() {
   valueDec /= ina219_currentDivider_mA;
   return valueDec;
 }
+
+/**************************************************************************/
+/*!
+    @brief  Gets the raw power value (16-bit signed integer, so +-32767)
+	
+	@author frankalicious
+*/
+/**************************************************************************/
+int16_t Adafruit_INA219::getPower_raw() {
+  uint16_t value;
+
+  // Sometimes a sharp load will reset the INA219, which will
+  // reset the cal register, meaning CURRENT and POWER will
+  // not be available ... avoid this by always setting a cal
+  // value even if it's an unfortunate extra step
+  wireWriteRegister(INA219_REG_CALIBRATION, ina219_calValue);
+
+  // Now we can safely read the POWER register!
+  wireReadRegister(INA219_REG_POWER, &value);
+
+  return (int16_t)value;
+}
+
+/**************************************************************************/
+/*!
+    @brief  Gets the power value in mW, taking into account the
+            config settings and current LSB
+			
+	@author frankalicious
+*/
+/**************************************************************************/
+float Adafruit_INA219::getPower_mW() {
+  float valueDec = getPower_raw();
+  valueDec /= ina219_powerDivider_mW;
+  return valueDec;
+}
