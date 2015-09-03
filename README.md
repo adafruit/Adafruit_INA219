@@ -1,4 +1,4 @@
 Adafruit_INA219
 ===============
 
-INA219 Current Sensor
+Arduino library to talk to the INA219 Current Sensor over I2C.

@@ -54,6 +54,7 @@
     #define INA219_CONFIG_BADCRES_10BIT            (0x0100)  // 10-bit bus res = 0..1023
     #define INA219_CONFIG_BADCRES_11BIT            (0x0200)  // 11-bit bus res = 0..2047
     #define INA219_CONFIG_BADCRES_12BIT            (0x0400)  // 12-bit bus res = 0..4097
+    #define INA219_CONFIG_BADCRES_12BIT_128S_69MS  (0x0780)  // 128 x 12-bit bus samples averaged together
     
     #define INA219_CONFIG_SADCRES_MASK             (0x0078)  // Shunt ADC Resolution and Averaging Mask
     #define INA219_CONFIG_SADCRES_9BIT_1S_84US     (0x0000)  // 1 x 9-bit shunt sample
@@ -120,6 +121,10 @@ class Adafruit_INA219{
   float getBusVoltage_V(void);
   float getShuntVoltage_mV(void);
   float getCurrent_mA(void);
+  void setAmpInstant(void);
+  void setAmpAverage(void);
+  void setVoltInstant(void);
+  void setVoltAverage(void);
 
  private:
   uint8_t ina219_i2caddr;

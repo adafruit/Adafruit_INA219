@@ -447,3 +447,86 @@ float Adafruit_INA219::getCurrent_mA() {
   valueDec /= ina219_currentDivider_mA;
   return valueDec;
 }
+
+/**************************************************************************/
+/*! 
+    @brief  Change the config register so that the INA219 returns current
+            measurement values from single samples.
+*/
+/**************************************************************************/
+void Adafruit_INA219::setAmpInstant() {
+  uint16_t value;
+
+  // get the current configuration data
+  wireReadRegister(INA219_REG_CONFIG, &value);
+
+  // change out the bits to average 1 samples at 12 bits per sample
+  value = value & ~INA219_CONFIG_SADCRES_MASK | INA219_CONFIG_SADCRES_12BIT_1S_532US ;
+
+  // write the changed config value back again
+  wireWriteRegister(INA219_REG_CONFIG, value);
+}
+
+/**************************************************************************/
+/*! 
+    @brief  Change the config register so that the INA219 returns a current
+            measurement value that is an average over 128 samples.
+*/
+/**************************************************************************/
+void Adafruit_INA219::setAmpAverage() {
+  uint16_t value;
+
+  // get the current configuration data
+  wireReadRegister(INA219_REG_CONFIG, &value);
+
+  // change out the bits to average 128 samples at 12 bits per sample
+  value = value & ~INA219_CONFIG_SADCRES_MASK | INA219_CONFIG_SADCRES_12BIT_128S_69MS;
+
+  // write the changed config value back again
+  wireWriteRegister(INA219_REG_CONFIG, value);
+
+  delay(69); // Max 12-bit 128S conversion time is 69mS per sample, but
+  // read can happen more frequently
+}
+
+/**************************************************************************/
+/*! 
+    @brief  Change the config register so that the INA219 returns voltage
+            measurement values from single samples.
+*/
+/**************************************************************************/
+void Adafruit_INA219::setVoltInstant() {
+  uint16_t value;
+
+  // get the current configuration data
+  wireReadRegister(INA219_REG_CONFIG, &value);
+
+  // change out the bits to average 1 samples at 12 bits per sample
+  value = value & ~INA219_CONFIG_BADCRES_MASK | INA219_CONFIG_BADCRES_12BIT ;
+
+  // write the changed config value back again
+  wireWriteRegister(INA219_REG_CONFIG, value);
+}
+
+/**************************************************************************/
+/*! 
+    @brief  Change the config register so that the INA219 returns a current
+            measurement value that is an average over 128 samples.
+*/
+/**************************************************************************/
+void Adafruit_INA219::setVoltAverage() {
+  uint16_t value;
+
+  // get the current configuration data
+  wireReadRegister(INA219_REG_CONFIG, &value);
+
+  // change out the bits to average 128 samples at 12 bits per sample
+  value = value & ~INA219_CONFIG_BADCRES_MASK | INA219_CONFIG_BADCRES_12BIT_128S_69MS ;
+
+  // write the changed config value back again
+  wireWriteRegister(INA219_REG_CONFIG, value);
+
+  delay(69); // Max 12-bit 128S conversion time is 69mS per sample, but
+  // read can happen more frequently
+}
+
