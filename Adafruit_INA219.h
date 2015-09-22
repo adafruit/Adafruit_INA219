@@ -134,5 +134,5 @@ class Adafruit_INA219{
   int16_t getBusVoltage_raw(void);
   int16_t getShuntVoltage_raw(void);
   int16_t getCurrent_raw(void);
-  int16_t Adafruit_INA219::getPower_raw(void);
+  int16_t getPower_raw(void);
 };
