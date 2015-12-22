@@ -3,8 +3,16 @@
 
 Adafruit_INA219 ina219;
 
+#if defined(ARDUINO_ARCH_SAMD)
+// for Zero, output on USB Serial console, remove line below if using programming port to program the Zero!
+   #define Serial SerialUSB
+#endif
+
 void setup(void) 
 {
+  #ifndef ESP8266
+    while (!Serial);     // will pause Zero, Leonardo, etc until serial console opens
+  #endif
   uint32_t currentFrequency;
     
   Serial.begin(115200);
