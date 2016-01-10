@@ -135,8 +135,8 @@ class Adafruit_INA219{
   uint32_t ina219_calValue;
   // The following multipliers are used to convert raw current and power
   // values to mA and mW, taking into account the current config settings
-  uint32_t ina219_currentDivider_mA;
-  uint32_t ina219_powerDivider_mW;
+  float ina219_currentLsb_mA;
+  float ina219_powerLsb_mW;
   
   void wireWriteRegister(uint8_t reg, uint16_t value);
   void wireReadRegister(uint8_t reg, uint16_t *value);
