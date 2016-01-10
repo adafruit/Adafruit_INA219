@@ -128,6 +128,7 @@ class Adafruit_INA219{
   float getBusVoltage_V(void);
   float getShuntVoltage_mV(void);
   float getCurrent_mA(void);
+  float getPower_mW(void);
 
  private:
   uint8_t ina219_i2caddr;
@@ -142,4 +143,5 @@ class Adafruit_INA219{
   int16_t getBusVoltage_raw(void);
   int16_t getShuntVoltage_raw(void);
   int16_t getCurrent_raw(void);
+  int16_t getPower_raw(void);
 };

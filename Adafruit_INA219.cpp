@@ -580,6 +580,17 @@ int16_t Adafruit_INA219::getCurrent_raw() {
  
 /**************************************************************************/
 /*! 
+    @brief  Gets the raw power value (16-bit signed integer, so +-32767)
+*/
+/**************************************************************************/
+int16_t Adafruit_INA219::getPower_raw() {
+  uint16_t value;
+  wireReadRegister(INA219_REG_POWER, &value);
+  return (int16_t)value;
+}
+ 
+/**************************************************************************/
+/*! 
     @brief  Gets the shunt voltage in mV (so +-327mV)
 */
 /**************************************************************************/
@@ -608,5 +619,17 @@ float Adafruit_INA219::getBusVoltage_V() {
 float Adafruit_INA219::getCurrent_mA() {
   float valueDec = getCurrent_raw();
   valueDec /= ina219_currentDivider_mA;
+  return valueDec;
+}
+
+/**************************************************************************/
+/*! 
+    @brief  Gets the power value in mW, taking into account the
+            config settings and current LSB
+*/
+/**************************************************************************/
+float Adafruit_INA219::getPower_mW() {
+  float valueDec = getPower_raw(); //
+  valueDec /= ina219_powerDivider_mW;
   return valueDec;
 }
