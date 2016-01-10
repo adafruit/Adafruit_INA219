@@ -25,6 +25,8 @@
 
 #include <Wire.h>
 
+#define INA219_DEBUG 0
+
 /*=========================================================================
     I2C ADDRESS/BITS
     -----------------------------------------------------------------------*/
@@ -117,6 +119,12 @@ class Adafruit_INA219{
   void setCalibration_32V_2A(void);
   void setCalibration_32V_1A(void);
   void setCalibration_16V_400mA(void);
+  // setCalibration with user defined values
+  void setCalibration_Def(float r_shunt, ///< Value of shunt in Ohms.
+    		        float v_shunt_max,       ///< Maximum value of voltage across shunt.
+    		        float v_bus_max,         ///< Maximum voltage of bus.
+    		        float i_max_expected     ///< Maximum current draw of bus + shunt.
+    		        );
   float getBusVoltage_V(void);
   float getShuntVoltage_mV(void);
   float getCurrent_mA(void);

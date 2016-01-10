@@ -346,6 +346,169 @@ void Adafruit_INA219::setCalibration_16V_400mA(void) {
 
 /**************************************************************************/
 /*! 
+    @brief  Configures to INA219 to be able to measure up to user
+            defined values.
+            Give Shut Value in Ohms
+            Max V (V) value across shunt
+            Max Bus V (V) value
+            Max I (A) expected
+            This function is doing the calculations
+            Fonction based on https://github.com/flav1972/ArduinoINA219 & co
+			
+    @note   Use this fonction if you replace the default shunt (0.1 ohm)
+*/
+/**************************************************************************/
+void Adafruit_INA219::setCalibration_Def(float r_shunt, float v_shunt_max, float v_bus_max, float i_max_expected)
+{
+  uint16_t cal, digits, bvoltage, gain;
+  float i_max_possible, min_lsb, max_lsb, swap;
+  float current_lsb, power_lsb;
+#if (INA219_DEBUG == 1)
+  float max_current,max_before_overflow,max_shunt_v,max_shunt_v_before_overflow,max_power;
+#endif
+
+  // By default we use a pretty huge range for the input voltage,
+  // which probably isn't the most appropriate choice for system
+  // that don't use a lot of power.  But all of the calculations
+  // are shown below if you want to change the settings.  You will
+  // also need to change any relevant register settings, such as
+  // setting the VBUS_MAX to 16V instead of 32V, etc.
+
+  // VBUS_MAX = v_bus_max          (user defined arg)
+  // VSHUNT_MAX = v_shunt_max      (user defined arg)
+  // RSHUNT = r_shunt              (user defined arg)
+  
+  // 1. Determine max possible current
+  // MaxPossible_I = VSHUNT_MAX / RSHUNT
+  i_max_possible = v_shunt_max / r_shunt;
+  
+  // 2. Determine max expected current
+  // MaxExpected_I = i_max_expected (user defined arg)
+  
+  // 3. Calculate possible range of LSBs (Min = 15-bit, Max = 12-bit)
+  // MinimumLSB = MaxExpected_I/32767
+  // MaximumLSB = MaxExpected_I/4096
+  min_lsb = i_max_expected / 32767;
+  max_lsb = i_max_expected / 4096;
+    
+  // 4. Choose an LSB between the min and max values
+  //    (Preferrably a roundish number close to MinLSB)
+  current_lsb = min_lsb;
+  digits=0;
+
+  /* From datasheet: This value was selected to be a round number near the Minimum_LSB.
+   * This selection allows for good resolution with a rounded LSB.
+   * eg. 0.000610 -> 0.000700
+   */
+  while( current_lsb > 0.0 ){//If zero there is something weird...
+      if( (uint16_t)current_lsb / 1){
+      	current_lsb = (uint16_t) current_lsb + 1;
+      	current_lsb /= pow(10,digits);
+      	break;
+      }
+      else{
+       	digits++;
+        current_lsb *= 10.0;
+      }
+  };
+
+  // 5. Compute the calibration register
+  // Cal = trunc (0.04096 / (Current_LSB * RSHUNT))
+  swap = (0.04096)/(current_lsb*r_shunt);
+  cal = (uint16_t)swap;
+
+  ina219_calValue = cal;
+  
+  // 6. Calculate the power LSB
+  // PowerLSB = 20 * CurrentLSB
+  power_lsb = current_lsb * 20;
+  
+  // 7. Compute the maximum current and shunt voltage values before overflow
+  //
+  // Max_Current = Current_LSB * 32767
+  //
+  // If Max_Current > Max_Possible_I then
+  //    Max_Current_Before_Overflow = MaxPossible_I
+  // Else
+  //    Max_Current_Before_Overflow = Max_Current
+  // End If
+  //
+  // Max_ShuntVoltage = Max_Current_Before_Overflow * RSHUNT
+  //
+  // If Max_ShuntVoltage >= VSHUNT_MAX
+  //    Max_ShuntVoltage_Before_Overflow = VSHUNT_MAX
+  // Else
+  //    Max_ShuntVoltage_Before_Overflow = Max_ShuntVoltage
+  // End If
+  //
+  // 8. Compute the Maximum Power
+  // MaximumPower = Max_Current_Before_Overflow * VBUS_MAX
+#if (INA219_DEBUG == 1)
+  max_current = current_lsb*32767;
+  max_before_overflow =  max_current > i_max_possible?i_max_possible:max_current;
+
+  max_shunt_v = max_before_overflow*r_shunt;
+  max_shunt_v_before_overflow = max_shunt_v > v_shunt_max?v_shunt_max:max_shunt_v;
+
+  max_power = v_bus_max * max_before_overflow;
+  Serial.print("v_bus_max:      "); Serial.println(v_bus_max, 8);
+  Serial.print("v_shunt_max:    "); Serial.println(v_shunt_max, 8);
+  Serial.print("i_max_possible: "); Serial.println(i_max_possible, 8);
+  Serial.print("i_max_expected: "); Serial.println(i_max_expected, 8);
+  Serial.print("min_lsb:        "); Serial.println(min_lsb, 12);
+  Serial.print("max_lsb:        "); Serial.println(max_lsb, 12);
+  Serial.print("current_lsb:    "); Serial.println(current_lsb, 12);
+  Serial.print("power_lsb:      "); Serial.println(power_lsb, 8);
+  Serial.println("  ");
+  Serial.print("cal:            "); Serial.println(cal);
+  Serial.print("r_shunt:        "); Serial.println(r_shunt);
+  Serial.print("max_before_overflow:         "); Serial.println(max_before_overflow,8);
+  Serial.print("max_shunt_v_before_overflow: "); Serial.println(max_shunt_v_before_overflow,8);
+  Serial.print("max_power:      "); Serial.println(max_power,8);
+  Serial.println("  ");
+#endif
+
+  // Set multipliers to convert raw current/power values
+  ina219_currentDivider_mA = 1/current_lsb/1000;   // = 1/Current LSB/1000
+  ina219_powerDivider_mW = 1000/power_lsb;       // = 1000/Power LSB
+#if (INA219_DEBUG == 1)
+  Serial.print("ina219_currentDivider_mA: "); Serial.println(ina219_currentDivider_mA);
+  Serial.print("ina219_powerDivider_mW:   "); Serial.println(ina219_powerDivider_mW);
+  Serial.println("  ");
+#endif
+  // Set Calibration register to 'Cal' calculated above	
+  wireWriteRegister(INA219_REG_CALIBRATION, ina219_calValue);
+
+  // sets the voltage rage more accurate with v_bus_max
+  bvoltage = (v_bus_max > 16) ? INA219_CONFIG_BVOLTAGERANGE_32V : INA219_CONFIG_BVOLTAGERANGE_16V;
+  
+  // sets the gain to be the lowest possible depending on v_shunt_max expected
+  if(v_shunt_max <= 0.04)
+    gain = INA219_CONFIG_GAIN_1_40MV; // Gain 1, 40mV Range
+  else if(v_shunt_max <= 0.08)
+    gain = INA219_CONFIG_GAIN_2_80MV; // Gain 2, 80mV Range
+  else if(v_shunt_max <= 0.160)
+    gain = INA219_CONFIG_GAIN_4_160MV; // Gain 4, 160mV Range
+  else
+    gain = INA219_CONFIG_GAIN_8_320MV; // Gain 8, 320mV Range
+
+#if (INA219_DEBUG == 1)
+  Serial.print("BVOLTAGERANGE: 0x"); Serial.println(bvoltage, HEX);
+  Serial.print("PGA GAIN:      0x"); Serial.println(gain, HEX);
+  Serial.println("  ");
+#endif
+
+  // Set Config register to take into account the settings above
+  uint16_t config = bvoltage |
+                    gain |
+                    INA219_CONFIG_BADCRES_12BIT |
+                    INA219_CONFIG_SADCRES_12BIT_1S_532US |
+                    INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS;
+  wireWriteRegister(INA219_REG_CONFIG, config);
+}
+
+/**************************************************************************/
+/*! 
     @brief  Instantiates a new INA219 class
 */
 /**************************************************************************/
