@@ -19,7 +19,7 @@ void loop(void)
   float shuntvoltage = 0;
   float busvoltage = 0;
   float current_mA = 0;
-  float power_mW
+  float power_mW = 0;
   float loadvoltage = 0;
 
   shuntvoltage = ina219.getShuntVoltage_mV();
