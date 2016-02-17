@@ -16,8 +16,8 @@ ESP8266           |      X       |             |            |
 Atmega2560 @ 16MHz |      X       |             |            | 
 ATSAM3X8E         |      X       |             |            | Use D20/D21.
 ATSAM21D          |      X       |             |            | 
-ATtiny85 @ 16MHz  |             |      X       |            | Use SoftwareSerial
-ATtiny85 @ 8MHz   |             |      X       |            | Use SoftwareSerial
+ATtiny85 @ 16MHz  |             |      X       |            | Use SDA/SCL D0/D2
+ATtiny85 @ 8MHz   |             |      X       |            | Use SDA/SCL D0/D2
 
   * ATmega328 @ 16MHz : Arduino UNO, Adafruit Pro Trinket 5V, Adafruit Metro 328, Adafruit Metro Mini
   * ATmega328 @ 12MHz : Adafruit Pro Trinket 3V
