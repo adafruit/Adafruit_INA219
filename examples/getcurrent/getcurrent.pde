@@ -1,7 +1,8 @@
 #include <Wire.h>
 #include <Adafruit_INA219.h>
 
-Adafruit_INA219 ina219;
+Adafruit_INA219 ina219; // using Wire  
+//Adafruit_INA219 ina219(0x40,Wire1); // using Wire1
 
 #if defined(ARDUINO_ARCH_SAMD)
 // for Zero, output on USB Serial console, remove line below if using programming port to program the Zero!
