@@ -64,7 +64,11 @@ void Adafruit_INA219::wireReadRegister(uint8_t reg, uint16_t *value)
   #endif
   wire.endTransmission();
   
-  delay(1); // Max 12-bit conversion time is 586us per sample
+  #ifdef _CHIBIOS_RT_
+    chThdSleepMilliseconds(1);
+  #else
+    delay(1); // Max 12-bit conversion time is 586us per sample
+  #endif
 
   wire.requestFrom(ina219_i2caddr, (uint8_t)2);  
   #if ARDUINO >= 100

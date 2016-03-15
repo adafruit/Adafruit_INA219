@@ -23,6 +23,11 @@
  #include "WProgram.h"
 #endif
 
+#ifdef _CHIBIOS_RT_
+ #include "ChibiOS_ARM.h"
+#endif
+
+
 #include <Wire.h>
 
 /*=========================================================================
@@ -131,7 +136,9 @@ class Adafruit_INA219{
   uint32_t ina219_powerDivider_mW;
   
   void wireWriteRegister(uint8_t reg, uint16_t value);
+  
   void wireReadRegister(uint8_t reg, uint16_t *value);
+
   int16_t getBusVoltage_raw(void);
   int16_t getShuntVoltage_raw(void);
   int16_t getCurrent_raw(void);
