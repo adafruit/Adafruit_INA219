@@ -119,8 +119,20 @@ class Adafruit_INA219{
     TwoWire& the_wire = Wire,
     delay_1msec_function the_delay=[](void) { delay(1); }
   );
+ 
   void begin(void);
   void begin(uint8_t addr);
+
+  bool set_delay_1msec_function(
+    delay_1msec_function the_delay=[](void) { delay(1); } 
+  ) 
+  {
+    if(!the_delay) return false;
+
+    delay_1ms=the_delay;
+    return true;
+  }
+
   void setCalibration_32V_2A(void);
   void setCalibration_32V_1A(void);
   void setCalibration_16V_400mA(void);

@@ -354,9 +354,14 @@ Adafruit_INA219::Adafruit_INA219(
   TwoWire& the_wire,
   delay_1msec_function the_delay
 )
-: wire(the_wire),
-  delay_1ms(the_delay)
+: wire(the_wire)
 {
+  delay_1ms=(
+    (!the_delay)? 
+      ([](void) { delay(1); }):
+      the_delay
+  );
+
   ina219_i2caddr = addr;
   ina219_currentDivider_mA = 0;
   ina219_powerDivider_mW = 0;
