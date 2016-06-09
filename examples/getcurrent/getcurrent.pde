@@ -20,7 +20,7 @@ Adafruit_INA219 ina219(INA219_ADDRESS,Wire1); // using Wire1
 //  INA219_ADDRESS, // INA219's I2C address
 //  Wire, // using the second I2C device on the DUE
 //  //using a specific ChibiOS function for the
-//  // 1 msec delay necessary using when reading
+//  // 1 msec delay necessary when reading
 //  // the INA219
 //  [](void) { chThdSleepMilliseconds(1); }
 //); // using Wire
@@ -28,7 +28,7 @@ Adafruit_INA219 ina219(
   INA219_ADDRESS, // INA219's I2C address
   Wire1, // using the second I2C device on the DUE
   //using a specific ChibiOS function for the
-  // 1 msec delay necessary using when reading
+  // 1 msec delay necessary when reading
   // the INA219
   [](void) { chThdSleepMilliseconds(1); }
 ); // using Wire1
