@@ -23,11 +23,6 @@
  #include "WProgram.h"
 #endif
 
-#ifdef _CHIBIOS_RT_
- #include "ChibiOS_ARM.h"
-#endif
-
-
 #include <Wire.h>
 
 /*=========================================================================
@@ -116,7 +111,14 @@
 
 class Adafruit_INA219{
  public:
-  Adafruit_INA219(uint8_t addr = INA219_ADDRESS,TwoWire& the_wire = Wire);
+
+  using delay_1msec_function=void (*)(void);
+
+  Adafruit_INA219(
+    uint8_t addr = INA219_ADDRESS,
+    TwoWire& the_wire = Wire,
+    delay_1msec_function the_delay=[](void) { delay(1); }
+  );
   void begin(void);
   void begin(uint8_t addr);
   void setCalibration_32V_2A(void);
@@ -130,6 +132,8 @@ class Adafruit_INA219{
   uint8_t ina219_i2caddr;
   uint32_t ina219_calValue;
   TwoWire& wire;
+  delay_1msec_function delay_1ms;
+
   // The following multipliers are used to convert raw current and power
   // values to mA and mW, taking into account the current config settings
   uint32_t ina219_currentDivider_mA;

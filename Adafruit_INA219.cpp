@@ -63,12 +63,8 @@ void Adafruit_INA219::wireReadRegister(uint8_t reg, uint16_t *value)
     wire.send(reg);                        // Register
   #endif
   wire.endTransmission();
-  
-  #ifdef _CHIBIOS_RT_
-    chThdSleepMilliseconds(1);
-  #else
-    delay(1); // Max 12-bit conversion time is 586us per sample
-  #endif
+
+  delay_1ms(); // Max 12-bit conversion time is 586us per sample
 
   wire.requestFrom(ina219_i2caddr, (uint8_t)2);  
   #if ARDUINO >= 100
@@ -353,8 +349,13 @@ void Adafruit_INA219::setCalibration_16V_400mA(void) {
     @brief  Instantiates a new INA219 class
 */
 /**************************************************************************/
-Adafruit_INA219::Adafruit_INA219(uint8_t addr, TwoWire& the_wire)
-: wire(the_wire)
+Adafruit_INA219::Adafruit_INA219(
+  uint8_t addr, 
+  TwoWire& the_wire,
+  delay_1msec_function the_delay
+)
+: wire(the_wire),
+  delay_1ms(the_delay)
 {
   ina219_i2caddr = addr;
   ina219_currentDivider_mA = 0;
