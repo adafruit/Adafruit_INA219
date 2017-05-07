@@ -1,7 +1,38 @@
 #include <Wire.h>
 #include <Adafruit_INA219.h>
 
-Adafruit_INA219 ina219;
+//#define _CHIBIOS_RT_
+
+#ifdef _CHIBIOS_RT_
+ #include "ChibiOS_ARM.h"
+#endif
+
+#ifndef _CHIBIOS_RT_  
+
+//Adafruit_INA219 ina219; // using Wire  
+Adafruit_INA219 ina219(INA219_ADDRESS,Wire1); // using Wire1
+
+#else // using ChibiOS
+// using another 1 msec delay funtion
+// concretely the one used with ChibiOS
+// in project A-Tirma
+//Adafruit_INA219 ina219(
+//  INA219_ADDRESS, // INA219's I2C address
+//  Wire, // using the second I2C device on the DUE
+//  //using a specific ChibiOS function for the
+//  // 1 msec delay necessary when reading
+//  // the INA219
+//  [](void) { chThdSleepMilliseconds(1); }
+//); // using Wire
+Adafruit_INA219 ina219(
+  INA219_ADDRESS, // INA219's I2C address
+  Wire1, // using the second I2C device on the DUE
+  //using a specific ChibiOS function for the
+  // 1 msec delay necessary when reading
+  // the INA219
+  [](void) { chThdSleepMilliseconds(1); }
+); // using Wire1
+#endif
 
 #if defined(ARDUINO_ARCH_SAMD)
 // for Zero, output on USB Serial console, remove line below if using programming port to program the Zero!
