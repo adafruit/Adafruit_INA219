@@ -25,6 +25,8 @@
 
 #include <Wire.h>
 
+#define INA219_DEBUG 0
+
 /*=========================================================================
     I2C ADDRESS/BITS
     -----------------------------------------------------------------------*/
@@ -54,6 +56,7 @@
     #define INA219_CONFIG_BADCRES_10BIT            (0x0100)  // 10-bit bus res = 0..1023
     #define INA219_CONFIG_BADCRES_11BIT            (0x0200)  // 11-bit bus res = 0..2047
     #define INA219_CONFIG_BADCRES_12BIT            (0x0400)  // 12-bit bus res = 0..4097
+    #define INA219_CONFIG_BADCRES_12BIT_128S_69MS  (0x0780)  // 128 x 12-bit bus samples averaged together
     
     #define INA219_CONFIG_SADCRES_MASK             (0x0078)  // Shunt ADC Resolution and Averaging Mask
     #define INA219_CONFIG_SADCRES_9BIT_1S_84US     (0x0000)  // 1 x 9-bit shunt sample
@@ -117,21 +120,33 @@ class Adafruit_INA219{
   void setCalibration_32V_2A(void);
   void setCalibration_32V_1A(void);
   void setCalibration_16V_400mA(void);
+  // setCalibration with user defined values
+  void setCalibration_Def(float r_shunt, ///< Value of shunt in Ohms.
+    		        float v_shunt_max,       ///< Maximum value of voltage across shunt.
+    		        float v_bus_max,         ///< Maximum voltage of bus.
+    		        float i_max_expected     ///< Maximum current draw of bus + shunt.
+    		        );
   float getBusVoltage_V(void);
   float getShuntVoltage_mV(void);
   float getCurrent_mA(void);
+  float getPower_mW(void);
+  void setAmpInstant(void);
+  void setAmpAverage(void);
+  void setVoltInstant(void);
+  void setVoltAverage(void);
 
  private:
   uint8_t ina219_i2caddr;
   uint32_t ina219_calValue;
   // The following multipliers are used to convert raw current and power
   // values to mA and mW, taking into account the current config settings
-  uint32_t ina219_currentDivider_mA;
-  uint32_t ina219_powerDivider_mW;
+  float ina219_currentLsb_mA;
+  float ina219_powerLsb_mW;
   
   void wireWriteRegister(uint8_t reg, uint16_t value);
   void wireReadRegister(uint8_t reg, uint16_t *value);
   int16_t getBusVoltage_raw(void);
   int16_t getShuntVoltage_raw(void);
   int16_t getCurrent_raw(void);
+  int16_t getPower_raw(void);
 };
