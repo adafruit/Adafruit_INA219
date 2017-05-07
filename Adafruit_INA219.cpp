@@ -78,8 +78,8 @@ void Adafruit_INA219::wireReadRegister(uint8_t reg, uint16_t *value)
 
 /**************************************************************************/
 /*! 
-    @brief  Configures to INA219 to be able to measure up to 32V and 2A
-            of current.  Each unit of current corresponds to 100uA, and
+    @brief  Configures the INA219 to be able to measure up to 32V and 2A
+            of current. Each unit of current corresponds to 100uA, and
             each unit of power corresponds to 2mW. Counter overflow
             occurs at 3.2A.
 			
@@ -89,9 +89,9 @@ void Adafruit_INA219::wireReadRegister(uint8_t reg, uint16_t *value)
 void Adafruit_INA219::setCalibration_32V_2A(void)
 {
   // By default we use a pretty huge range for the input voltage,
-  // which probably isn't the most appropriate choice for system
-  // that don't use a lot of power.  But all of the calculations
-  // are shown below if you want to change the settings.  You will
+  // which probably isn't the most appropriate choice for systems
+  // that don't use a lot of power. But all of the calculations
+  // are shown below if you want to change the settings. You will
   // also need to change any relevant register settings, such as
   // setting the VBUS_MAX to 16V instead of 32V, etc.
 
@@ -170,7 +170,7 @@ void Adafruit_INA219::setCalibration_32V_2A(void)
 /**************************************************************************/
 /*! 
     @brief  Configures to INA219 to be able to measure up to 32V and 1A
-            of current.  Each unit of current corresponds to 40uA, and each
+            of current. Each unit of current corresponds to 40uA, and each
             unit of power corresponds to 800�W. Counter overflow occurs at
             1.3A.
 			
@@ -180,15 +180,15 @@ void Adafruit_INA219::setCalibration_32V_2A(void)
 void Adafruit_INA219::setCalibration_32V_1A(void)
 {
   // By default we use a pretty huge range for the input voltage,
-  // which probably isn't the most appropriate choice for system
-  // that don't use a lot of power.  But all of the calculations
-  // are shown below if you want to change the settings.  You will
+  // which probably isn't the most appropriate choice for systems
+  // that don't use a lot of power. But all of the calculations
+  // are shown below if you want to change the settings. You will
   // also need to change any relevant register settings, such as
   // setting the VBUS_MAX to 16V instead of 32V, etc.
 
   // VBUS_MAX = 32V		(Assumes 32V, can also be set to 16V)
   // VSHUNT_MAX = 0.32	(Assumes Gain 8, 320mV, can also be 0.16, 0.08, 0.04)
-  // RSHUNT = 0.1			(Resistor value in ohms)
+  // RSHUNT = 0.1		(Resistor value in ohms)
 
   // 1. Determine max possible current
   // MaxPossible_I = VSHUNT_MAX / RSHUNT
@@ -205,7 +205,7 @@ void Adafruit_INA219::setCalibration_32V_1A(void)
 
   // 4. Choose an LSB between the min and max values
   //    (Preferrably a roundish number close to MinLSB)
-  // CurrentLSB = 0.0000400 (40�A per bit)
+  // CurrentLSB = 0.0000400 (40uA per bit)
 
   // 5. Compute the calibration register
   // Cal = trunc (0.04096 / (Current_LSB * RSHUNT))
@@ -260,6 +260,16 @@ void Adafruit_INA219::setCalibration_32V_1A(void)
   wireWriteRegister(INA219_REG_CONFIG, config);
 }
 
+/**************************************************************************/
+/*! 
+    @brief  Configures to INA219 to be able to measure up to 16V and 400mA
+            of current. Each unit of current corresponds to 50uA, and each
+            unit of power corresponds to 1mW. Counter overflow occurs at
+            0.4A.
+			
+    @note   These calculations assume a 0.1 ohm resistor is present
+*/
+/**************************************************************************/
 void Adafruit_INA219::setCalibration_16V_400mA(void) {
   
   // Calibration which uses the highest precision for 
@@ -445,5 +455,41 @@ float Adafruit_INA219::getBusVoltage_V() {
 float Adafruit_INA219::getCurrent_mA() {
   float valueDec = getCurrent_raw();
   valueDec /= ina219_currentDivider_mA;
+  return valueDec;
+}
+
+/**************************************************************************/
+/*!
+    @brief  Gets the raw power value (16-bit signed integer, so +-32767)
+	
+	@author frankalicious
+*/
+/**************************************************************************/
+int16_t Adafruit_INA219::getPower_raw() {
+  uint16_t value;
+
+  // Sometimes a sharp load will reset the INA219, which will
+  // reset the cal register, meaning CURRENT and POWER will
+  // not be available ... avoid this by always setting a cal
+  // value even if it's an unfortunate extra step
+  wireWriteRegister(INA219_REG_CALIBRATION, ina219_calValue);
+
+  // Now we can safely read the POWER register!
+  wireReadRegister(INA219_REG_POWER, &value);
+
+  return (int16_t)value;
+}
+
+/**************************************************************************/
+/*!
+    @brief  Gets the power value in mW, taking into account the
+            config settings and current LSB
+			
+	@author frankalicious
+*/
+/**************************************************************************/
+float Adafruit_INA219::getPower_mW() {
+  float valueDec = getPower_raw();
+  valueDec /= ina219_powerDivider_mW;
   return valueDec;
 }

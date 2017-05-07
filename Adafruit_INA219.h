@@ -5,7 +5,7 @@
 	@license  BSD (see license.txt)
 	
 	This is a library for the Adafruit INA219 breakout board
-	----> https://www.adafruit.com/products/???
+	----> https://www.adafruit.com/products/904
 	
 	Adafruit invests time and resources providing this open source code, 
 	please support Adafruit and open-source hardware by purchasing 
@@ -76,7 +76,7 @@
     #define INA219_CONFIG_MODE_ADCOFF              (0x0004)
     #define INA219_CONFIG_MODE_SVOLT_CONTINUOUS    (0x0005)
     #define INA219_CONFIG_MODE_BVOLT_CONTINUOUS    (0x0006)
-    #define INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS (0x0007)	
+    #define INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS (0x0007)
 /*=========================================================================*/
 
 /*=========================================================================
@@ -117,6 +117,7 @@ class Adafruit_INA219{
   void setCalibration_32V_2A(void);
   void setCalibration_32V_1A(void);
   void setCalibration_16V_400mA(void);
+  float getPower_mW(void);
   float getBusVoltage_V(void);
   float getShuntVoltage_mV(void);
   float getCurrent_mA(void);
@@ -134,4 +135,5 @@ class Adafruit_INA219{
   int16_t getBusVoltage_raw(void);
   int16_t getShuntVoltage_raw(void);
   int16_t getCurrent_raw(void);
+  int16_t getPower_raw(void);
 };

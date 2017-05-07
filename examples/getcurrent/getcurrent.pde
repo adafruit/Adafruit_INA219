@@ -19,7 +19,7 @@ void setup(void)
   Serial.println("Hello!");
   
   // Initialize the INA219.
-  // By default the initialization will use the largest range (32V, 2A).  However
+  // By default the initialization will use the largest range (32V, 2A). However
   // you can call a setCalibration function to change this range (see comments).
   ina219.begin();
   // To use a slightly lower 32V, 1A range (higher precision on amps):
