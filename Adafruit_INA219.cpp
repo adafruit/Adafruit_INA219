@@ -153,7 +153,7 @@ void Adafruit_INA219::setCalibration_32V_2A(void)
   
   // Set multipliers to convert raw current/power values
   ina219_currentDivider_mA = 10;  // Current LSB = 100uA per bit (1000/100 = 10)
-  ina219_powerDivider_mW = 2;     // Power LSB = 1mW per bit (2/1)
+  ina219_powerMultiplier_mW = 2;     // Power LSB = 1mW per bit (2/1)
 
   // Set Calibration register to 'Cal' calculated above	
   wireWriteRegister(INA219_REG_CALIBRATION, ina219_calValue);
@@ -246,7 +246,7 @@ void Adafruit_INA219::setCalibration_32V_1A(void)
 
   // Set multipliers to convert raw current/power values
   ina219_currentDivider_mA = 25;      // Current LSB = 40uA per bit (1000/40 = 25)
-  ina219_powerDivider_mW = 1;         // Power LSB = 800�W per bit
+  ina219_powerMultiplier_mW = 1;         // Power LSB = 800mW per bit
 
   // Set Calibration register to 'Cal' calculated above	
   wireWriteRegister(INA219_REG_CALIBRATION, ina219_calValue);
@@ -330,7 +330,7 @@ void Adafruit_INA219::setCalibration_16V_400mA(void) {
   
   // Set multipliers to convert raw current/power values
   ina219_currentDivider_mA = 20;  // Current LSB = 50uA per bit (1000/50 = 20)
-  ina219_powerDivider_mW = 1;     // Power LSB = 1mW per bit
+  ina219_powerMultiplier_mW = 1;     // Power LSB = 1mW per bit
 
   // Set Calibration register to 'Cal' calculated above 
   wireWriteRegister(INA219_REG_CALIBRATION, ina219_calValue);
@@ -352,7 +352,7 @@ void Adafruit_INA219::setCalibration_16V_400mA(void) {
 Adafruit_INA219::Adafruit_INA219(uint8_t addr) {
   ina219_i2caddr = addr;
   ina219_currentDivider_mA = 0;
-  ina219_powerDivider_mW = 0;
+  ina219_powerMultiplier_mW = 0;
 }
 
 /**************************************************************************/
@@ -414,6 +414,26 @@ int16_t Adafruit_INA219::getCurrent_raw() {
   
   return (int16_t)value;
 }
+
+/**************************************************************************/
+/*! 
+    @brief  Gets the raw power value (16-bit signed integer, so +-32767)
+*/
+/**************************************************************************/
+int16_t Adafruit_INA219::getPower_raw() {
+  uint16_t value;
+
+  // Sometimes a sharp load will reset the INA219, which will
+  // reset the cal register, meaning CURRENT and POWER will
+  // not be available ... avoid this by always setting a cal
+  // value even if it's an unfortunate extra step
+  wireWriteRegister(INA219_REG_CALIBRATION, ina219_calValue);
+
+  // Now we can safely read the POWER register!
+  wireReadRegister(INA219_REG_POWER, &value);
+  
+  return (int16_t)value;
+}
  
 /**************************************************************************/
 /*! 
@@ -445,5 +465,17 @@ float Adafruit_INA219::getBusVoltage_V() {
 float Adafruit_INA219::getCurrent_mA() {
   float valueDec = getCurrent_raw();
   valueDec /= ina219_currentDivider_mA;
+  return valueDec;
+}
+
+/**************************************************************************/
+/*! 
+    @brief  Gets the power value in mW, taking into account the
+            config settings and current LSB
+*/
+/**************************************************************************/
+float Adafruit_INA219::getPower_mW() {
+  float valueDec = getPower_raw();
+  valueDec *= ina219_powerMultiplier_mW;
   return valueDec;
 }
