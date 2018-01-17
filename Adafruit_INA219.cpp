@@ -1,21 +1,29 @@
-/**************************************************************************/
-/*! 
-    @file     Adafruit_INA219.cpp
-    @author   K.Townsend (Adafruit Industries)
-	license  BSD (see license.txt)
-	
-	Driver for the INA219 current sensor
+/*!
+ * @file Adafruit_INA219.cpp
+ *
+ * @mainpage Adafruit INA219 current/power monitor IC
+ *
+ * @section intro_sec Introduction
+ *
+ *  Driver for the INA219 current sensor
+ *
+ *  This is a library for the Adafruit INA219 breakout
+ *  ----> https://www.adafruit.com/products/904
+ *    
+ *  Adafruit invests time and resources providing this open source code, 
+ *  please support Adafruit and open-source hardware by purchasing 
+ *  products from Adafruit!
+ *
+ * @section author Author
+ *
+ * Written by Kevin "KTOWN" Townsend for Adafruit Industries.
+ *
+ * @section license License
+ *
+ * BSD license, all text here must be included in any redistribution.
+ *
+ */
 
-	This is a library for the Adafruit INA219 breakout
-	----> https://www.adafruit.com/products/???
-		
-	Adafruit invests time and resources providing this open source code, 
-	please support Adafruit and open-source hardware by purchasing 
-	products from Adafruit!
-
-    v1.0 - First release
-*/
-/**************************************************************************/
 #if ARDUINO >= 100
  #include "Arduino.h"
 #else
@@ -33,17 +41,17 @@
 /**************************************************************************/
 void Adafruit_INA219::wireWriteRegister (uint8_t reg, uint16_t value)
 {
-  Wire.beginTransmission(ina219_i2caddr);
+  _i2c.beginTransmission(ina219_i2caddr);
   #if ARDUINO >= 100
-    Wire.write(reg);                       // Register
-    Wire.write((value >> 8) & 0xFF);       // Upper 8-bits
-    Wire.write(value & 0xFF);              // Lower 8-bits
+    _i2c.write(reg);                       // Register
+    _i2c.write((value >> 8) & 0xFF);       // Upper 8-bits
+    _i2c.write(value & 0xFF);              // Lower 8-bits
   #else
-    Wire.send(reg);                        // Register
-    Wire.send(value >> 8);                 // Upper 8-bits
-    Wire.send(value & 0xFF);               // Lower 8-bits
+    _i2c.send(reg);                        // Register
+    _i2c.send(value >> 8);                 // Upper 8-bits
+    _i2c.send(value & 0xFF);               // Lower 8-bits
   #endif
-  Wire.endTransmission();
+  _i2c.endTransmission();
 }
 
 /**************************************************************************/
@@ -54,23 +62,23 @@ void Adafruit_INA219::wireWriteRegister (uint8_t reg, uint16_t value)
 void Adafruit_INA219::wireReadRegister(uint8_t reg, uint16_t *value)
 {
 
-  Wire.beginTransmission(ina219_i2caddr);
+  _i2c.beginTransmission(ina219_i2caddr);
   #if ARDUINO >= 100
-    Wire.write(reg);                       // Register
+    _i2c.write(reg);                       // Register
   #else
-    Wire.send(reg);                        // Register
+    _i2c.send(reg);                        // Register
   #endif
-  Wire.endTransmission();
+  _i2c.endTransmission();
   
   delay(1); // Max 12-bit conversion time is 586us per sample
 
-  Wire.requestFrom(ina219_i2caddr, (uint8_t)2);  
+  _i2c.requestFrom(ina219_i2caddr, (uint8_t)2);  
   #if ARDUINO >= 100
     // Shift values to create properly formed integer
-    *value = ((Wire.read() << 8) | Wire.read());
+    *value = ((_i2c.read() << 8) | _i2c.read());
   #else
     // Shift values to create properly formed integer
-    *value = ((Wire.receive() << 8) | Wire.receive());
+    *value = ((_i2c.receive() << 8) | _i2c.receive());
   #endif
 }
 
@@ -364,21 +372,31 @@ Adafruit_INA219::Adafruit_INA219(uint8_t addr) {
 /**************************************************************************/
 /*! 
     @brief  Setups the HW (defaults to 32V and 2A for calibration values)
-    @param addr the I2C address the device can be found on. Default is 0x40
+    @param theWire the TwoWire object to use
 */
 /**************************************************************************/
-void Adafruit_INA219::begin(uint8_t addr) {
-  ina219_i2caddr = addr;
-  begin();
+void Adafruit_INA219::begin(TwoWire *theWrire) {
+  _i2c = theWire;
+  init();
 }
 
 /**************************************************************************/
 /*! 
-    @brief  Setups the HW (defaults to 32V and 2A for calibration values)
+    @brief  Setups the HW using the default Wire object
 */
 /**************************************************************************/
 void Adafruit_INA219::begin(void) {
-  Wire.begin();    
+  _i2c = &Wire;
+  init();
+}
+
+/**************************************************************************/
+/*! 
+    @brief  begin I2C and set up the hardware
+*/
+/**************************************************************************/
+void Adafruit_INA219::init() {
+  _i2c->begin();
   // Set chip to large range config values to start
   setCalibration_32V_2A();
 }
