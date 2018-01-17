@@ -1,4 +1,4 @@
-# Adafruit FT6206 Library [![Build Status](https://travis-ci.org/adafruit/Adafruit_INA219.svg?branch=master)](https://travis-ci.org/adafruit/Adafruit_INA219)
+# Adafruit INA219 Library [![Build Status](https://travis-ci.org/adafruit/Adafruit_INA219.svg?branch=master)](https://travis-ci.org/adafruit/Adafruit_INA219)
 
 <img src="https://cdn-shop.adafruit.com/970x728/904-00.jpg" height="300"/>
 
