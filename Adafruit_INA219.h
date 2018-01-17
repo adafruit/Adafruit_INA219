@@ -2,7 +2,7 @@
 /*! 
     @file     Adafruit_INA219.h
     @author   K. Townsend (Adafruit Industries)
-	@license  BSD (see license.txt)
+	license  BSD (see license.txt)
 	
 	This is a library for the Adafruit INA219 breakout board
 	----> https://www.adafruit.com/products/???
@@ -11,7 +11,7 @@
 	please support Adafruit and open-source hardware by purchasing 
 	products from Adafruit!
 
-	@section  HISTORY
+	HISTORY
 
     v1.0  - First release
 */
@@ -109,6 +109,11 @@
     #define INA219_REG_CALIBRATION                 (0x05)
 /*=========================================================================*/
 
+/**************************************************************************/
+/*! 
+    @brief  Class that stores state and functions for interacting with INA219 current/power monitor IC
+*/
+/**************************************************************************/
 class Adafruit_INA219{
  public:
   Adafruit_INA219(uint8_t addr = INA219_ADDRESS);

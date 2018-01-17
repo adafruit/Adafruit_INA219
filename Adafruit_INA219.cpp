@@ -2,7 +2,7 @@
 /*! 
     @file     Adafruit_INA219.cpp
     @author   K.Townsend (Adafruit Industries)
-	@license  BSD (see license.txt)
+	license  BSD (see license.txt)
 	
 	Driver for the INA219 current sensor
 
@@ -12,8 +12,6 @@
 	Adafruit invests time and resources providing this open source code, 
 	please support Adafruit and open-source hardware by purchasing 
 	products from Adafruit!
-
-	@section  HISTORY
 
     v1.0 - First release
 */
@@ -260,6 +258,13 @@ void Adafruit_INA219::setCalibration_32V_1A(void)
   wireWriteRegister(INA219_REG_CONFIG, config);
 }
 
+/**************************************************************************/
+/*! 
+    @brief set device to alibration which uses the highest precision for 
+      current measurement (0.1mA), at the expense of 
+      only supporting 16V at 400mA max.
+*/
+/**************************************************************************/
 void Adafruit_INA219::setCalibration_16V_400mA(void) {
   
   // Calibration which uses the highest precision for 
@@ -347,6 +352,7 @@ void Adafruit_INA219::setCalibration_16V_400mA(void) {
 /**************************************************************************/
 /*! 
     @brief  Instantiates a new INA219 class
+    @param addr the I2C address the device can be found on. Default is 0x40
 */
 /**************************************************************************/
 Adafruit_INA219::Adafruit_INA219(uint8_t addr) {
@@ -358,6 +364,7 @@ Adafruit_INA219::Adafruit_INA219(uint8_t addr) {
 /**************************************************************************/
 /*! 
     @brief  Setups the HW (defaults to 32V and 2A for calibration values)
+    @param addr the I2C address the device can be found on. Default is 0x40
 */
 /**************************************************************************/
 void Adafruit_INA219::begin(uint8_t addr) {
@@ -365,6 +372,11 @@ void Adafruit_INA219::begin(uint8_t addr) {
   begin();
 }
 
+/**************************************************************************/
+/*! 
+    @brief  Setups the HW (defaults to 32V and 2A for calibration values)
+*/
+/**************************************************************************/
 void Adafruit_INA219::begin(void) {
   Wire.begin();    
   // Set chip to large range config values to start
@@ -374,6 +386,7 @@ void Adafruit_INA219::begin(void) {
 /**************************************************************************/
 /*! 
     @brief  Gets the raw bus voltage (16-bit signed integer, so +-32767)
+    @return the raw bus voltage reading
 */
 /**************************************************************************/
 int16_t Adafruit_INA219::getBusVoltage_raw() {
@@ -387,6 +400,7 @@ int16_t Adafruit_INA219::getBusVoltage_raw() {
 /**************************************************************************/
 /*! 
     @brief  Gets the raw shunt voltage (16-bit signed integer, so +-32767)
+    @return the raw shunt voltage reading
 */
 /**************************************************************************/
 int16_t Adafruit_INA219::getShuntVoltage_raw() {
@@ -398,6 +412,7 @@ int16_t Adafruit_INA219::getShuntVoltage_raw() {
 /**************************************************************************/
 /*! 
     @brief  Gets the raw current value (16-bit signed integer, so +-32767)
+    @return the raw current reading
 */
 /**************************************************************************/
 int16_t Adafruit_INA219::getCurrent_raw() {
@@ -418,6 +433,7 @@ int16_t Adafruit_INA219::getCurrent_raw() {
 /**************************************************************************/
 /*! 
     @brief  Gets the shunt voltage in mV (so +-327mV)
+    @return the shunt voltage converted to millivolts
 */
 /**************************************************************************/
 float Adafruit_INA219::getShuntVoltage_mV() {
@@ -429,6 +445,7 @@ float Adafruit_INA219::getShuntVoltage_mV() {
 /**************************************************************************/
 /*! 
     @brief  Gets the shunt voltage in volts
+    @return the bus voltage converted to volts
 */
 /**************************************************************************/
 float Adafruit_INA219::getBusVoltage_V() {
@@ -440,6 +457,7 @@ float Adafruit_INA219::getBusVoltage_V() {
 /*! 
     @brief  Gets the current value in mA, taking into account the
             config settings and current LSB
+    @return the current reading convereted to milliamps
 */
 /**************************************************************************/
 float Adafruit_INA219::getCurrent_mA() {
