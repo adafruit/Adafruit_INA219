@@ -41,17 +41,17 @@
 /**************************************************************************/
 void Adafruit_INA219::wireWriteRegister (uint8_t reg, uint16_t value)
 {
-  _i2c.beginTransmission(ina219_i2caddr);
+  _i2c->beginTransmission(ina219_i2caddr);
   #if ARDUINO >= 100
-    _i2c.write(reg);                       // Register
-    _i2c.write((value >> 8) & 0xFF);       // Upper 8-bits
-    _i2c.write(value & 0xFF);              // Lower 8-bits
+    _i2c->write(reg);                       // Register
+    _i2c->write((value >> 8) & 0xFF);       // Upper 8-bits
+    _i2c->write(value & 0xFF);              // Lower 8-bits
   #else
-    _i2c.send(reg);                        // Register
-    _i2c.send(value >> 8);                 // Upper 8-bits
-    _i2c.send(value & 0xFF);               // Lower 8-bits
+    _i2c->send(reg);                        // Register
+    _i2c->send(value >> 8);                 // Upper 8-bits
+    _i2c->send(value & 0xFF);               // Lower 8-bits
   #endif
-  _i2c.endTransmission();
+  _i2c->endTransmission();
 }
 
 /**************************************************************************/
@@ -62,23 +62,23 @@ void Adafruit_INA219::wireWriteRegister (uint8_t reg, uint16_t value)
 void Adafruit_INA219::wireReadRegister(uint8_t reg, uint16_t *value)
 {
 
-  _i2c.beginTransmission(ina219_i2caddr);
+  _i2c->beginTransmission(ina219_i2caddr);
   #if ARDUINO >= 100
-    _i2c.write(reg);                       // Register
+    _i2c->write(reg);                       // Register
   #else
-    _i2c.send(reg);                        // Register
+    _i2c->send(reg);                        // Register
   #endif
-  _i2c.endTransmission();
+  _i2c->endTransmission();
   
   delay(1); // Max 12-bit conversion time is 586us per sample
 
-  _i2c.requestFrom(ina219_i2caddr, (uint8_t)2);  
+  _i2c->requestFrom(ina219_i2caddr, (uint8_t)2);  
   #if ARDUINO >= 100
     // Shift values to create properly formed integer
-    *value = ((_i2c.read() << 8) | _i2c.read());
+    *value = ((_i2c->read() << 8) | _i2c->read());
   #else
     // Shift values to create properly formed integer
-    *value = ((_i2c.receive() << 8) | _i2c.receive());
+    *value = ((_i2c->receive() << 8) | _i2c->receive());
   #endif
 }
 
@@ -375,7 +375,7 @@ Adafruit_INA219::Adafruit_INA219(uint8_t addr) {
     @param theWire the TwoWire object to use
 */
 /**************************************************************************/
-void Adafruit_INA219::begin(TwoWire *theWrire) {
+void Adafruit_INA219::begin(TwoWire *theWire) {
   _i2c = theWire;
   init();
 }
