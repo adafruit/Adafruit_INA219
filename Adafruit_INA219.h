@@ -213,9 +213,9 @@ class Adafruit_INA219{
   Adafruit_INA219(uint8_t addr = INA219_ADDRESS);
   void begin(void);
   void begin(TwoWire *theWire);
-  void setCalibration_32V_2A(bool);
-  void setCalibration_32V_1A(bool);
-  void setCalibration_16V_400mA(bool);
+  void setCalibration_32V_2A(bool triggered = false);
+  void setCalibration_32V_1A(bool triggered = false);
+  void setCalibration_16V_400mA(bool triggered = false);
   float getBusVoltage_V(void);
   float getShuntVoltage_mV(void);
   float getCurrent_mA(void);

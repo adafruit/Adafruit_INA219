@@ -92,7 +92,7 @@ void Adafruit_INA219::wireReadRegister(uint8_t reg, uint16_t *value)
     @note   These calculations assume a 0.1 ohm resistor is present
 */
 /**************************************************************************/
-void Adafruit_INA219::setCalibration_32V_2A(bool triggered = false)
+void Adafruit_INA219::setCalibration_32V_2A(bool triggered)
 {
   // By default we use a pretty huge range for the input voltage,
   // which probably isn't the most appropriate choice for system
@@ -195,7 +195,7 @@ void Adafruit_INA219::setCalibration_32V_2A(bool triggered = false)
     @note   These calculations assume a 0.1 ohm resistor is present
 */
 /**************************************************************************/
-void Adafruit_INA219::setCalibration_32V_1A(bool triggered = false)
+void Adafruit_INA219::setCalibration_32V_1A(bool triggered)
 {
   // By default we use a pretty huge range for the input voltage,
   // which probably isn't the most appropriate choice for system
@@ -297,7 +297,7 @@ void Adafruit_INA219::setCalibration_32V_1A(bool triggered = false)
       only supporting 16V at 400mA max.
 */
 /**************************************************************************/
-void Adafruit_INA219::setCalibration_16V_400mA(bool triggered = false) {
+void Adafruit_INA219::setCalibration_16V_400mA(bool triggered) {
 
   // Calibration which uses the highest precision for
   // current measurement (0.1mA), at the expense of
