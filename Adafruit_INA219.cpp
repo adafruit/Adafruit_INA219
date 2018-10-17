@@ -92,7 +92,7 @@ void Adafruit_INA219::wireReadRegister(uint8_t reg, uint16_t *value)
     @note   These calculations assume a 0.1 ohm resistor is present
 */
 /**************************************************************************/
-void Adafruit_INA219::setCalibration_32V_2A(void)
+void Adafruit_INA219::setCalibration_32V_2A(bool triggered)
 {
   // By default we use a pretty huge range for the input voltage,
   // which probably isn't the most appropriate choice for system
@@ -165,11 +165,22 @@ void Adafruit_INA219::setCalibration_32V_2A(void)
   wireWriteRegister(INA219_REG_CALIBRATION, ina219_calValue);
 
   // Set Config register to take into account the settings above
-  uint16_t config = INA219_CONFIG_BVOLTAGERANGE_32V |
-                    INA219_CONFIG_GAIN_8_320MV |
-                    INA219_CONFIG_BADCRES_12BIT |
-                    INA219_CONFIG_SADCRES_12BIT_1S_532US |
-                    INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS;
+  uint16_t config;
+
+  if (triggered) {
+  	config = 		INA219_CONFIG_BVOLTAGERANGE_32V |
+                INA219_CONFIG_GAIN_8_320MV |
+                INA219_CONFIG_BADCRES_12BIT |
+								INA219_CONFIG_SADCRES_12BIT_128S_69MS |
+				    		INA219_CONFIG_MODE_SANDBVOLT_TRIGGERED;
+  } else {
+  	config = 		INA219_CONFIG_BVOLTAGERANGE_32V |
+                INA219_CONFIG_GAIN_8_320MV |
+                INA219_CONFIG_BADCRES_12BIT |
+                INA219_CONFIG_SADCRES_12BIT_1S_532US |
+                INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS;
+  }
+
   wireWriteRegister(INA219_REG_CONFIG, config);
 }
 
@@ -183,7 +194,7 @@ void Adafruit_INA219::setCalibration_32V_2A(void)
     @note   These calculations assume a 0.1 ohm resistor is present
 */
 /**************************************************************************/
-void Adafruit_INA219::setCalibration_32V_1A(void)
+void Adafruit_INA219::setCalibration_32V_1A(bool triggered)
 {
   // By default we use a pretty huge range for the input voltage,
   // which probably isn't the most appropriate choice for system
@@ -258,11 +269,22 @@ void Adafruit_INA219::setCalibration_32V_1A(void)
   wireWriteRegister(INA219_REG_CALIBRATION, ina219_calValue);
 
   // Set Config register to take into account the settings above
-  uint16_t config = INA219_CONFIG_BVOLTAGERANGE_32V |
-                    INA219_CONFIG_GAIN_8_320MV |
-                    INA219_CONFIG_BADCRES_12BIT |
-                    INA219_CONFIG_SADCRES_12BIT_1S_532US |
-                    INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS;
+  uint16_t config;
+
+  if (triggered) {
+  	config = 		INA219_CONFIG_BVOLTAGERANGE_32V |
+                INA219_CONFIG_GAIN_8_320MV |
+                INA219_CONFIG_BADCRES_12BIT |
+								INA219_CONFIG_SADCRES_12BIT_128S_69MS |
+				    		INA219_CONFIG_MODE_SANDBVOLT_TRIGGERED;
+  } else {
+  	config = 		INA219_CONFIG_BVOLTAGERANGE_32V |
+                INA219_CONFIG_GAIN_8_320MV |
+                INA219_CONFIG_BADCRES_12BIT |
+                INA219_CONFIG_SADCRES_12BIT_1S_532US |
+                INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS;
+  }
+
   wireWriteRegister(INA219_REG_CONFIG, config);
 }
 
@@ -273,7 +295,7 @@ void Adafruit_INA219::setCalibration_32V_1A(void)
       only supporting 16V at 400mA max.
 */
 /**************************************************************************/
-void Adafruit_INA219::setCalibration_16V_400mA(void) {
+void Adafruit_INA219::setCalibration_16V_400mA(bool triggered) {
 
   // Calibration which uses the highest precision for
   // current measurement (0.1mA), at the expense of
@@ -349,11 +371,21 @@ void Adafruit_INA219::setCalibration_16V_400mA(void) {
   wireWriteRegister(INA219_REG_CALIBRATION, ina219_calValue);
 
   // Set Config register to take into account the settings above
-  uint16_t config = INA219_CONFIG_BVOLTAGERANGE_16V |
-                    INA219_CONFIG_GAIN_1_40MV |
-                    INA219_CONFIG_BADCRES_12BIT |
-                    INA219_CONFIG_SADCRES_12BIT_1S_532US |
-                    INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS;
+  uint16_t config;
+
+  if (triggered) {
+  	config = 		INA219_CONFIG_BVOLTAGERANGE_16V |
+                INA219_CONFIG_GAIN_1_40MV |
+                INA219_CONFIG_BADCRES_12BIT |
+								INA219_CONFIG_SADCRES_12BIT_128S_69MS |
+				    		INA219_CONFIG_MODE_SANDBVOLT_TRIGGERED;
+  } else {
+  	config = 		INA219_CONFIG_BVOLTAGERANGE_16V |
+                INA219_CONFIG_GAIN_1_40MV |
+                INA219_CONFIG_BADCRES_12BIT |
+               	INA219_CONFIG_SADCRES_12BIT_1S_532US |
+                INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS;
+  }
   wireWriteRegister(INA219_REG_CONFIG, config);
 }
 
@@ -516,4 +548,24 @@ float Adafruit_INA219::getPower_mW() {
   float valueDec = getPower_raw();
   valueDec *= ina219_powerMultiplier_mW;
   return valueDec;
+}
+
+/**************************************************************************/
+/*!
+   @brief Enter the Power Down mode
+   using 1 uA instead of 1 mA current in continous mode.
+   Just call your calibration routine to turn it on again
+   @return void
+
+*/
+void Adafruit_INA219::enterPowerSave() {
+
+   uint16_t config = 	INA219_CONFIG_BVOLTAGERANGE_16V |
+                    	INA219_CONFIG_GAIN_1_40MV |
+                    	INA219_CONFIG_BADCRES_12BIT |
+                    	INA219_CONFIG_SADCRES_12BIT_1S_532US |
+                    	INA219_CONFIG_MODE_POWERDOWN;
+
+  wireWriteRegister(INA219_REG_CONFIG, config);
+
 }
