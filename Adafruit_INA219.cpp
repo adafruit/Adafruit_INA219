@@ -89,6 +89,9 @@ void Adafruit_INA219::wireReadRegister(uint8_t reg, uint16_t *value)
             each unit of power corresponds to 2mW. Counter overflow
             occurs at 3.2A.
 
+	@param triggered : a boolean to configure INA219 in triggered (true)
+	or continuous (false) mode. Optional with default value false
+
     @note   These calculations assume a 0.1 ohm resistor is present
 */
 /**************************************************************************/
@@ -169,16 +172,16 @@ void Adafruit_INA219::setCalibration_32V_2A(bool triggered)
 
   if (triggered) {
   	config = 	INA219_CONFIG_BVOLTAGERANGE_32V |
-                 	INA219_CONFIG_GAIN_8_320MV |
-                 	INA219_CONFIG_BADCRES_12BIT |
-			INA219_CONFIG_SADCRES_12BIT_128S_69MS |
-			INA219_CONFIG_MODE_SANDBVOLT_TRIGGERED;
+                INA219_CONFIG_GAIN_8_320MV |
+                INA219_CONFIG_BADCRES_12BIT |
+				INA219_CONFIG_SADCRES_12BIT_128S_69MS |
+				INA219_CONFIG_MODE_SANDBVOLT_TRIGGERED;
   } else {
   	config = 	INA219_CONFIG_BVOLTAGERANGE_32V |
-         	       	INA219_CONFIG_GAIN_8_320MV |
-                	INA219_CONFIG_BADCRES_12BIT |
-                	INA219_CONFIG_SADCRES_12BIT_1S_532US |
-                	INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS;
+                INA219_CONFIG_GAIN_8_320MV |
+                INA219_CONFIG_BADCRES_12BIT |
+                INA219_CONFIG_SADCRES_12BIT_1S_532US |
+                INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS;
   }
 
   wireWriteRegister(INA219_REG_CONFIG, config);
@@ -190,6 +193,9 @@ void Adafruit_INA219::setCalibration_32V_2A(bool triggered)
             of current.  Each unit of current corresponds to 40uA, and each
             unit of power corresponds to 800�W. Counter overflow occurs at
             1.3A.
+
+	@param triggered : a boolean to configure INA219 in triggered (true)
+	or continuous (false) mode. Optional with default value false
 
     @note   These calculations assume a 0.1 ohm resistor is present
 */
@@ -273,16 +279,16 @@ void Adafruit_INA219::setCalibration_32V_1A(bool triggered)
 
   if (triggered) {
   	config = 	INA219_CONFIG_BVOLTAGERANGE_32V |
-                	INA219_CONFIG_GAIN_8_320MV |
-                	INA219_CONFIG_BADCRES_12BIT |
-			INA219_CONFIG_SADCRES_12BIT_128S_69MS |
-			INA219_CONFIG_MODE_SANDBVOLT_TRIGGERED;
+                INA219_CONFIG_GAIN_8_320MV |
+                INA219_CONFIG_BADCRES_12BIT |
+				INA219_CONFIG_SADCRES_12BIT_128S_69MS |
+				INA219_CONFIG_MODE_SANDBVOLT_TRIGGERED;
   } else {
   	config = 	INA219_CONFIG_BVOLTAGERANGE_32V |
-                	INA219_CONFIG_GAIN_8_320MV |
-                	INA219_CONFIG_BADCRES_12BIT |
-                	INA219_CONFIG_SADCRES_12BIT_1S_532US |
-                	INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS;
+                INA219_CONFIG_GAIN_8_320MV |
+                INA219_CONFIG_BADCRES_12BIT |
+                INA219_CONFIG_SADCRES_12BIT_1S_532US |
+                INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS;
   }
 
   wireWriteRegister(INA219_REG_CONFIG, config);
@@ -293,6 +299,11 @@ void Adafruit_INA219::setCalibration_32V_1A(bool triggered)
     @brief set device to alibration which uses the highest precision for
       current measurement (0.1mA), at the expense of
       only supporting 16V at 400mA max.
+
+    @param triggered : a boolean to configure INA219 in triggered (true)
+	or continuous (false) mode. Optional with default value false
+
+    @note   These calculations assume a 0.1 ohm resistor is present
 */
 /**************************************************************************/
 void Adafruit_INA219::setCalibration_16V_400mA(bool triggered) {
@@ -375,16 +386,16 @@ void Adafruit_INA219::setCalibration_16V_400mA(bool triggered) {
 
   if (triggered) {
   	config = 	INA219_CONFIG_BVOLTAGERANGE_16V |
-                	INA219_CONFIG_GAIN_1_40MV |
-                	INA219_CONFIG_BADCRES_12BIT |
-			INA219_CONFIG_SADCRES_12BIT_128S_69MS |
-			INA219_CONFIG_MODE_SANDBVOLT_TRIGGERED;
+                INA219_CONFIG_GAIN_1_40MV |
+                INA219_CONFIG_BADCRES_12BIT |
+				INA219_CONFIG_SADCRES_12BIT_128S_69MS |
+				INA219_CONFIG_MODE_SANDBVOLT_TRIGGERED;
   } else {
   	config = 	INA219_CONFIG_BVOLTAGERANGE_16V |
-                	INA219_CONFIG_GAIN_1_40MV |
-                	INA219_CONFIG_BADCRES_12BIT |
-               		INA219_CONFIG_SADCRES_12BIT_1S_532US |
-                	INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS;
+                INA219_CONFIG_GAIN_1_40MV |
+                INA219_CONFIG_BADCRES_12BIT |
+               	INA219_CONFIG_SADCRES_12BIT_1S_532US |
+                INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS;
   }
   wireWriteRegister(INA219_REG_CONFIG, config);
 }
