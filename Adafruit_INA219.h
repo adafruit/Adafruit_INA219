@@ -216,6 +216,7 @@ class Adafruit_INA219{
   void setCalibration_32V_2A(bool triggered = false);
   void setCalibration_32V_1A(bool triggered = false);
   void setCalibration_16V_400mA(bool triggered = false);
+  void setCalibration_32V_400mA(bool triggered = false);
   float getBusVoltage_V(void);
   float getShuntVoltage_mV(void);
   float getCurrent_mA(void);

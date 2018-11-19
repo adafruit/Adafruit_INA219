@@ -296,8 +296,8 @@ void Adafruit_INA219::setCalibration_32V_1A(bool triggered)
 
 /**************************************************************************/
 /*!
-    @brief set device to alibration which uses the highest precision for
-      current measurement (0.1mA), at the expense of
+    @brief set device to calibration which uses the highest precision for
+      current measurement (0.05mA), at the expense of
       only supporting 16V at 400mA max.
 
     @param triggered : a boolean to configure INA219 in triggered (true)
@@ -400,6 +400,111 @@ void Adafruit_INA219::setCalibration_16V_400mA(bool triggered) {
   wireWriteRegister(INA219_REG_CONFIG, config);
 }
 
+/**************************************************************************/
+/*!
+    @brief set device to alibration which uses the highest precision for
+      current measurement (to reduce offset), a very mall LSB (20 uA)
+      and a maximum Bus voltage of 32V
+
+    @param triggered : a boolean to configure INA219 in triggered (true)
+	or continuous (false) mode. Optional with default value false
+
+    @note   These calculations assume a 0.1 ohm resistor is present
+*/
+/**************************************************************************/
+void Adafruit_INA219::setCalibration_32V_400mA(bool triggered) {
+
+  // Calibration which uses the highest precision for
+  // current measurement (0.1mA), at the expense of
+  // only supporting 16V at 400mA max.
+
+  // VBUS_MAX = 32V
+  // VSHUNT_MAX = 0.04          (Assumes Gain 1, 40mV)
+  // RSHUNT = 0.1               (Resistor value in ohms)
+
+  // 1. Determine max possible current
+  // MaxPossible_I = VSHUNT_MAX / RSHUNT
+  // MaxPossible_I = 0.4A
+
+  // 2. Determine max expected current
+  // MaxExpected_I = 0.4A
+
+  // 3. Calculate possible range of LSBs (Min = 15-bit, Max = 12-bit)
+  // MinimumLSB = MaxExpected_I/32767
+  // MinimumLSB = 0.0000122              (12uA per bit)
+  // MaximumLSB = MaxExpected_I/4096
+  // MaximumLSB = 0.0000977              (98uA per bit)
+
+  // 4. Choose an LSB between the min and max values
+  //    (Preferrably a roundish number close to MinLSB)
+  // CurrentLSB = 0.00002 (20uA per bit)
+
+  // 5. Compute the calibration register
+  // Cal = trunc (0.04096 / (Current_LSB * RSHUNT))
+  // Cal = 20480
+
+  ina219_calValue = 20480;
+
+  // 6. Calculate the power LSB
+  // PowerLSB = 20 * CurrentLSB
+  // PowerLSB = 0.0004 (0.4mW per bit)
+
+  // 7. Compute the maximum current and shunt voltage values before overflow
+  //
+  // Max_Current = Current_LSB * 32767
+  // Max_Current = 0.65534A before overflow
+  //
+  // If Max_Current > Max_Possible_I then
+  //    Max_Current_Before_Overflow = MaxPossible_I
+  // Else
+  //    Max_Current_Before_Overflow = Max_Current
+  // End If
+  //
+  // Max_Current_Before_Overflow = MaxPossible_I
+  // Max_Current_Before_Overflow = 0.4
+  //
+  // Max_ShuntVoltage = Max_Current_Before_Overflow * RSHUNT
+  // Max_ShuntVoltage = 0.04V
+  //
+  // If Max_ShuntVoltage >= VSHUNT_MAX
+  //    Max_ShuntVoltage_Before_Overflow = VSHUNT_MAX
+  // Else
+  //    Max_ShuntVoltage_Before_Overflow = Max_ShuntVoltage
+  // End If
+  //
+  // Max_ShuntVoltage_Before_Overflow = VSHUNT_MAX
+  // Max_ShuntVoltage_Before_Overflow = 0.04V
+
+  // 8. Compute the Maximum Power
+  // MaximumPower = Max_Current_Before_Overflow * VBUS_MAX
+  // MaximumPower = 0.4 * 32V
+  // MaximumPower = 12.8W
+
+  // Set multipliers to convert raw current/power values
+  ina219_currentDivider_mA = 50;    // Current LSB = 20uA per bit (1000/20 = 50)
+  ina219_powerMultiplier_mW = 0.4f; // Power LSB = 1mW per bit
+
+  // Set Calibration register to 'Cal' calculated above
+  wireWriteRegister(INA219_REG_CALIBRATION, ina219_calValue);
+
+  // Set Config register to take into account the settings above
+  uint16_t config;
+
+  if (triggered) {
+  	config = 	INA219_CONFIG_BVOLTAGERANGE_32V |
+                INA219_CONFIG_GAIN_1_40MV |
+                INA219_CONFIG_BADCRES_12BIT |
+				INA219_CONFIG_SADCRES_12BIT_128S_69MS |
+				INA219_CONFIG_MODE_SANDBVOLT_TRIGGERED;
+  } else {
+  	config = 	INA219_CONFIG_BVOLTAGERANGE_32V |
+                INA219_CONFIG_GAIN_1_40MV |
+                INA219_CONFIG_BADCRES_12BIT |
+               	INA219_CONFIG_SADCRES_12BIT_1S_532US |
+                INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS;
+  }
+  wireWriteRegister(INA219_REG_CONFIG, config);
+}
 /**************************************************************************/
 /*!
     @brief  Instantiates a new INA219 class
