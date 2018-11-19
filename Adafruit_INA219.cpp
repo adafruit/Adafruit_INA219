@@ -414,10 +414,9 @@ void Adafruit_INA219::setCalibration_16V_400mA(bool triggered) {
 void Adafruit_INA219::setCalibration_32V_400mA(bool triggered) {
 
   // Calibration which uses the highest precision for
-  // current measurement (0.1mA), at the expense of
-  // only supporting 16V at 400mA max.
+  // current measurement (0.1mA)
 
-  // VBUS_MAX = 16V
+  // VBUS_MAX = 32V
   // VSHUNT_MAX = 0.04          (Assumes Gain 1, 40mV)
   // RSHUNT = 0.1               (Resistor value in ohms)
 
@@ -476,8 +475,8 @@ void Adafruit_INA219::setCalibration_32V_400mA(bool triggered) {
 
   // 8. Compute the Maximum Power
   // MaximumPower = Max_Current_Before_Overflow * VBUS_MAX
-  // MaximumPower = 0.4 * 16V
-  // MaximumPower = 6.4W
+  // MaximumPower = 0.4 * 32V
+  // MaximumPower = 12.8W
 
   // Set multipliers to convert raw current/power values
   ina219_currentDivider_mA = 20;    // Current LSB = 50uA per bit (1000/50 = 20)
