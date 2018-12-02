@@ -517,3 +517,32 @@ float Adafruit_INA219::getPower_mW() {
   valueDec *= ina219_powerMultiplier_mW;
   return valueDec;
 }
+
+/**************************************************************************/
+/*!
+    @brief  Sets the INA219 power operating mode. Default is continuous
+            sampling. To reduce power consumption, use
+            INA219_CONFIG_MODE_POWERDOWN which will save ~0.7mA
+*/
+/**************************************************************************/
+void Adafruit_INA219::setOperatingMode( Adafruit_INA219_OperatingMode mode ) {
+  uint16_t config;
+  wireReadRegister(INA219_REG_CONFIG, &config);
+  config &= 0xfff8;
+  config |= mode;
+  wireWriteRegister(INA219_REG_CONFIG, config);
+}
+
+/**************************************************************************/
+/*!
+    @brief  Returns the current INA219 power operating mode
+    @return Current power operating mode
+*/
+/**************************************************************************/
+Adafruit_INA219_OperatingMode Adafruit_INA219::getOperatingMode() {
+  uint16_t config;
+  wireReadRegister(INA219_REG_CONFIG, &config);
+  config &= 0x07;
+  return (Adafruit_INA219_OperatingMode)config;
+}
+

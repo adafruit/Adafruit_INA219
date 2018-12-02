@@ -151,7 +151,7 @@ enum {
     @brief  values for operating mode
 */
 /**************************************************************************/
- enum {
+typedef enum {
     INA219_CONFIG_MODE_POWERDOWN          =  (0x0000),
     INA219_CONFIG_MODE_SVOLT_TRIGGERED    =  (0x0001),
     INA219_CONFIG_MODE_BVOLT_TRIGGERED    =  (0x0002),
@@ -160,7 +160,7 @@ enum {
     INA219_CONFIG_MODE_SVOLT_CONTINUOUS  =  (0x0005),
     INA219_CONFIG_MODE_BVOLT_CONTINUOUS   =  (0x0006),
     INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS = (0x0007),
-};
+} Adafruit_INA219_Operating_Mode;
 /*=========================================================================*/
 
 /**************************************************************************/
@@ -220,6 +220,9 @@ class Adafruit_INA219{
   float getShuntVoltage_mV(void);
   float getCurrent_mA(void);
   float getPower_mW(void);
+
+  void setOperatingMode( Adafruit_INA219_OperatingMode mode );
+  Adafruit_INA219_OperatingMode getOperatingMode();
 
  private:
   TwoWire *_i2c;
