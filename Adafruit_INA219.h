@@ -220,6 +220,7 @@ class Adafruit_INA219{
   float getShuntVoltage_mV(void);
   float getCurrent_mA(void);
   float getPower_mW(void);
+  void enterPowerSave(void);
 
  private:
   TwoWire *_i2c;

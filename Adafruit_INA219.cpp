@@ -517,3 +517,16 @@ float Adafruit_INA219::getPower_mW() {
   valueDec *= ina219_powerMultiplier_mW;
   return valueDec;
 }
+/**************************************************************************/
+/*!
+   @brief Power save mode
+*/
+/**************************************************************************/
+void Adafruit_INA219::enterPowerSave() {
+  uint16_t config = INA219_CONFIG_BVOLTAGERANGE_32V |
+                    INA219_CONFIG_GAIN_8_320MV |
+                    INA219_CONFIG_BADCRES_12BIT |
+                    INA219_CONFIG_SADCRES_12BIT_1S_532US |
+                    INA219_CONFIG_MODE_POWERDOWN;
+  wireWriteRegister(INA219_REG_CONFIG, config);
+}
