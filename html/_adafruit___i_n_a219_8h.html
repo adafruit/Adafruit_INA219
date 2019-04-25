@@ -66,7 +66,7 @@ $(function() {
 <div class="title">Adafruit_INA219.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;WProgram.h&quot;</code><br />
+<div class="textblock"><code>#include &quot;Arduino.h&quot;</code><br />
 <code>#include &lt;Wire.h&gt;</code><br />
 </div>
 <p><a href="_adafruit___i_n_a219_8h_source.html">Go to the source code of this file.</a></p>
@@ -79,115 +79,82 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a01099281ea98bb6c1aab825f05d9818c"><td class="memItemLeft" align="right" valign="top"><a id="a01099281ea98bb6c1aab825f05d9818c"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_adafruit___i_n_a219_8h.html#a01099281ea98bb6c1aab825f05d9818c">INA219_ADDRESS</a>&#160;&#160;&#160;(0x40)</td></tr>
-<tr class="memdesc:a01099281ea98bb6c1aab825f05d9818c"><td class="mdescLeft">&#160;</td><td class="mdescRight">default I2C address <br /></td></tr>
+<tr class="memitem:a01099281ea98bb6c1aab825f05d9818c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_adafruit___i_n_a219_8h.html#a01099281ea98bb6c1aab825f05d9818c">INA219_ADDRESS</a>&#160;&#160;&#160;(0x40)</td></tr>
 <tr class="separator:a01099281ea98bb6c1aab825f05d9818c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf1557fd16ff50351f795b87a9d4cddf"><td class="memItemLeft" align="right" valign="top"><a id="acf1557fd16ff50351f795b87a9d4cddf"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_adafruit___i_n_a219_8h.html#acf1557fd16ff50351f795b87a9d4cddf">INA219_READ</a>&#160;&#160;&#160;(0x01)</td></tr>
-<tr class="memdesc:acf1557fd16ff50351f795b87a9d4cddf"><td class="mdescLeft">&#160;</td><td class="mdescRight">read <br /></td></tr>
+<tr class="memitem:acf1557fd16ff50351f795b87a9d4cddf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_adafruit___i_n_a219_8h.html#acf1557fd16ff50351f795b87a9d4cddf">INA219_READ</a>&#160;&#160;&#160;(0x01)</td></tr>
 <tr class="separator:acf1557fd16ff50351f795b87a9d4cddf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab641248471a0f356b9ff6329bcd8084"><td class="memItemLeft" align="right" valign="top"><a id="aab641248471a0f356b9ff6329bcd8084"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_adafruit___i_n_a219_8h.html#aab641248471a0f356b9ff6329bcd8084">INA219_REG_CONFIG</a>&#160;&#160;&#160;(0x00)</td></tr>
-<tr class="memdesc:aab641248471a0f356b9ff6329bcd8084"><td class="mdescLeft">&#160;</td><td class="mdescRight">config register address <br /></td></tr>
+<tr class="memitem:aab641248471a0f356b9ff6329bcd8084"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_adafruit___i_n_a219_8h.html#aab641248471a0f356b9ff6329bcd8084">INA219_REG_CONFIG</a>&#160;&#160;&#160;(0x00)</td></tr>
 <tr class="separator:aab641248471a0f356b9ff6329bcd8084"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f369100185ff9e3855dcab0eee318ad"><td class="memItemLeft" align="right" valign="top"><a id="a2f369100185ff9e3855dcab0eee318ad"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_adafruit___i_n_a219_8h.html#a2f369100185ff9e3855dcab0eee318ad">INA219_CONFIG_RESET</a>&#160;&#160;&#160;(0x8000)</td></tr>
-<tr class="memdesc:a2f369100185ff9e3855dcab0eee318ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">reset bit <br /></td></tr>
+<tr class="memitem:a2f369100185ff9e3855dcab0eee318ad"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_adafruit___i_n_a219_8h.html#a2f369100185ff9e3855dcab0eee318ad">INA219_CONFIG_RESET</a>&#160;&#160;&#160;(0x8000)</td></tr>
 <tr class="separator:a2f369100185ff9e3855dcab0eee318ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9cee115fade153b8c7ffd6e26c18ecd7"><td class="memItemLeft" align="right" valign="top"><a id="a9cee115fade153b8c7ffd6e26c18ecd7"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_adafruit___i_n_a219_8h.html#a9cee115fade153b8c7ffd6e26c18ecd7">INA219_CONFIG_BVOLTAGERANGE_MASK</a>&#160;&#160;&#160;(0x2000)</td></tr>
-<tr class="memdesc:a9cee115fade153b8c7ffd6e26c18ecd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">mask for bus voltage range <br /></td></tr>
+<tr class="memitem:a9cee115fade153b8c7ffd6e26c18ecd7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_adafruit___i_n_a219_8h.html#a9cee115fade153b8c7ffd6e26c18ecd7">INA219_CONFIG_BVOLTAGERANGE_MASK</a>&#160;&#160;&#160;(0x2000)</td></tr>
 <tr class="separator:a9cee115fade153b8c7ffd6e26c18ecd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5bf05963e83908f3345438959694a0ba"><td class="memItemLeft" align="right" valign="top"><a id="a5bf05963e83908f3345438959694a0ba"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_adafruit___i_n_a219_8h.html#a5bf05963e83908f3345438959694a0ba">INA219_CONFIG_GAIN_MASK</a>&#160;&#160;&#160;(0x1800)</td></tr>
-<tr class="memdesc:a5bf05963e83908f3345438959694a0ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">mask for gain bits <br /></td></tr>
+<tr class="memitem:a5bf05963e83908f3345438959694a0ba"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_adafruit___i_n_a219_8h.html#a5bf05963e83908f3345438959694a0ba">INA219_CONFIG_GAIN_MASK</a>&#160;&#160;&#160;(0x1800)</td></tr>
 <tr class="separator:a5bf05963e83908f3345438959694a0ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad4b5799502981d36922ce087aa5b96c9"><td class="memItemLeft" align="right" valign="top"><a id="ad4b5799502981d36922ce087aa5b96c9"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_adafruit___i_n_a219_8h.html#ad4b5799502981d36922ce087aa5b96c9">INA219_CONFIG_BADCRES_MASK</a>&#160;&#160;&#160;(0x0780)</td></tr>
-<tr class="memdesc:ad4b5799502981d36922ce087aa5b96c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">mask for bus ADC resolution bits <br /></td></tr>
+<tr class="memitem:ad4b5799502981d36922ce087aa5b96c9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_adafruit___i_n_a219_8h.html#ad4b5799502981d36922ce087aa5b96c9">INA219_CONFIG_BADCRES_MASK</a>&#160;&#160;&#160;(0x0780)</td></tr>
 <tr class="separator:ad4b5799502981d36922ce087aa5b96c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad66384c679c835a2ab915fc50db2ed78"><td class="memItemLeft" align="right" valign="top"><a id="ad66384c679c835a2ab915fc50db2ed78"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_adafruit___i_n_a219_8h.html#ad66384c679c835a2ab915fc50db2ed78">INA219_CONFIG_SADCRES_MASK</a>&#160;&#160;&#160;(0x0078)</td></tr>
-<tr class="memdesc:ad66384c679c835a2ab915fc50db2ed78"><td class="mdescLeft">&#160;</td><td class="mdescRight">mask for shunt ADC resolution bits <br /></td></tr>
+<tr class="memitem:ad66384c679c835a2ab915fc50db2ed78"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_adafruit___i_n_a219_8h.html#ad66384c679c835a2ab915fc50db2ed78">INA219_CONFIG_SADCRES_MASK</a>&#160;&#160;&#160;(0x0078)</td></tr>
 <tr class="separator:ad66384c679c835a2ab915fc50db2ed78"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4a8474dd10779fd9915d2eaa7df77e8"><td class="memItemLeft" align="right" valign="top"><a id="aa4a8474dd10779fd9915d2eaa7df77e8"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_adafruit___i_n_a219_8h.html#aa4a8474dd10779fd9915d2eaa7df77e8">INA219_CONFIG_MODE_MASK</a>&#160;&#160;&#160;(0x0007)</td></tr>
-<tr class="memdesc:aa4a8474dd10779fd9915d2eaa7df77e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">mask for operating mode bits <br /></td></tr>
+<tr class="memitem:aa4a8474dd10779fd9915d2eaa7df77e8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_adafruit___i_n_a219_8h.html#aa4a8474dd10779fd9915d2eaa7df77e8">INA219_CONFIG_MODE_MASK</a>&#160;&#160;&#160;(0x0007)</td></tr>
 <tr class="separator:aa4a8474dd10779fd9915d2eaa7df77e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a99de9caaed1cbc48b2ecfe4b6c5ef59d"><td class="memItemLeft" align="right" valign="top"><a id="a99de9caaed1cbc48b2ecfe4b6c5ef59d"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_adafruit___i_n_a219_8h.html#a99de9caaed1cbc48b2ecfe4b6c5ef59d">INA219_REG_SHUNTVOLTAGE</a>&#160;&#160;&#160;(0x01)</td></tr>
-<tr class="memdesc:a99de9caaed1cbc48b2ecfe4b6c5ef59d"><td class="mdescLeft">&#160;</td><td class="mdescRight">shunt voltage register <br /></td></tr>
+<tr class="memitem:a99de9caaed1cbc48b2ecfe4b6c5ef59d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_adafruit___i_n_a219_8h.html#a99de9caaed1cbc48b2ecfe4b6c5ef59d">INA219_REG_SHUNTVOLTAGE</a>&#160;&#160;&#160;(0x01)</td></tr>
 <tr class="separator:a99de9caaed1cbc48b2ecfe4b6c5ef59d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a06987d28f8a8885f7d1f6a10d0ec6b3b"><td class="memItemLeft" align="right" valign="top"><a id="a06987d28f8a8885f7d1f6a10d0ec6b3b"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_adafruit___i_n_a219_8h.html#a06987d28f8a8885f7d1f6a10d0ec6b3b">INA219_REG_BUSVOLTAGE</a>&#160;&#160;&#160;(0x02)</td></tr>
-<tr class="memdesc:a06987d28f8a8885f7d1f6a10d0ec6b3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">bus voltage register <br /></td></tr>
+<tr class="memitem:a06987d28f8a8885f7d1f6a10d0ec6b3b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_adafruit___i_n_a219_8h.html#a06987d28f8a8885f7d1f6a10d0ec6b3b">INA219_REG_BUSVOLTAGE</a>&#160;&#160;&#160;(0x02)</td></tr>
 <tr class="separator:a06987d28f8a8885f7d1f6a10d0ec6b3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add277c6e0a9783de517e8a2ee2cdad86"><td class="memItemLeft" align="right" valign="top"><a id="add277c6e0a9783de517e8a2ee2cdad86"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_adafruit___i_n_a219_8h.html#add277c6e0a9783de517e8a2ee2cdad86">INA219_REG_POWER</a>&#160;&#160;&#160;(0x03)</td></tr>
-<tr class="memdesc:add277c6e0a9783de517e8a2ee2cdad86"><td class="mdescLeft">&#160;</td><td class="mdescRight">power register <br /></td></tr>
+<tr class="memitem:add277c6e0a9783de517e8a2ee2cdad86"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_adafruit___i_n_a219_8h.html#add277c6e0a9783de517e8a2ee2cdad86">INA219_REG_POWER</a>&#160;&#160;&#160;(0x03)</td></tr>
 <tr class="separator:add277c6e0a9783de517e8a2ee2cdad86"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee975d7ad192f4eadf01b6d96c1a7c50"><td class="memItemLeft" align="right" valign="top"><a id="aee975d7ad192f4eadf01b6d96c1a7c50"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_adafruit___i_n_a219_8h.html#aee975d7ad192f4eadf01b6d96c1a7c50">INA219_REG_CURRENT</a>&#160;&#160;&#160;(0x04)</td></tr>
-<tr class="memdesc:aee975d7ad192f4eadf01b6d96c1a7c50"><td class="mdescLeft">&#160;</td><td class="mdescRight">current register <br /></td></tr>
+<tr class="memitem:aee975d7ad192f4eadf01b6d96c1a7c50"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_adafruit___i_n_a219_8h.html#aee975d7ad192f4eadf01b6d96c1a7c50">INA219_REG_CURRENT</a>&#160;&#160;&#160;(0x04)</td></tr>
 <tr class="separator:aee975d7ad192f4eadf01b6d96c1a7c50"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ec015caf45bb013e8858a6e53e47e3c"><td class="memItemLeft" align="right" valign="top"><a id="a7ec015caf45bb013e8858a6e53e47e3c"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_adafruit___i_n_a219_8h.html#a7ec015caf45bb013e8858a6e53e47e3c">INA219_REG_CALIBRATION</a>&#160;&#160;&#160;(0x05)</td></tr>
-<tr class="memdesc:a7ec015caf45bb013e8858a6e53e47e3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">calibration register <br /></td></tr>
+<tr class="memitem:a7ec015caf45bb013e8858a6e53e47e3c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_adafruit___i_n_a219_8h.html#a7ec015caf45bb013e8858a6e53e47e3c">INA219_REG_CALIBRATION</a>&#160;&#160;&#160;(0x05)</td></tr>
 <tr class="separator:a7ec015caf45bb013e8858a6e53e47e3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a06fc87d81c62e9abb8790b6e5713c55b"><td class="memItemLeft" align="right" valign="top"><a id="a06fc87d81c62e9abb8790b6e5713c55b"></a>enum &#160;</td><td class="memItemRight" valign="bottom">{ <b>INA219_CONFIG_BVOLTAGERANGE_16V</b> = (0x0000), 
+<tr class="memitem:a06fc87d81c62e9abb8790b6e5713c55b"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ <b>INA219_CONFIG_BVOLTAGERANGE_16V</b> = (0x0000), 
 <b>INA219_CONFIG_BVOLTAGERANGE_32V</b> = (0x2000)
- }<tr class="memdesc:a06fc87d81c62e9abb8790b6e5713c55b"><td class="mdescLeft">&#160;</td><td class="mdescRight">bus voltage range values <br /></td></tr>
-</td></tr>
+ }</td></tr>
 <tr class="separator:a06fc87d81c62e9abb8790b6e5713c55b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf764cbdea00d65edcd07bb9953ad2b7"><td class="memItemLeft" align="right" valign="top"><a id="adf764cbdea00d65edcd07bb9953ad2b7"></a>enum &#160;</td><td class="memItemRight" valign="bottom">{ <b>INA219_CONFIG_GAIN_1_40MV</b> = (0x0000), 
+<tr class="memitem:adf764cbdea00d65edcd07bb9953ad2b7"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ <b>INA219_CONFIG_GAIN_1_40MV</b> = (0x0000), 
 <b>INA219_CONFIG_GAIN_2_80MV</b> = (0x0800), 
 <b>INA219_CONFIG_GAIN_4_160MV</b> = (0x1000), 
 <b>INA219_CONFIG_GAIN_8_320MV</b> = (0x1800)
- }<tr class="memdesc:adf764cbdea00d65edcd07bb9953ad2b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">values for gain bits <br /></td></tr>
-</td></tr>
+ }</td></tr>
 <tr class="separator:adf764cbdea00d65edcd07bb9953ad2b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a99fb83031ce9923c84392b4e92f956b5"><td class="memItemLeft" align="right" valign="top"><a id="a99fb83031ce9923c84392b4e92f956b5"></a>enum &#160;</td><td class="memItemRight" valign="bottom">{ <b>INA219_CONFIG_BADCRES_9BIT</b> = (0x0000), 
+<tr class="memitem:a99fb83031ce9923c84392b4e92f956b5"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ <b>INA219_CONFIG_BADCRES_9BIT</b> = (0x0000), 
 <b>INA219_CONFIG_BADCRES_10BIT</b> = (0x0080), 
 <b>INA219_CONFIG_BADCRES_11BIT</b> = (0x0100), 
 <b>INA219_CONFIG_BADCRES_12BIT</b> = (0x0180)
- }<tr class="memdesc:a99fb83031ce9923c84392b4e92f956b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">values for bus ADC resolution <br /></td></tr>
-</td></tr>
+ }</td></tr>
 <tr class="separator:a99fb83031ce9923c84392b4e92f956b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abc6126af1d45847bc59afa0aa3216b04"><td class="memItemLeft" align="right" valign="top"><a id="abc6126af1d45847bc59afa0aa3216b04"></a>enum &#160;</td><td class="memItemRight" valign="bottom">{ <br />
+<tr class="memitem:abc6126af1d45847bc59afa0aa3216b04"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ <br />
 &#160;&#160;<b>INA219_CONFIG_SADCRES_9BIT_1S_84US</b> = (0x0000), 
 <b>INA219_CONFIG_SADCRES_10BIT_1S_148US</b> = (0x0008), 
 <b>INA219_CONFIG_SADCRES_11BIT_1S_276US</b> = (0x0010), 
 <b>INA219_CONFIG_SADCRES_12BIT_1S_532US</b> = (0x0018), 
 <br />
-&#160;&#160;<b>INA219_CONFIG_SADCRES_12BIT_2S_1060US</b> = (0x0048), 
-<b>INA219_CONFIG_SADCRES_12BIT_4S_2130US</b> = (0x0050), 
-<b>INA219_CONFIG_SADCRES_12BIT_8S_4260US</b> = (0x0058), 
-<b>INA219_CONFIG_SADCRES_12BIT_16S_8510US</b> = (0x0060), 
+&#160;&#160;<b>INA219_CONFIG_SADCRES_12BIT_2S_1060US</b>, 
+<b>INA219_CONFIG_SADCRES_12BIT_4S_2130US</b>, 
+<b>INA219_CONFIG_SADCRES_12BIT_8S_4260US</b>, 
+<b>INA219_CONFIG_SADCRES_12BIT_16S_8510US</b>, 
 <br />
-&#160;&#160;<b>INA219_CONFIG_SADCRES_12BIT_32S_17MS</b> = (0x0068), 
-<b>INA219_CONFIG_SADCRES_12BIT_64S_34MS</b> = (0x0070), 
-<b>INA219_CONFIG_SADCRES_12BIT_128S_69MS</b> = (0x0078)
+&#160;&#160;<b>INA219_CONFIG_SADCRES_12BIT_32S_17MS</b>, 
+<b>INA219_CONFIG_SADCRES_12BIT_64S_34MS</b>, 
+<b>INA219_CONFIG_SADCRES_12BIT_128S_69MS</b>
 <br />
- }<tr class="memdesc:abc6126af1d45847bc59afa0aa3216b04"><td class="mdescLeft">&#160;</td><td class="mdescRight">values for shunt ADC resolution <br /></td></tr>
-</td></tr>
+ }</td></tr>
 <tr class="separator:abc6126af1d45847bc59afa0aa3216b04"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc29c2ff13d900c2f185ee95427fb06c"><td class="memItemLeft" align="right" valign="top"><a id="adc29c2ff13d900c2f185ee95427fb06c"></a>enum &#160;</td><td class="memItemRight" valign="bottom">{ <br />
-&#160;&#160;<b>INA219_CONFIG_MODE_POWERDOWN</b> = (0x0000), 
-<b>INA219_CONFIG_MODE_SVOLT_TRIGGERED</b> = (0x0001), 
-<b>INA219_CONFIG_MODE_BVOLT_TRIGGERED</b> = (0x0002), 
-<b>INA219_CONFIG_MODE_SANDBVOLT_TRIGGERED</b> = (0x0003), 
+<tr class="memitem:adc29c2ff13d900c2f185ee95427fb06c"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ <br />
+&#160;&#160;<b>INA219_CONFIG_MODE_POWERDOWN</b>, 
+<b>INA219_CONFIG_MODE_SVOLT_TRIGGERED</b>, 
+<b>INA219_CONFIG_MODE_BVOLT_TRIGGERED</b>, 
+<b>INA219_CONFIG_MODE_SANDBVOLT_TRIGGERED</b>, 
 <br />
-&#160;&#160;<b>INA219_CONFIG_MODE_ADCOFF</b> = (0x0004), 
-<b>INA219_CONFIG_MODE_SVOLT_CONTINUOUS</b> = (0x0005), 
-<b>INA219_CONFIG_MODE_BVOLT_CONTINUOUS</b> = (0x0006), 
-<b>INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS</b> = (0x0007)
+&#160;&#160;<b>INA219_CONFIG_MODE_ADCOFF</b>, 
+<b>INA219_CONFIG_MODE_SVOLT_CONTINUOUS</b>, 
+<b>INA219_CONFIG_MODE_BVOLT_CONTINUOUS</b>, 
+<b>INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS</b>
 <br />
- }<tr class="memdesc:adc29c2ff13d900c2f185ee95427fb06c"><td class="mdescLeft">&#160;</td><td class="mdescRight">values for operating mode <br /></td></tr>
-</td></tr>
+ }</td></tr>
 <tr class="separator:adc29c2ff13d900c2f185ee95427fb06c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -195,7 +162,294 @@ Enumerations</h2></td></tr>
 <p>Adafruit invests time and resources providing this open source code, please support Adafruit and open-source hardware by purchasing products from Adafruit!</p>
 <p>Written by Kevin "KTOWN" Townsend for Adafruit Industries.</p>
 <p>BSD license, all text here must be included in any redistribution. </p>
-</div></div><!-- contents -->
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a01099281ea98bb6c1aab825f05d9818c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01099281ea98bb6c1aab825f05d9818c">&#9670;&nbsp;</a></span>INA219_ADDRESS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define INA219_ADDRESS&#160;&#160;&#160;(0x40)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>default I2C address </p>
+
+</div>
+</div>
+<a id="acf1557fd16ff50351f795b87a9d4cddf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf1557fd16ff50351f795b87a9d4cddf">&#9670;&nbsp;</a></span>INA219_READ</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define INA219_READ&#160;&#160;&#160;(0x01)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>read </p>
+
+</div>
+</div>
+<a id="aab641248471a0f356b9ff6329bcd8084"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab641248471a0f356b9ff6329bcd8084">&#9670;&nbsp;</a></span>INA219_REG_CONFIG</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define INA219_REG_CONFIG&#160;&#160;&#160;(0x00)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>config register address </p>
+
+</div>
+</div>
+<a id="a2f369100185ff9e3855dcab0eee318ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f369100185ff9e3855dcab0eee318ad">&#9670;&nbsp;</a></span>INA219_CONFIG_RESET</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define INA219_CONFIG_RESET&#160;&#160;&#160;(0x8000)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>reset bit </p>
+
+</div>
+</div>
+<a id="a9cee115fade153b8c7ffd6e26c18ecd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cee115fade153b8c7ffd6e26c18ecd7">&#9670;&nbsp;</a></span>INA219_CONFIG_BVOLTAGERANGE_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define INA219_CONFIG_BVOLTAGERANGE_MASK&#160;&#160;&#160;(0x2000)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>mask for bus voltage range </p>
+
+</div>
+</div>
+<a id="a5bf05963e83908f3345438959694a0ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5bf05963e83908f3345438959694a0ba">&#9670;&nbsp;</a></span>INA219_CONFIG_GAIN_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define INA219_CONFIG_GAIN_MASK&#160;&#160;&#160;(0x1800)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>mask for gain bits </p>
+
+</div>
+</div>
+<a id="ad4b5799502981d36922ce087aa5b96c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4b5799502981d36922ce087aa5b96c9">&#9670;&nbsp;</a></span>INA219_CONFIG_BADCRES_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define INA219_CONFIG_BADCRES_MASK&#160;&#160;&#160;(0x0780)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>mask for bus ADC resolution bits </p>
+
+</div>
+</div>
+<a id="ad66384c679c835a2ab915fc50db2ed78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad66384c679c835a2ab915fc50db2ed78">&#9670;&nbsp;</a></span>INA219_CONFIG_SADCRES_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define INA219_CONFIG_SADCRES_MASK&#160;&#160;&#160;(0x0078)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>mask for shunt ADC resolution bits </p>
+
+</div>
+</div>
+<a id="aa4a8474dd10779fd9915d2eaa7df77e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4a8474dd10779fd9915d2eaa7df77e8">&#9670;&nbsp;</a></span>INA219_CONFIG_MODE_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define INA219_CONFIG_MODE_MASK&#160;&#160;&#160;(0x0007)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>mask for operating mode bits </p>
+
+</div>
+</div>
+<a id="a99de9caaed1cbc48b2ecfe4b6c5ef59d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99de9caaed1cbc48b2ecfe4b6c5ef59d">&#9670;&nbsp;</a></span>INA219_REG_SHUNTVOLTAGE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define INA219_REG_SHUNTVOLTAGE&#160;&#160;&#160;(0x01)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>shunt voltage register </p>
+
+</div>
+</div>
+<a id="a06987d28f8a8885f7d1f6a10d0ec6b3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06987d28f8a8885f7d1f6a10d0ec6b3b">&#9670;&nbsp;</a></span>INA219_REG_BUSVOLTAGE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define INA219_REG_BUSVOLTAGE&#160;&#160;&#160;(0x02)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>bus voltage register </p>
+
+</div>
+</div>
+<a id="add277c6e0a9783de517e8a2ee2cdad86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add277c6e0a9783de517e8a2ee2cdad86">&#9670;&nbsp;</a></span>INA219_REG_POWER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define INA219_REG_POWER&#160;&#160;&#160;(0x03)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>power register </p>
+
+</div>
+</div>
+<a id="aee975d7ad192f4eadf01b6d96c1a7c50"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee975d7ad192f4eadf01b6d96c1a7c50">&#9670;&nbsp;</a></span>INA219_REG_CURRENT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define INA219_REG_CURRENT&#160;&#160;&#160;(0x04)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>current register </p>
+
+</div>
+</div>
+<a id="a7ec015caf45bb013e8858a6e53e47e3c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ec015caf45bb013e8858a6e53e47e3c">&#9670;&nbsp;</a></span>INA219_REG_CALIBRATION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define INA219_REG_CALIBRATION&#160;&#160;&#160;(0x05)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>calibration register </p>
+
+</div>
+</div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="a06fc87d81c62e9abb8790b6e5713c55b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06fc87d81c62e9abb8790b6e5713c55b">&#9670;&nbsp;</a></span>anonymous enum</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">anonymous enum</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>bus voltage range values </p>
+
+</div>
+</div>
+<a id="adf764cbdea00d65edcd07bb9953ad2b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf764cbdea00d65edcd07bb9953ad2b7">&#9670;&nbsp;</a></span>anonymous enum</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">anonymous enum</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>values for gain bits </p>
+
+</div>
+</div>
+<a id="a99fb83031ce9923c84392b4e92f956b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99fb83031ce9923c84392b4e92f956b5">&#9670;&nbsp;</a></span>anonymous enum</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">anonymous enum</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>values for bus ADC resolution </p>
+
+</div>
+</div>
+<a id="abc6126af1d45847bc59afa0aa3216b04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc6126af1d45847bc59afa0aa3216b04">&#9670;&nbsp;</a></span>anonymous enum</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">anonymous enum</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>values for shunt ADC resolution </p>
+
+</div>
+</div>
+<a id="adc29c2ff13d900c2f185ee95427fb06c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc29c2ff13d900c2f185ee95427fb06c">&#9670;&nbsp;</a></span>anonymous enum</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">anonymous enum</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>values for operating mode </p>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">
