@@ -152,6 +152,27 @@ void Adafruit_INA219::setCalibration_32V_2A() {
 }
 
 /*!
+ *  @brief  Enable power save mode
+ */
+void Adafruit_INA219::powerSaveModeOn() {
+  uint16_t current;
+  wireReadRegister(INA219_REG_CONFIG, &current);
+  uint16_t next = current | INA219_CONFIG_MODE_POWERDOWN; 
+  wireWriteRegister(INA219_REG_CONFIG, next);
+}
+
+/*!
+ *  @brief  Disable power save mode
+ */
+void Adafruit_INA219::powerSaveModeOff() {
+  uint16_t current;
+  wireReadRegister(INA219_REG_CONFIG, &current);
+  uint8_t next = current & ~INA219_CONFIG_MODE_POWERDOWN; 
+  wireWriteRegister(INA219_REG_CONFIG, next);
+}
+
+
+/*!
  *  @brief  Configures to INA219 to be able to measure up to 32V and 1A
  *          of current.  Each unit of current corresponds to 40uA, and each
  *          unit of power corresponds to 800�W. Counter overflow occurs at
