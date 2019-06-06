@@ -79,28 +79,31 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad815e05fbbabbeec41d0692e499ff5b5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___i_n_a219.html#ad815e05fbbabbeec41d0692e499ff5b5">begin</a> (TwoWire *theWire=&amp;Wire)</td></tr>
 <tr class="memdesc:ad815e05fbbabbeec41d0692e499ff5b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setups the HW (defaults to 32V and 2A for calibration values)  <a href="#ad815e05fbbabbeec41d0692e499ff5b5">More...</a><br /></td></tr>
 <tr class="separator:ad815e05fbbabbeec41d0692e499ff5b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac4cebcfad06a740904c894c964335de3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___i_n_a219.html#ac4cebcfad06a740904c894c964335de3">setCalibration_32V_2A</a> (void)</td></tr>
-<tr class="memdesc:ac4cebcfad06a740904c894c964335de3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures to INA219 to be able to measure up to 32V and 2A of current. Each unit of current corresponds to 100uA, and each unit of power corresponds to 2mW. Counter overflow occurs at 3.2A.  <a href="#ac4cebcfad06a740904c894c964335de3">More...</a><br /></td></tr>
-<tr class="separator:ac4cebcfad06a740904c894c964335de3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79542a9167af094f9af7218f063e6297"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___i_n_a219.html#a79542a9167af094f9af7218f063e6297">setCalibration_32V_1A</a> (void)</td></tr>
-<tr class="memdesc:a79542a9167af094f9af7218f063e6297"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures to INA219 to be able to measure up to 32V and 1A of current. Each unit of current corresponds to 40uA, and each unit of power corresponds to 800�W. Counter overflow occurs at 1.3A.  <a href="#a79542a9167af094f9af7218f063e6297">More...</a><br /></td></tr>
-<tr class="separator:a79542a9167af094f9af7218f063e6297"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd5cd9cfadae71308c0d0238d3dfce82"><td class="memItemLeft" align="right" valign="top"><a id="acd5cd9cfadae71308c0d0238d3dfce82"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___i_n_a219.html#acd5cd9cfadae71308c0d0238d3dfce82">setCalibration_16V_400mA</a> (void)</td></tr>
-<tr class="memdesc:acd5cd9cfadae71308c0d0238d3dfce82"><td class="mdescLeft">&#160;</td><td class="mdescRight">set device to alibration which uses the highest precision for current measurement (0.1mA), at the expense of only supporting 16V at 400mA max. <br /></td></tr>
-<tr class="separator:acd5cd9cfadae71308c0d0238d3dfce82"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22b4b21b104d6a939b6deb153bfbb8ae"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___i_n_a219.html#a22b4b21b104d6a939b6deb153bfbb8ae">getBusVoltage_V</a> (void)</td></tr>
-<tr class="memdesc:a22b4b21b104d6a939b6deb153bfbb8ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the shunt voltage in volts.  <a href="#a22b4b21b104d6a939b6deb153bfbb8ae">More...</a><br /></td></tr>
-<tr class="separator:a22b4b21b104d6a939b6deb153bfbb8ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae4dcd156e9b64583e6fe0d4f48544e87"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___i_n_a219.html#ae4dcd156e9b64583e6fe0d4f48544e87">getShuntVoltage_mV</a> (void)</td></tr>
-<tr class="memdesc:ae4dcd156e9b64583e6fe0d4f48544e87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the shunt voltage in mV (so +-327mV)  <a href="#ae4dcd156e9b64583e6fe0d4f48544e87">More...</a><br /></td></tr>
-<tr class="separator:ae4dcd156e9b64583e6fe0d4f48544e87"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af28fcc20fb5387ed034e28670d95755c"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___i_n_a219.html#af28fcc20fb5387ed034e28670d95755c">getCurrent_mA</a> (void)</td></tr>
-<tr class="memdesc:af28fcc20fb5387ed034e28670d95755c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current value in mA, taking into account the config settings and current LSB.  <a href="#af28fcc20fb5387ed034e28670d95755c">More...</a><br /></td></tr>
-<tr class="separator:af28fcc20fb5387ed034e28670d95755c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a467eb1f41a30b73ceff7145a90102f8b"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___i_n_a219.html#a467eb1f41a30b73ceff7145a90102f8b">getPower_mW</a> (void)</td></tr>
-<tr class="memdesc:a467eb1f41a30b73ceff7145a90102f8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the power value in mW, taking into account the config settings and current LSB.  <a href="#a467eb1f41a30b73ceff7145a90102f8b">More...</a><br /></td></tr>
-<tr class="separator:a467eb1f41a30b73ceff7145a90102f8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e53272bab1159bab1b0ef255b450d02"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___i_n_a219.html#a1e53272bab1159bab1b0ef255b450d02">setCalibration_32V_2A</a> ()</td></tr>
+<tr class="memdesc:a1e53272bab1159bab1b0ef255b450d02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures to INA219 to be able to measure up to 32V and 2A of current. Each unit of current corresponds to 100uA, and each unit of power corresponds to 2mW. Counter overflow occurs at 3.2A.  <a href="#a1e53272bab1159bab1b0ef255b450d02">More...</a><br /></td></tr>
+<tr class="separator:a1e53272bab1159bab1b0ef255b450d02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbff47c27a3b8452c62a2f38672f1cd9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___i_n_a219.html#adbff47c27a3b8452c62a2f38672f1cd9">setCalibration_32V_1A</a> ()</td></tr>
+<tr class="memdesc:adbff47c27a3b8452c62a2f38672f1cd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures to INA219 to be able to measure up to 32V and 1A of current. Each unit of current corresponds to 40uA, and each unit of power corresponds to 800�W. Counter overflow occurs at 1.3A.  <a href="#adbff47c27a3b8452c62a2f38672f1cd9">More...</a><br /></td></tr>
+<tr class="separator:adbff47c27a3b8452c62a2f38672f1cd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3efcbe8cf5ee0a9e8aa6174a1b2390c1"><td class="memItemLeft" align="right" valign="top"><a id="a3efcbe8cf5ee0a9e8aa6174a1b2390c1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___i_n_a219.html#a3efcbe8cf5ee0a9e8aa6174a1b2390c1">setCalibration_16V_400mA</a> ()</td></tr>
+<tr class="memdesc:a3efcbe8cf5ee0a9e8aa6174a1b2390c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">set device to alibration which uses the highest precision for current measurement (0.1mA), at the expense of only supporting 16V at 400mA max. <br /></td></tr>
+<tr class="separator:a3efcbe8cf5ee0a9e8aa6174a1b2390c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab27c5ff8681cbe04c80bc3efc840dca4"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___i_n_a219.html#ab27c5ff8681cbe04c80bc3efc840dca4">getBusVoltage_V</a> ()</td></tr>
+<tr class="memdesc:ab27c5ff8681cbe04c80bc3efc840dca4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the shunt voltage in volts.  <a href="#ab27c5ff8681cbe04c80bc3efc840dca4">More...</a><br /></td></tr>
+<tr class="separator:ab27c5ff8681cbe04c80bc3efc840dca4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abddaac33a988562fd416cb9949d0c030"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___i_n_a219.html#abddaac33a988562fd416cb9949d0c030">getShuntVoltage_mV</a> ()</td></tr>
+<tr class="memdesc:abddaac33a988562fd416cb9949d0c030"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the shunt voltage in mV (so +-327mV)  <a href="#abddaac33a988562fd416cb9949d0c030">More...</a><br /></td></tr>
+<tr class="separator:abddaac33a988562fd416cb9949d0c030"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a962c14fad67d30614fa164e25ebfc158"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___i_n_a219.html#a962c14fad67d30614fa164e25ebfc158">getCurrent_mA</a> ()</td></tr>
+<tr class="memdesc:a962c14fad67d30614fa164e25ebfc158"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current value in mA, taking into account the config settings and current LSB.  <a href="#a962c14fad67d30614fa164e25ebfc158">More...</a><br /></td></tr>
+<tr class="separator:a962c14fad67d30614fa164e25ebfc158"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a610b73a256146e07c30b00714548f0ac"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___i_n_a219.html#a610b73a256146e07c30b00714548f0ac">getPower_mW</a> ()</td></tr>
+<tr class="memdesc:a610b73a256146e07c30b00714548f0ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the power value in mW, taking into account the config settings and current LSB.  <a href="#a610b73a256146e07c30b00714548f0ac">More...</a><br /></td></tr>
+<tr class="separator:a610b73a256146e07c30b00714548f0ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a267d09978f1cfd131d3031a5d1435247"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___i_n_a219.html#a267d09978f1cfd131d3031a5d1435247">powerSave</a> (bool on)</td></tr>
+<tr class="memdesc:a267d09978f1cfd131d3031a5d1435247"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set power save mode according to parameters.  <a href="#a267d09978f1cfd131d3031a5d1435247">More...</a><br /></td></tr>
+<tr class="separator:a267d09978f1cfd131d3031a5d1435247"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class that stores state and functions for interacting with INA219 current/power monitor IC. </p>
@@ -158,8 +161,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="ac4cebcfad06a740904c894c964335de3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac4cebcfad06a740904c894c964335de3">&#9670;&nbsp;</a></span>setCalibration_32V_2A()</h2>
+<a id="a1e53272bab1159bab1b0ef255b450d02"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e53272bab1159bab1b0ef255b450d02">&#9670;&nbsp;</a></span>setCalibration_32V_2A()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -167,7 +170,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
         <tr>
           <td class="memname">void Adafruit_INA219::setCalibration_32V_2A </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -179,8 +181,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="a79542a9167af094f9af7218f063e6297"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a79542a9167af094f9af7218f063e6297">&#9670;&nbsp;</a></span>setCalibration_32V_1A()</h2>
+<a id="adbff47c27a3b8452c62a2f38672f1cd9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adbff47c27a3b8452c62a2f38672f1cd9">&#9670;&nbsp;</a></span>setCalibration_32V_1A()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -188,7 +190,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
         <tr>
           <td class="memname">void Adafruit_INA219::setCalibration_32V_1A </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -200,8 +201,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="a22b4b21b104d6a939b6deb153bfbb8ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a22b4b21b104d6a939b6deb153bfbb8ae">&#9670;&nbsp;</a></span>getBusVoltage_V()</h2>
+<a id="ab27c5ff8681cbe04c80bc3efc840dca4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab27c5ff8681cbe04c80bc3efc840dca4">&#9670;&nbsp;</a></span>getBusVoltage_V()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -209,7 +210,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
         <tr>
           <td class="memname">float Adafruit_INA219::getBusVoltage_V </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -221,8 +221,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="ae4dcd156e9b64583e6fe0d4f48544e87"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae4dcd156e9b64583e6fe0d4f48544e87">&#9670;&nbsp;</a></span>getShuntVoltage_mV()</h2>
+<a id="abddaac33a988562fd416cb9949d0c030"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abddaac33a988562fd416cb9949d0c030">&#9670;&nbsp;</a></span>getShuntVoltage_mV()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -230,7 +230,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
         <tr>
           <td class="memname">float Adafruit_INA219::getShuntVoltage_mV </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -242,8 +241,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="af28fcc20fb5387ed034e28670d95755c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af28fcc20fb5387ed034e28670d95755c">&#9670;&nbsp;</a></span>getCurrent_mA()</h2>
+<a id="a962c14fad67d30614fa164e25ebfc158"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a962c14fad67d30614fa164e25ebfc158">&#9670;&nbsp;</a></span>getCurrent_mA()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -251,7 +250,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
         <tr>
           <td class="memname">float Adafruit_INA219::getCurrent_mA </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -263,8 +261,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 </div>
 </div>
-<a id="a467eb1f41a30b73ceff7145a90102f8b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a467eb1f41a30b73ceff7145a90102f8b">&#9670;&nbsp;</a></span>getPower_mW()</h2>
+<a id="a610b73a256146e07c30b00714548f0ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a610b73a256146e07c30b00714548f0ac">&#9670;&nbsp;</a></span>getPower_mW()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -272,7 +270,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
         <tr>
           <td class="memname">float Adafruit_INA219::getPower_mW </td>
           <td>(</td>
-          <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
@@ -281,6 +278,32 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 
 <p>Gets the power value in mW, taking into account the config settings and current LSB. </p>
 <dl class="section return"><dt>Returns</dt><dd>power reading converted to milliwatts </dd></dl>
+
+</div>
+</div>
+<a id="a267d09978f1cfd131d3031a5d1435247"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a267d09978f1cfd131d3031a5d1435247">&#9670;&nbsp;</a></span>powerSave()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Adafruit_INA219::powerSave </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>on</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set power save mode according to parameters. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">on</td><td>boolean value </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
