@@ -138,8 +138,7 @@ public:
   float getShuntVoltage_mV();
   float getCurrent_mA();
   float getPower_mW();
-  void powerSaveModeOn();
-  void powerSaveModeOff();
+  void powerSave(bool on);
 
 private:
   TwoWire *_i2c;

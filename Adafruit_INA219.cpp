@@ -152,22 +152,19 @@ void Adafruit_INA219::setCalibration_32V_2A() {
 }
 
 /*!
- *  @brief  Enable power save mode
+ *  @brief  Set power save mode according to parameters
+ *  @param  on
+ *          boolean value
  */
-void Adafruit_INA219::powerSaveModeOn() {
+void Adafruit_INA219::powerSave(bool on) {
   uint16_t current;
   wireReadRegister(INA219_REG_CONFIG, &current);
-  uint16_t next = current | INA219_CONFIG_MODE_POWERDOWN; 
-  wireWriteRegister(INA219_REG_CONFIG, next);
-}
-
-/*!
- *  @brief  Disable power save mode
- */
-void Adafruit_INA219::powerSaveModeOff() {
-  uint16_t current;
-  wireReadRegister(INA219_REG_CONFIG, &current);
-  uint8_t next = current & ~INA219_CONFIG_MODE_POWERDOWN; 
+  uint8_t next;
+  if (on) {
+    next = current | INA219_CONFIG_MODE_POWERDOWN; 
+  } else {
+    next = current & ~INA219_CONFIG_MODE_POWERDOWN; 
+  }
   wireWriteRegister(INA219_REG_CONFIG, next);
 }
 
