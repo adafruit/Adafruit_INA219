@@ -131,13 +131,14 @@ class Adafruit_INA219 {
 public:
   Adafruit_INA219(uint8_t addr = INA219_ADDRESS);
   void begin(TwoWire *theWire = &Wire);
-  void setCalibration_32V_2A(void);
-  void setCalibration_32V_1A(void);
-  void setCalibration_16V_400mA(void);
-  float getBusVoltage_V(void);
-  float getShuntVoltage_mV(void);
-  float getCurrent_mA(void);
-  float getPower_mW(void);
+  void setCalibration_32V_2A();
+  void setCalibration_32V_1A();
+  void setCalibration_16V_400mA();
+  float getBusVoltage_V();
+  float getShuntVoltage_mV();
+  float getCurrent_mA();
+  float getPower_mW();
+  void powerSave(bool on);
 
 private:
   TwoWire *_i2c;
@@ -152,10 +153,10 @@ private:
   void init();
   void wireWriteRegister(uint8_t reg, uint16_t value);
   void wireReadRegister(uint8_t reg, uint16_t *value);
-  int16_t getBusVoltage_raw(void);
-  int16_t getShuntVoltage_raw(void);
-  int16_t getCurrent_raw(void);
-  int16_t getPower_raw(void);
+  int16_t getBusVoltage_raw();
+  int16_t getShuntVoltage_raw();
+  int16_t getCurrent_raw();
+  int16_t getPower_raw();
 };
 
 #endif
