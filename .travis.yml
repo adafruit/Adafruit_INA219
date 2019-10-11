@@ -15,6 +15,11 @@ env:
 before_install:
    - source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)
 
+install:
+   - arduino --install-library "Adafruit NeoPixel"
+   - arduino --install-library "Adafruit GFX Library"
+   - arduino --install-library "Adafruit SSD1306"
+
 script:
    - build_main_platforms
 
