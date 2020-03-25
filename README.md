@@ -1,4 +1,4 @@
-# Adafruit INA219 Library [![Build Status](https://travis-ci.com/adafruit/Adafruit_INA219.svg?branch=master)](https://travis-ci.com/adafruit/Adafruit_INA219)
+# Adafruit INA219 Library [![Build Status](https://github.com/adafruit/Adafruit_INA219/workflows/Arduino%20Library%20CI/badge.svg)](https://github.com/adafruit/Adafruit_INA219/actions)
 
 <a href="https://www.adafruit.com/products/904"><img src="assets/board.jpg" width="500px" /></a>
 

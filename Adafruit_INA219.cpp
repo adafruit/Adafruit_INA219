@@ -81,8 +81,8 @@ void Adafruit_INA219::setCalibration_32V_2A() {
   // setting the VBUS_MAX to 16V instead of 32V, etc.
 
   // VBUS_MAX = 32V             (Assumes 32V, can also be set to 16V)
-  // VSHUNT_MAX = 0.32          (Assumes Gain 8, 320mV, can also be 0.16, 0.08, 0.04)
-  // RSHUNT = 0.1               (Resistor value in ohms)
+  // VSHUNT_MAX = 0.32          (Assumes Gain 8, 320mV, can also be 0.16, 0.08,
+  // 0.04) RSHUNT = 0.1               (Resistor value in ohms)
 
   // 1. Determine max possible current
   // MaxPossible_I = VSHUNT_MAX / RSHUNT
@@ -161,13 +161,12 @@ void Adafruit_INA219::powerSave(bool on) {
   wireReadRegister(INA219_REG_CONFIG, &current);
   uint8_t next;
   if (on) {
-    next = current | INA219_CONFIG_MODE_POWERDOWN; 
+    next = current | INA219_CONFIG_MODE_POWERDOWN;
   } else {
-    next = current & ~INA219_CONFIG_MODE_POWERDOWN; 
+    next = current & ~INA219_CONFIG_MODE_POWERDOWN;
   }
   wireWriteRegister(INA219_REG_CONFIG, next);
 }
-
 
 /*!
  *  @brief  Configures to INA219 to be able to measure up to 32V and 1A
