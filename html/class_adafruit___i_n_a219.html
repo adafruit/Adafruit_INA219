@@ -79,6 +79,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad815e05fbbabbeec41d0692e499ff5b5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___i_n_a219.html#ad815e05fbbabbeec41d0692e499ff5b5">begin</a> (TwoWire *theWire=&amp;Wire)</td></tr>
 <tr class="memdesc:ad815e05fbbabbeec41d0692e499ff5b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setups the HW (defaults to 32V and 2A for calibration values)  <a href="#ad815e05fbbabbeec41d0692e499ff5b5">More...</a><br /></td></tr>
 <tr class="separator:ad815e05fbbabbeec41d0692e499ff5b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0692b19c5fdf84f0788dcf683754c3f7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___i_n_a219.html#a0692b19c5fdf84f0788dcf683754c3f7">begin_I2C</a> (uint8_t i2c_address=<a class="el" href="_adafruit___i_n_a219_8h.html#a01099281ea98bb6c1aab825f05d9818c">INA219_ADDRESS</a>, TwoWire *wire=&amp;Wire)</td></tr>
+<tr class="memdesc:a0692b19c5fdf84f0788dcf683754c3f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setups the HW (defaults to 32V and 2A for calibration values)  <a href="#a0692b19c5fdf84f0788dcf683754c3f7">More...</a><br /></td></tr>
+<tr class="separator:a0692b19c5fdf84f0788dcf683754c3f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e53272bab1159bab1b0ef255b450d02"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___i_n_a219.html#a1e53272bab1159bab1b0ef255b450d02">setCalibration_32V_2A</a> ()</td></tr>
 <tr class="memdesc:a1e53272bab1159bab1b0ef255b450d02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures to INA219 to be able to measure up to 32V and 2A of current. Each unit of current corresponds to 100uA, and each unit of power corresponds to 2mW. Counter overflow occurs at 3.2A.  <a href="#a1e53272bab1159bab1b0ef255b450d02">More...</a><br /></td></tr>
 <tr class="separator:a1e53272bab1159bab1b0ef255b450d02"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -155,6 +158,43 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">theWire</td><td>the TwoWire object to use </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a0692b19c5fdf84f0788dcf683754c3f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0692b19c5fdf84f0788dcf683754c3f7">&#9670;&nbsp;</a></span>begin_I2C()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Adafruit_INA219::begin_I2C </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>i2c_address</em> = <code><a class="el" href="_adafruit___i_n_a219_8h.html#a01099281ea98bb6c1aab825f05d9818c">INA219_ADDRESS</a></code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">TwoWire *&#160;</td>
+          <td class="paramname"><em>theWire</em> = <code>&amp;Wire</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Setups the HW (defaults to 32V and 2A for calibration values) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">theWire</td><td>the TwoWire object to use </td></tr>
+    <tr><td class="paramname">i2c_address</td><td>The I2C address to use </td></tr>
   </table>
   </dd>
 </dl>
