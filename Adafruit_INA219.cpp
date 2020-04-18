@@ -38,11 +38,10 @@
  *          value to write
  */
 void Adafruit_INA219::wireWriteRegister(uint8_t reg, uint16_t value) {
-  _i2c->beginTransmission(ina219_i2caddr);
-  _i2c->write(reg);                 // Register
-  _i2c->write((value >> 8) & 0xFF); // Upper 8-bits
-  _i2c->write(value & 0xFF);        // Lower 8-bits
-  _i2c->endTransmission();
+
+  Adafruit_BusIO_Register register_obj =
+      Adafruit_BusIO_Register(i2c_dev, reg, 1);
+  register_obj.write(value);
 }
 
 /*!
@@ -360,7 +359,20 @@ Adafruit_INA219::Adafruit_INA219(uint8_t addr) {
  *  @param theWire the TwoWire object to use
  */
 void Adafruit_INA219::begin(TwoWire *theWire) {
+  begin_I2C(ina219_i2caddr, theWire);
+}
+/*!
+ *  @brief  Setups the HW (defaults to 32V and 2A for calibration values)
+ *  @param theWire the TwoWire object to use
+ */
+void Adafruit_INA219::begin_I2C(uint8_t i2c_address, TwoWire *theWire) {
   _i2c = theWire;
+  i2c_dev = new Adafruit_I2CDevice(ina219_i2caddr, theWire);
+
+  if (!i2c_dev->begin()) {
+    Serial.println("Failed to init i2c address");
+    // return false;
+  }
   init();
 }
 

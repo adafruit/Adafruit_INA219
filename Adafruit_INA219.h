@@ -18,6 +18,8 @@
 #define _LIB_ADAFRUIT_INA219_
 
 #include "Arduino.h"
+#include <Adafruit_BusIO_Register.h>
+#include <Adafruit_I2CDevice.h>
 #include <Wire.h>
 
 /** default I2C address **/
@@ -131,6 +133,7 @@ class Adafruit_INA219 {
 public:
   Adafruit_INA219(uint8_t addr = INA219_ADDRESS);
   void begin(TwoWire *theWire = &Wire);
+  void begin_I2C(uint8_t i2c_address = INA219_ADDRESS, TwoWire *wire = &Wire);
   void setCalibration_32V_2A();
   void setCalibration_32V_1A();
   void setCalibration_16V_400mA();
@@ -142,8 +145,9 @@ public:
 
 private:
   TwoWire *_i2c;
+  Adafruit_I2CDevice *i2c_dev = NULL;
 
-  uint8_t ina219_i2caddr;
+  uint8_t ina219_i2caddr = -1;
   uint32_t ina219_calValue;
   // The following multipliers are used to convert raw current and power
   // values to mA and mW, taking into account the current config settings
