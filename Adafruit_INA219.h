@@ -155,8 +155,6 @@ private:
   float ina219_powerMultiplier_mW;
 
   void init();
-  void wireWriteRegister(uint8_t reg, uint16_t value);
-  void wireReadRegister(uint8_t reg, uint16_t *value);
   int16_t getBusVoltage_raw();
   int16_t getShuntVoltage_raw();
   int16_t getCurrent_raw();
