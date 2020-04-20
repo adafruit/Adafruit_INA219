@@ -16,7 +16,7 @@
  *
  * @section author Author
  *
- * Written by Kevin "KTOWN" Townsend for Adafruit Industries.
+ * Written by Bryan Siepert and Kevin "KTOWN" Townsend for Adafruit Industries.
  *
  * @section license License
  *
@@ -45,15 +45,6 @@ Adafruit_INA219::Adafruit_INA219(uint8_t addr) {
  *  @param theWire the TwoWire object to use
  */
 void Adafruit_INA219::begin(TwoWire *theWire) {
-  begin_I2C(ina219_i2caddr, theWire);
-}
-/*!
- *  @brief  Setups the HW (defaults to 32V and 2A for calibration values)
- *  @param theWire the TwoWire object to use
- *  @param i2c_address The I2C address to use
- */
-void Adafruit_INA219::begin_I2C(uint8_t i2c_address, TwoWire *theWire) {
-  _i2c = theWire;
   i2c_dev = new Adafruit_I2CDevice(ina219_i2caddr, theWire);
 
   if (!i2c_dev->begin()) {
@@ -67,7 +58,6 @@ void Adafruit_INA219::begin_I2C(uint8_t i2c_address, TwoWire *theWire) {
  *  @brief  begin I2C and set up the hardware
  */
 void Adafruit_INA219::init() {
-  _i2c->begin();
   // Set chip to large range config values to start
   setCalibration_32V_2A();
 }

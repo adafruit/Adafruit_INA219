@@ -8,7 +8,7 @@
  * please support Adafruit and open-source hardware by purchasing
  * products from Adafruit!
  *
- * Written by Kevin "KTOWN" Townsend for Adafruit Industries.
+ * Written by Bryan Siepert and Kevin "KTOWN" Townsend for Adafruit Industries.
  *
  * BSD license, all text here must be included in any redistribution.
  *
@@ -133,7 +133,6 @@ class Adafruit_INA219 {
 public:
   Adafruit_INA219(uint8_t addr = INA219_ADDRESS);
   void begin(TwoWire *theWire = &Wire);
-  void begin_I2C(uint8_t i2c_address = INA219_ADDRESS, TwoWire *wire = &Wire);
   void setCalibration_32V_2A();
   void setCalibration_32V_1A();
   void setCalibration_16V_400mA();
@@ -144,7 +143,6 @@ public:
   void powerSave(bool on);
 
 private:
-  TwoWire *_i2c;
   Adafruit_I2CDevice *i2c_dev = NULL;
 
   uint8_t ina219_i2caddr = -1;
