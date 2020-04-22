@@ -41,17 +41,18 @@ Adafruit_INA219::Adafruit_INA219(uint8_t addr) {
 }
 
 /*!
- *  @brief  Setups the HW (defaults to 32V and 2A for calibration values)
+ *  @brief  Sets up the HW (defaults to 32V and 2A for calibration values)
  *  @param theWire the TwoWire object to use
+ *  @return true: success false: Failed to start I2C
  */
-void Adafruit_INA219::begin(TwoWire *theWire) {
+bool Adafruit_INA219::begin(TwoWire *theWire) {
   i2c_dev = new Adafruit_I2CDevice(ina219_i2caddr, theWire);
 
   if (!i2c_dev->begin()) {
-    Serial.println("Failed to init i2c address");
-    // return false;
+    return false;
   }
   init();
+  return true;
 }
 
 /*!
