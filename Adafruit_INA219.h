@@ -8,7 +8,7 @@
  * please support Adafruit and open-source hardware by purchasing
  * products from Adafruit!
  *
- * Written by Kevin "KTOWN" Townsend for Adafruit Industries.
+ * Written by Bryan Siepert and Kevin "KTOWN" Townsend for Adafruit Industries.
  *
  * BSD license, all text here must be included in any redistribution.
  *
@@ -18,6 +18,8 @@
 #define _LIB_ADAFRUIT_INA219_
 
 #include "Arduino.h"
+#include <Adafruit_BusIO_Register.h>
+#include <Adafruit_I2CDevice.h>
 #include <Wire.h>
 
 /** default I2C address **/
@@ -130,7 +132,7 @@ enum {
 class Adafruit_INA219 {
 public:
   Adafruit_INA219(uint8_t addr = INA219_ADDRESS);
-  void begin(TwoWire *theWire = &Wire);
+  bool begin(TwoWire *theWire = &Wire);
   void setCalibration_32V_2A();
   void setCalibration_32V_1A();
   void setCalibration_16V_400mA();
@@ -141,9 +143,9 @@ public:
   void powerSave(bool on);
 
 private:
-  TwoWire *_i2c;
+  Adafruit_I2CDevice *i2c_dev = NULL;
 
-  uint8_t ina219_i2caddr;
+  uint8_t ina219_i2caddr = -1;
   uint32_t ina219_calValue;
   // The following multipliers are used to convert raw current and power
   // values to mA and mW, taking into account the current config settings
@@ -151,8 +153,6 @@ private:
   float ina219_powerMultiplier_mW;
 
   void init();
-  void wireWriteRegister(uint8_t reg, uint16_t value);
-  void wireReadRegister(uint8_t reg, uint16_t *value);
   int16_t getBusVoltage_raw();
   int16_t getShuntVoltage_raw();
   int16_t getCurrent_raw();
