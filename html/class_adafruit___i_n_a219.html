@@ -76,9 +76,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a407a9ddf5fec541865d1f91a7e6479d0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___i_n_a219.html#a407a9ddf5fec541865d1f91a7e6479d0">Adafruit_INA219</a> (uint8_t addr=<a class="el" href="_adafruit___i_n_a219_8h.html#a01099281ea98bb6c1aab825f05d9818c">INA219_ADDRESS</a>)</td></tr>
 <tr class="memdesc:a407a9ddf5fec541865d1f91a7e6479d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instantiates a new INA219 class.  <a href="#a407a9ddf5fec541865d1f91a7e6479d0">More...</a><br /></td></tr>
 <tr class="separator:a407a9ddf5fec541865d1f91a7e6479d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad815e05fbbabbeec41d0692e499ff5b5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___i_n_a219.html#ad815e05fbbabbeec41d0692e499ff5b5">begin</a> (TwoWire *theWire=&amp;Wire)</td></tr>
-<tr class="memdesc:ad815e05fbbabbeec41d0692e499ff5b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Setups the HW (defaults to 32V and 2A for calibration values)  <a href="#ad815e05fbbabbeec41d0692e499ff5b5">More...</a><br /></td></tr>
-<tr class="separator:ad815e05fbbabbeec41d0692e499ff5b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaffb280d4c91dc9e4912c927f1cf480a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___i_n_a219.html#aaffb280d4c91dc9e4912c927f1cf480a">begin</a> (TwoWire *theWire=&amp;Wire)</td></tr>
+<tr class="memdesc:aaffb280d4c91dc9e4912c927f1cf480a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the HW (defaults to 32V and 2A for calibration values)  <a href="#aaffb280d4c91dc9e4912c927f1cf480a">More...</a><br /></td></tr>
+<tr class="separator:aaffb280d4c91dc9e4912c927f1cf480a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e53272bab1159bab1b0ef255b450d02"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_adafruit___i_n_a219.html#a1e53272bab1159bab1b0ef255b450d02">setCalibration_32V_2A</a> ()</td></tr>
 <tr class="memdesc:a1e53272bab1159bab1b0ef255b450d02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures to INA219 to be able to measure up to 32V and 2A of current. Each unit of current corresponds to 100uA, and each unit of power corresponds to 2mW. Counter overflow occurs at 3.2A.  <a href="#a1e53272bab1159bab1b0ef255b450d02">More...</a><br /></td></tr>
 <tr class="separator:a1e53272bab1159bab1b0ef255b450d02"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -135,14 +135,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ad815e05fbbabbeec41d0692e499ff5b5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad815e05fbbabbeec41d0692e499ff5b5">&#9670;&nbsp;</a></span>begin()</h2>
+<a id="aaffb280d4c91dc9e4912c927f1cf480a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaffb280d4c91dc9e4912c927f1cf480a">&#9670;&nbsp;</a></span>begin()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Adafruit_INA219::begin </td>
+          <td class="memname">bool Adafruit_INA219::begin </td>
           <td>(</td>
           <td class="paramtype">TwoWire *&#160;</td>
           <td class="paramname"><em>theWire</em> = <code>&amp;Wire</code></td><td>)</td>
@@ -151,13 +151,14 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
       </table>
 </div><div class="memdoc">
 
-<p>Setups the HW (defaults to 32V and 2A for calibration values) </p>
+<p>Sets up the HW (defaults to 32V and 2A for calibration values) </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">theWire</td><td>the TwoWire object to use </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>true: success false: Failed to start I2C </dd></dl>
 
 </div>
 </div>
