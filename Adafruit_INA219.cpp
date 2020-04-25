@@ -286,7 +286,7 @@ void Adafruit_INA219::powerSave(bool on) {
 /*!
  *  @brief  Configures to INA219 to be able to measure up to 32V and 1A
  *          of current.  Each unit of current corresponds to 40uA, and each
- *          unit of power corresponds to 800�W. Counter overflow occurs at
+ *          unit of power corresponds to 800uW. Counter overflow occurs at
  *          1.3A.
  *  @note   These calculations assume a 0.1 ohm resistor is present
  */
@@ -311,13 +311,13 @@ void Adafruit_INA219::setCalibration_32V_1A() {
 
   // 3. Calculate possible range of LSBs (Min = 15-bit, Max = 12-bit)
   // MinimumLSB = MaxExpected_I/32767
-  // MinimumLSB = 0.0000305             (30.5�A per bit)
+  // MinimumLSB = 0.0000305             (30.5uA per bit)
   // MaximumLSB = MaxExpected_I/4096
-  // MaximumLSB = 0.000244              (244�A per bit)
+  // MaximumLSB = 0.000244              (244uA per bit)
 
   // 4. Choose an LSB between the min and max values
   //    (Preferrably a roundish number close to MinLSB)
-  // CurrentLSB = 0.0000400 (40�A per bit)
+  // CurrentLSB = 0.0000400 (40uA per bit)
 
   // 5. Compute the calibration register
   // Cal = trunc (0.04096 / (Current_LSB * RSHUNT))
@@ -327,7 +327,7 @@ void Adafruit_INA219::setCalibration_32V_1A() {
 
   // 6. Calculate the power LSB
   // PowerLSB = 20 * CurrentLSB
-  // PowerLSB = 0.0008 (800�W per bit)
+  // PowerLSB = 0.0008 (800uW per bit)
 
   // 7. Compute the maximum current and shunt voltage values before overflow
   //
