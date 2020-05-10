@@ -5,7 +5,8 @@ var indexSectionsWithContent =
   2: "a",
   3: "abgps",
   4: "i",
-  5: "a"
+  5: "i",
+  6: "a"
 };
 
 var indexSectionNames =
@@ -14,8 +15,9 @@ var indexSectionNames =
   1: "classes",
   2: "files",
   3: "functions",
-  4: "defines",
-  5: "pages"
+  4: "enumvalues",
+  5: "defines",
+  6: "pages"
 };
 
 var indexSectionLabels =
@@ -24,7 +26,8 @@ var indexSectionLabels =
   1: "Classes",
   2: "Files",
   3: "Functions",
-  4: "Macros",
-  5: "Pages"
+  4: "Enumerator",
+  5: "Macros",
+  6: "Pages"
 };
 

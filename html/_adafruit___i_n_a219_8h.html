@@ -122,10 +122,21 @@ Enumerations</h2></td></tr>
 <b>INA219_CONFIG_GAIN_8_320MV</b> = (0x1800)
  }</td></tr>
 <tr class="separator:adf764cbdea00d65edcd07bb9953ad2b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a99fb83031ce9923c84392b4e92f956b5"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ <b>INA219_CONFIG_BADCRES_9BIT</b> = (0x0000), 
+<tr class="memitem:a99fb83031ce9923c84392b4e92f956b5"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ <br />
+&#160;&#160;<b>INA219_CONFIG_BADCRES_9BIT</b> = (0x0000), 
 <b>INA219_CONFIG_BADCRES_10BIT</b> = (0x0080), 
 <b>INA219_CONFIG_BADCRES_11BIT</b> = (0x0100), 
-<b>INA219_CONFIG_BADCRES_12BIT</b> = (0x0180)
+<b>INA219_CONFIG_BADCRES_12BIT</b> = (0x0180), 
+<br />
+&#160;&#160;<b>INA219_CONFIG_BADCRES_12BIT_2S_1060US</b>, 
+<b>INA219_CONFIG_BADCRES_12BIT_4S_2130US</b>, 
+<b>INA219_CONFIG_BADCRES_12BIT_8S_4260US</b>, 
+<b>INA219_CONFIG_BADCRES_12BIT_16S_8510US</b>, 
+<br />
+&#160;&#160;<b>INA219_CONFIG_BADCRES_12BIT_32S_17MS</b>, 
+<b>INA219_CONFIG_BADCRES_12BIT_64S_34MS</b>, 
+<b>INA219_CONFIG_BADCRES_12BIT_128S_69MS</b>
+<br />
  }</td></tr>
 <tr class="separator:a99fb83031ce9923c84392b4e92f956b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abc6126af1d45847bc59afa0aa3216b04"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ <br />
@@ -146,21 +157,21 @@ Enumerations</h2></td></tr>
  }</td></tr>
 <tr class="separator:abc6126af1d45847bc59afa0aa3216b04"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc29c2ff13d900c2f185ee95427fb06c"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom">{ <br />
-&#160;&#160;<b>INA219_CONFIG_MODE_POWERDOWN</b>, 
-<b>INA219_CONFIG_MODE_SVOLT_TRIGGERED</b>, 
-<b>INA219_CONFIG_MODE_BVOLT_TRIGGERED</b>, 
-<b>INA219_CONFIG_MODE_SANDBVOLT_TRIGGERED</b>, 
+&#160;&#160;<a class="el" href="_adafruit___i_n_a219_8h.html#adc29c2ff13d900c2f185ee95427fb06ca1f5f29068fe2a2980d0a4cfc8a614c97">INA219_CONFIG_MODE_POWERDOWN</a> = 0x00, 
+<a class="el" href="_adafruit___i_n_a219_8h.html#adc29c2ff13d900c2f185ee95427fb06cabe0270ac8939b8775a1c00e2f50884b9">INA219_CONFIG_MODE_SVOLT_TRIGGERED</a> = 0x01, 
+<a class="el" href="_adafruit___i_n_a219_8h.html#adc29c2ff13d900c2f185ee95427fb06ca2c8f73200a3c96539a2b479dde4f3fad">INA219_CONFIG_MODE_BVOLT_TRIGGERED</a> = 0x02, 
+<a class="el" href="_adafruit___i_n_a219_8h.html#adc29c2ff13d900c2f185ee95427fb06ca0b62928f9890e1432083ef8691a99c2f">INA219_CONFIG_MODE_SANDBVOLT_TRIGGERED</a>, 
 <br />
-&#160;&#160;<b>INA219_CONFIG_MODE_ADCOFF</b>, 
-<b>INA219_CONFIG_MODE_SVOLT_CONTINUOUS</b>, 
-<b>INA219_CONFIG_MODE_BVOLT_CONTINUOUS</b>, 
-<b>INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS</b>
+&#160;&#160;<a class="el" href="_adafruit___i_n_a219_8h.html#adc29c2ff13d900c2f185ee95427fb06caa3c51bd7eef043176d518333e74d6320">INA219_CONFIG_MODE_ADCOFF</a> = 0x04, 
+<a class="el" href="_adafruit___i_n_a219_8h.html#adc29c2ff13d900c2f185ee95427fb06caa6d08de01dce593c5763840628cdd13a">INA219_CONFIG_MODE_SVOLT_CONTINUOUS</a> = 0x05, 
+<a class="el" href="_adafruit___i_n_a219_8h.html#adc29c2ff13d900c2f185ee95427fb06ca91f91cad564c431b19a1049fa90e03ce">INA219_CONFIG_MODE_BVOLT_CONTINUOUS</a> = 0x06, 
+<a class="el" href="_adafruit___i_n_a219_8h.html#adc29c2ff13d900c2f185ee95427fb06ca0f7eed7cbc299025ea62ddb8fb1abac4">INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS</a>
 <br />
  }</td></tr>
 <tr class="separator:adc29c2ff13d900c2f185ee95427fb06c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This is a library for the Adafruit INA219 breakout board -&mdash;&gt; <a href="https://www.adafruit.com/products/904">https://www.adafruit.com/products/904</a></p>
+<div class="textblock"><p>This is a library for the Adafruit INA219 breakout board -&mdash;&gt; <a href="https://www.adafruit.com/product/904">https://www.adafruit.com/product/904</a></p>
 <p>Adafruit invests time and resources providing this open source code, please support Adafruit and open-source hardware by purchasing products from Adafruit!</p>
 <p>Written by Bryan Siepert and Kevin "KTOWN" Townsend for Adafruit Industries.</p>
 <p>BSD license, all text here must be included in any redistribution. </p>
@@ -448,6 +459,24 @@ Enumerations</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>values for operating mode </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="adc29c2ff13d900c2f185ee95427fb06ca1f5f29068fe2a2980d0a4cfc8a614c97"></a>INA219_CONFIG_MODE_POWERDOWN&#160;</td><td class="fielddoc"><p>power down </p>
+</td></tr>
+<tr><td class="fieldname"><a id="adc29c2ff13d900c2f185ee95427fb06cabe0270ac8939b8775a1c00e2f50884b9"></a>INA219_CONFIG_MODE_SVOLT_TRIGGERED&#160;</td><td class="fielddoc"><p>shunt voltage triggered </p>
+</td></tr>
+<tr><td class="fieldname"><a id="adc29c2ff13d900c2f185ee95427fb06ca2c8f73200a3c96539a2b479dde4f3fad"></a>INA219_CONFIG_MODE_BVOLT_TRIGGERED&#160;</td><td class="fielddoc"><p>bus voltage triggered </p>
+</td></tr>
+<tr><td class="fieldname"><a id="adc29c2ff13d900c2f185ee95427fb06ca0b62928f9890e1432083ef8691a99c2f"></a>INA219_CONFIG_MODE_SANDBVOLT_TRIGGERED&#160;</td><td class="fielddoc"><p>shunt and bus voltage triggered </p>
+</td></tr>
+<tr><td class="fieldname"><a id="adc29c2ff13d900c2f185ee95427fb06caa3c51bd7eef043176d518333e74d6320"></a>INA219_CONFIG_MODE_ADCOFF&#160;</td><td class="fielddoc"><p>ADC off </p>
+</td></tr>
+<tr><td class="fieldname"><a id="adc29c2ff13d900c2f185ee95427fb06caa6d08de01dce593c5763840628cdd13a"></a>INA219_CONFIG_MODE_SVOLT_CONTINUOUS&#160;</td><td class="fielddoc"><p>shunt voltage continuous </p>
+</td></tr>
+<tr><td class="fieldname"><a id="adc29c2ff13d900c2f185ee95427fb06ca91f91cad564c431b19a1049fa90e03ce"></a>INA219_CONFIG_MODE_BVOLT_CONTINUOUS&#160;</td><td class="fielddoc"><p>bus voltage continuous </p>
+</td></tr>
+<tr><td class="fieldname"><a id="adc29c2ff13d900c2f185ee95427fb06ca0f7eed7cbc299025ea62ddb8fb1abac4"></a>INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS&#160;</td><td class="fielddoc"><p>shunt and bus voltage continuous </p>
+</td></tr>
+</table>
 
 </div>
 </div>
