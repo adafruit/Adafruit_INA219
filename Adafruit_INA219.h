@@ -2,7 +2,7 @@
  * @file Adafruit_INA219.h
  *
  * This is a library for the Adafruit INA219 breakout board
- * ----> https://www.adafruit.com/products/904
+ * ----> https://www.adafruit.com/product/904
  *
  * Adafruit invests time and resources providing this open source code,
  * please support Adafruit and open-source hardware by purchasing
@@ -67,6 +67,21 @@ enum {
   INA219_CONFIG_BADCRES_10BIT = (0x0080), // 10-bit bus res = 0..1023
   INA219_CONFIG_BADCRES_11BIT = (0x0100), // 11-bit bus res = 0..2047
   INA219_CONFIG_BADCRES_12BIT = (0x0180), // 12-bit bus res = 0..4097
+  INA219_CONFIG_BADCRES_12BIT_2S_1060US =
+      (0x0480), // 2 x 12-bit bus samples averaged together
+  INA219_CONFIG_BADCRES_12BIT_4S_2130US =
+      (0x0500), // 4 x 12-bit bus samples averaged together
+  INA219_CONFIG_BADCRES_12BIT_8S_4260US =
+      (0x0580), // 8 x 12-bit bus samples averaged together
+  INA219_CONFIG_BADCRES_12BIT_16S_8510US =
+      (0x0600), // 16 x 12-bit bus samples averaged together
+  INA219_CONFIG_BADCRES_12BIT_32S_17MS =
+      (0x0680), // 32 x 12-bit bus samples averaged together
+  INA219_CONFIG_BADCRES_12BIT_64S_34MS =
+      (0x0700), // 64 x 12-bit bus samples averaged together
+  INA219_CONFIG_BADCRES_12BIT_128S_69MS =
+      (0x0780), // 128 x 12-bit bus samples averaged together
+
 };
 
 /** mask for shunt ADC resolution bits **/
@@ -100,14 +115,16 @@ enum {
 
 /** values for operating mode **/
 enum {
-  INA219_CONFIG_MODE_POWERDOWN,
-  INA219_CONFIG_MODE_SVOLT_TRIGGERED,
-  INA219_CONFIG_MODE_BVOLT_TRIGGERED,
-  INA219_CONFIG_MODE_SANDBVOLT_TRIGGERED,
-  INA219_CONFIG_MODE_ADCOFF,
-  INA219_CONFIG_MODE_SVOLT_CONTINUOUS,
-  INA219_CONFIG_MODE_BVOLT_CONTINUOUS,
-  INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS
+  INA219_CONFIG_MODE_POWERDOWN = 0x00,       /**< power down */
+  INA219_CONFIG_MODE_SVOLT_TRIGGERED = 0x01, /**< shunt voltage triggered */
+  INA219_CONFIG_MODE_BVOLT_TRIGGERED = 0x02, /**< bus voltage triggered */
+  INA219_CONFIG_MODE_SANDBVOLT_TRIGGERED =
+      0x03,                         /**< shunt and bus voltage triggered */
+  INA219_CONFIG_MODE_ADCOFF = 0x04, /**< ADC off */
+  INA219_CONFIG_MODE_SVOLT_CONTINUOUS = 0x05, /**< shunt voltage continuous */
+  INA219_CONFIG_MODE_BVOLT_CONTINUOUS = 0x06, /**< bus voltage continuous */
+  INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS =
+      0x07, /**< shunt and bus voltage continuous */
 };
 
 /** shunt voltage register **/
