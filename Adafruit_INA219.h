@@ -115,20 +115,14 @@ enum {
 
 /** values for operating mode **/
 enum {
-  INA219_CONFIG_MODE_POWERDOWN =
-      0x00, /**< power down */
-  INA219_CONFIG_MODE_SVOLT_TRIGGERED =
-      0x01, /**< shunt voltage triggered */
-  INA219_CONFIG_MODE_BVOLT_TRIGGERED =
-      0x02, /**< bus voltage triggered */
+  INA219_CONFIG_MODE_POWERDOWN = 0x00,       /**< power down */
+  INA219_CONFIG_MODE_SVOLT_TRIGGERED = 0x01, /**< shunt voltage triggered */
+  INA219_CONFIG_MODE_BVOLT_TRIGGERED = 0x02, /**< bus voltage triggered */
   INA219_CONFIG_MODE_SANDBVOLT_TRIGGERED =
-      0x03, /**< shunt and bus voltage triggered */
-  INA219_CONFIG_MODE_ADCOFF =
-      0x04, /**< ADC off */
-  INA219_CONFIG_MODE_SVOLT_CONTINUOUS =
-      0x05, /**< shunt voltage continuous */
-  INA219_CONFIG_MODE_BVOLT_CONTINUOUS =
-      0x06, /**< bus voltage continuous */
+      0x03,                         /**< shunt and bus voltage triggered */
+  INA219_CONFIG_MODE_ADCOFF = 0x04, /**< ADC off */
+  INA219_CONFIG_MODE_SVOLT_CONTINUOUS = 0x05, /**< shunt voltage continuous */
+  INA219_CONFIG_MODE_BVOLT_CONTINUOUS = 0x06, /**< bus voltage continuous */
   INA219_CONFIG_MODE_SANDBVOLT_CONTINUOUS =
       0x07, /**< shunt and bus voltage continuous */
 };
