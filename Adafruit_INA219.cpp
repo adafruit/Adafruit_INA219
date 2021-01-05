@@ -46,7 +46,9 @@ Adafruit_INA219::Adafruit_INA219(uint8_t addr) {
  *  @return true: success false: Failed to start I2C
  */
 bool Adafruit_INA219::begin(TwoWire *theWire) {
-  i2c_dev = new Adafruit_I2CDevice(ina219_i2caddr, theWire);
+  if (!i2c_dev) {
+    i2c_dev = new Adafruit_I2CDevice(ina219_i2caddr, theWire);
+  }
 
   if (!i2c_dev->begin()) {
     return false;
