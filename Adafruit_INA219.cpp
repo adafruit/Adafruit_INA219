@@ -42,7 +42,7 @@ Adafruit_INA219::Adafruit_INA219(uint8_t addr) {
 
 /*!
  *  @brief INA219 class destructor
- */  
+ */
 Adafruit_INA219::~Adafruit_INA219() { delete i2c_dev; }
 
 /*!
