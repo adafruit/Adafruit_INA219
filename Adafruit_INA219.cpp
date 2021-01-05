@@ -476,6 +476,4 @@ void Adafruit_INA219::setCalibration_16V_400mA() {
  *          e.g. calibration before read/write, only the final operation's
  *          result is stored.
  */
-bool Adafruit_INA219::success() {
-  return _success;
-}
+bool Adafruit_INA219::success() { return _success; }
