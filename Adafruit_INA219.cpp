@@ -152,7 +152,7 @@ float Adafruit_INA219::getShuntVoltage_mV() {
 }
 
 /*!
- *  @brief  Gets the shunt voltage in volts
+ *  @brief  Gets the bus voltage in volts
  *  @return the bus voltage converted to volts
  */
 float Adafruit_INA219::getBusVoltage_V() {
