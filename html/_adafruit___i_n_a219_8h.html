@@ -81,6 +81,8 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
+<tr class="memitem:a3f910b1689c0765e90ab4ada2d8a09e3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_adafruit___i_n_a219_8h.html#a3f910b1689c0765e90ab4ada2d8a09e3">INA219_CALC_ADDRESS</a>(INA_ADDR0,  INA_ADDR1)&#160;&#160;&#160;(0x40 | (INA_ADDR0 != 0 ? 0x01 : 0x00) | (INA_ADDR1 != 0 ? 0x04 : 0x00))</td></tr>
+<tr class="separator:a3f910b1689c0765e90ab4ada2d8a09e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a01099281ea98bb6c1aab825f05d9818c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_adafruit___i_n_a219_8h.html#a01099281ea98bb6c1aab825f05d9818c">INA219_ADDRESS</a>&#160;&#160;&#160;(0x40)</td></tr>
 <tr class="separator:a01099281ea98bb6c1aab825f05d9818c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acf1557fd16ff50351f795b87a9d4cddf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_adafruit___i_n_a219_8h.html#acf1557fd16ff50351f795b87a9d4cddf">INA219_READ</a>&#160;&#160;&#160;(0x01)</td></tr>
@@ -176,6 +178,35 @@ Enumerations</h2></td></tr>
 <p>Written by Bryan Siepert and Kevin "KTOWN" Townsend for Adafruit Industries.</p>
 <p>BSD license, all text here must be included in any redistribution. </p>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a3f910b1689c0765e90ab4ada2d8a09e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f910b1689c0765e90ab4ada2d8a09e3">&#9670;&nbsp;</a></span>INA219_CALC_ADDRESS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define INA219_CALC_ADDRESS</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">INA_ADDR0, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">INA_ADDR1&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;(0x40 | (INA_ADDR0 != 0 ? 0x01 : 0x00) | (INA_ADDR1 != 0 ? 0x04 : 0x00))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>calculated I2C address: 0 = GND, 1 = V+ </p>
+
+</div>
+</div>
 <a id="a01099281ea98bb6c1aab825f05d9818c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a01099281ea98bb6c1aab825f05d9818c">&#9670;&nbsp;</a></span>INA219_ADDRESS</h2>
 

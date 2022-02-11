@@ -1,6 +1,7 @@
 var searchData=
 [
   ['ina219_5faddress',['INA219_ADDRESS',['../_adafruit___i_n_a219_8h.html#a01099281ea98bb6c1aab825f05d9818c',1,'Adafruit_INA219.h']]],
+  ['ina219_5fcalc_5faddress',['INA219_CALC_ADDRESS',['../_adafruit___i_n_a219_8h.html#a3f910b1689c0765e90ab4ada2d8a09e3',1,'Adafruit_INA219.h']]],
   ['ina219_5fconfig_5fbadcres_5fmask',['INA219_CONFIG_BADCRES_MASK',['../_adafruit___i_n_a219_8h.html#ad4b5799502981d36922ce087aa5b96c9',1,'Adafruit_INA219.h']]],
   ['ina219_5fconfig_5fbvoltagerange_5fmask',['INA219_CONFIG_BVOLTAGERANGE_MASK',['../_adafruit___i_n_a219_8h.html#a9cee115fade153b8c7ffd6e26c18ecd7',1,'Adafruit_INA219.h']]],
   ['ina219_5fconfig_5fgain_5fmask',['INA219_CONFIG_GAIN_MASK',['../_adafruit___i_n_a219_8h.html#a5bf05963e83908f3345438959694a0ba',1,'Adafruit_INA219.h']]],
