@@ -22,11 +22,18 @@
 #include <Adafruit_I2CDevice.h>
 #include <Wire.h>
 
-/** I2C address calculations 0 == GND, 1 == V+ **/
-/* 0x1000ABCD
- * A and B are controlled by A1: GND = 00, V+ = 01, SDA = 10, SCL = 11
- * C and D are controlled by A0: GND = 00, V+ = 01, SDA = 10, SCL = 11
- * SDA and SCL options aren't implemented. */
+/** calculated I2C address: 0 = GND, 1 = V+ **/
+/* The address is controlled by the A0 and A1 inputs on the INA219:
+ *
+ * Calculated address: b100ABCD
+ * A0 controls C and D: GND = 00, V+ = 01, SDA = 10, SCL = 11
+ * A1 controls A and B: GND = 00, V+ = 01, SDA = 10, SCL = 11
+ *
+ * E.g. if A0 is tied to ground and A1 is tied to V+,
+ * the resulting address is b1000100 = 0x44
+ *
+ * SDA and SCL options aren't implemented.
+ */
 #define INA219_CALC_ADDRESS(INA_ADDR0, INA_ADDR1)                              \
   (0x40 | (INA_ADDR0 != 0 ? 0x01 : 0x00) | (INA_ADDR1 != 0 ? 0x04 : 0x00))
 
