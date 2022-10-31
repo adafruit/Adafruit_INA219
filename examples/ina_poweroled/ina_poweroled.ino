@@ -187,9 +187,12 @@ void update_power_display() {
   // Compute load voltage, power, and milliamp-hours.
   float loadvoltage = busvoltage + (shuntvoltage / 1000);
   float power_mW = loadvoltage * current_mA;
+  (void)power_mW;
+
   total_mA += current_mA;
   total_sec += 1;
   float total_mAH = total_mA / 3600.0;
+  (void)total_mAH;
 
   // Update display.
   display.clearDisplay();
@@ -203,7 +206,7 @@ void update_power_display() {
   display.display();
 }
 
-void printSIValue(float value, char* units, int precision, int maxWidth) {
+void printSIValue(float value, const char* units, int precision, int maxWidth) {
   // Print a value in SI units with the units left justified and value right justified.
   // Will switch to milli prefix if value is below 1.
 
