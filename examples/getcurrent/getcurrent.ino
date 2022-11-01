@@ -11,8 +11,6 @@ void setup(void)
       // will pause Zero, Leonardo, etc until serial console opens
       delay(1);
   }
-
-  uint32_t currentFrequency;
     
   Serial.println("Hello!");
   
